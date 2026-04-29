@@ -1,0 +1,67 @@
+<svg width="980" height="420" viewBox="0 0 980 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bodyGradient" x1="193" y1="162" x2="819" y2="162" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FBFF"/>
+      <stop offset="0.55" stop-color="#DDE7F3"/>
+      <stop offset="1" stop-color="#C8D4E4"/>
+    </linearGradient>
+    <linearGradient id="topGradient" x1="266" y1="102" x2="720" y2="102" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FDFEFF"/>
+      <stop offset="1" stop-color="#E4ECF8"/>
+    </linearGradient>
+    <linearGradient id="wingGradient" x1="264" y1="232" x2="600" y2="232" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F08B3A"/>
+      <stop offset="1" stop-color="#C75314"/>
+    </linearGradient>
+    <linearGradient id="tailGradient" x1="654" y1="150" x2="807" y2="150" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E7B951"/>
+      <stop offset="1" stop-color="#B47A27"/>
+    </linearGradient>
+    <linearGradient id="engineGradient" x1="318" y1="245" x2="418" y2="245" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#274A78"/>
+      <stop offset="1" stop-color="#17355D"/>
+    </linearGradient>
+    <linearGradient id="highlightGradient" x1="288" y1="138" x2="756" y2="138" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity="0.98"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="windowGradient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(480 153) rotate(180) scale(170 14)">
+      <stop stop-color="#E6782A"/>
+      <stop offset="1" stop-color="#BC4C13"/>
+    </radialGradient>
+    <filter id="shadow" x="116" y="60" width="748" height="313" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dx="-14" dy="22"/>
+      <feGaussianBlur stdDeviation="20"/>
+      <feComposite in2="hardAlpha" operator="out"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.04 0 0 0 0 0.16 0 0 0 0 0.35 0 0 0 0.45 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_2"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_2" result="shape"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#shadow)">
+    <path d="M193 210C221 193 252 186 297 183L383 181L515 124C556 106 598 107 653 114C619 136 577 162 538 183L779 179C804 178 818 185 819 197C797 213 772 227 748 241L544 258L470 315L369 326L297 281L220 277C204 276 194 266 193 256V210Z" fill="url(#bodyGradient)"/>
+    <path d="M266 168L720 161C703 134 682 116 653 114C598 107 556 106 515 124L383 181L297 183C283 184 273 186 266 168Z" fill="url(#topGradient)"/>
+    <path d="M264 241C357 206 465 194 600 198C523 211 445 229 392 252C333 277 287 281 264 269V241Z" fill="url(#wingGradient)"/>
+    <path d="M654 115L807 118C782 145 753 164 717 178L667 181L706 129L654 115Z" fill="url(#tailGradient)"/>
+    <path d="M291 226L178 228L124 196L216 188L291 226Z" fill="#C14F14"/>
+    <ellipse cx="368" cy="246" rx="50" ry="31" fill="url(#engineGradient)"/>
+    <ellipse cx="518" cy="229" rx="45" ry="27" fill="url(#engineGradient)"/>
+    <ellipse cx="368" cy="246" rx="30" ry="19" fill="#F4C7A0"/>
+    <ellipse cx="518" cy="229" rx="27" ry="16" fill="#F4C7A0"/>
+    <path d="M288 149C358 142 505 139 756 143" stroke="url(#highlightGradient)" stroke-width="10" stroke-linecap="round"/>
+    <rect x="332" y="145" width="298" height="16" rx="8" fill="url(#windowGradient)" opacity="0.95"/>
+    <circle cx="355" cy="153" r="2.6" fill="#F3C18E"/>
+    <circle cx="383" cy="153" r="2.6" fill="#F3C18E"/>
+    <circle cx="411" cy="153" r="2.6" fill="#F3C18E"/>
+    <circle cx="439" cy="153" r="2.6" fill="#F3C18E"/>
+    <circle cx="467" cy="153" r="2.6" fill="#F3C18E"/>
+    <circle cx="495" cy="153" r="2.6" fill="#F3C18E"/>
+    <circle cx="523" cy="153" r="2.6" fill="#F3C18E"/>
+    <circle cx="551" cy="153" r="2.6" fill="#F3C18E"/>
+    <circle cx="579" cy="153" r="2.6" fill="#F3C18E"/>
+    <circle cx="607" cy="153" r="2.6" fill="#F3C18E"/>
+  </g>
+</svg>

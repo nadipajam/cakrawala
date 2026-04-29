@@ -1,0 +1,745 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Cakrawala Technical Reference",
+        "description": "Referensi teknis internal sistem Cakrawala",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://my-default-host.com",
+            "description": "Internal Service"
+        }
+    ],
+    "paths": {
+        "/api/v1/airlines": {
+            "get": {
+                "tags": [
+                    "Airlines"
+                ],
+                "summary": "Daftar airline",
+                "operationId": "5b18b59a573795028d8072420f5a1fff",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/airlines": {
+            "post": {
+                "tags": [
+                    "Airlines"
+                ],
+                "summary": "Tambah airline (admin)",
+                "operationId": "3237264ff222cf69c812cb054ee5d191",
+                "responses": {
+                    "201": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/airlines/{id}": {
+            "get": {
+                "tags": [
+                    "Airlines"
+                ],
+                "summary": "Detail airline",
+                "operationId": "8cdbb8081e7238784588f05fe63fa467",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Airlines"
+                ],
+                "summary": "Update airline (admin)",
+                "operationId": "6ee329febd1bc9cea3237045af4fcd83",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Airlines"
+                ],
+                "summary": "Hapus airline (admin)",
+                "operationId": "2255d7d69dd7bfbfd26027d24e6815c2",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/airplanes": {
+            "get": {
+                "tags": [
+                    "Airplanes"
+                ],
+                "summary": "Daftar airplane",
+                "operationId": "f8ffa9bf5f47c1b7b6b8d3952b37623d",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/airplanes": {
+            "post": {
+                "tags": [
+                    "Airplanes"
+                ],
+                "summary": "Tambah airplane (admin)",
+                "operationId": "a78fab7d06e96765ca092b8dbb12fee3",
+                "responses": {
+                    "201": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/airplanes/{id}": {
+            "get": {
+                "tags": [
+                    "Airplanes"
+                ],
+                "summary": "Detail airplane",
+                "operationId": "60107f3ce533150a1c7523f7bc04a3c1",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Airplanes"
+                ],
+                "summary": "Update airplane (admin)",
+                "operationId": "35079037762b4cf167ebe06fd04b4f9e",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Airplanes"
+                ],
+                "summary": "Hapus airplane (admin)",
+                "operationId": "f69d8a41991291bc73cbfece7d7c53a2",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/airports": {
+            "get": {
+                "tags": [
+                    "Airports"
+                ],
+                "summary": "Daftar airport",
+                "operationId": "690a2a31cc5aca167350a81279087927",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/airports": {
+            "post": {
+                "tags": [
+                    "Airports"
+                ],
+                "summary": "Tambah airport (admin)",
+                "operationId": "96362f362b5017911514024b78bee90f",
+                "responses": {
+                    "201": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/airports/{id}": {
+            "get": {
+                "tags": [
+                    "Airports"
+                ],
+                "summary": "Detail airport",
+                "operationId": "7323b34092e9b9f588b900534cd8cebb",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Airports"
+                ],
+                "summary": "Update airport (admin)",
+                "operationId": "5b5649e025f5589d37412854b6c8e1dd",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Airports"
+                ],
+                "summary": "Hapus airport (admin)",
+                "operationId": "4156edc6e2d4d14e4fbb9c8555fc7402",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register user baru",
+                "operationId": "38e3071463848ba373dfeae5623cdfa4",
+                "responses": {
+                    "201": {
+                        "description": "Register berhasil"
+                    }
+                }
+            }
+        },
+        "/api/v1/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login user",
+                "operationId": "b9b760991d94b179960cd7ddc93eedf2",
+                "responses": {
+                    "200": {
+                        "description": "Login berhasil"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/v1/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout user",
+                "operationId": "b66dd8a7864f561822c01bc8339363fb",
+                "responses": {
+                    "200": {
+                        "description": "Logout berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/my-bookings": {
+            "get": {
+                "tags": [
+                    "Bookings"
+                ],
+                "summary": "Riwayat booking user login",
+                "operationId": "4c58fa73f4e80ed48507dad45f643b90",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/bookings": {
+            "post": {
+                "tags": [
+                    "Bookings"
+                ],
+                "summary": "Buat booking baru",
+                "operationId": "f6f5bf7dc5def23c323cebb98b5d1e5d",
+                "responses": {
+                    "201": {
+                        "description": "Booking berhasil dibuat"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/bookings/{id}": {
+            "get": {
+                "tags": [
+                    "Bookings"
+                ],
+                "summary": "Detail booking",
+                "operationId": "e510ab8fc8a07c21f4f5aa7d77eb2cca",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/bookings/{id}/cancel": {
+            "post": {
+                "tags": [
+                    "Bookings"
+                ],
+                "summary": "Batalkan booking",
+                "operationId": "d9764a5646618d284ae2c1f31ece8eb2",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/bookings": {
+            "get": {
+                "tags": [
+                    "Bookings"
+                ],
+                "summary": "Daftar booking admin",
+                "operationId": "dc16300d83c7ab8e289d57dba6a18806",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/flights": {
+            "get": {
+                "tags": [
+                    "Flights"
+                ],
+                "summary": "Daftar atau pencarian flight",
+                "operationId": "96f130723e73e659f3c2ac1f0614c2ae",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/flights": {
+            "post": {
+                "tags": [
+                    "Flights"
+                ],
+                "summary": "Tambah flight (admin)",
+                "operationId": "cd905cd541d2493803b9e052fab14cfa",
+                "responses": {
+                    "201": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/flights/{id}": {
+            "get": {
+                "tags": [
+                    "Flights"
+                ],
+                "summary": "Detail flight",
+                "operationId": "df2d75b0f3b23da3ee1f2a527276d6c1",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                }
+            }
+        },
+        "/api/v1/admin/flights/{id}": {
+            "put": {
+                "tags": [
+                    "Flights"
+                ],
+                "summary": "Update flight (admin)",
+                "operationId": "3050463b3ea46441e1e41a4cb7e61daa",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Flights"
+                ],
+                "summary": "Hapus flight (admin)",
+                "operationId": "10e14317c1d83d78250c0a23aaf07eaa",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/flights/{id}/available-seats": {
+            "get": {
+                "tags": [
+                    "Flights"
+                ],
+                "summary": "Daftar seat tersedia pada flight",
+                "operationId": "0d3a17a1294ea3156f3577710a91790e",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                }
+            }
+        },
+        "/api/v1/passengers": {
+            "get": {
+                "tags": [
+                    "Passengers"
+                ],
+                "summary": "Daftar passenger user login",
+                "operationId": "4efb9b04e6f53f004c58f672a92378a6",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Passengers"
+                ],
+                "summary": "Tambah passenger",
+                "operationId": "af717183fb2a09ce90f28d99dce3104f",
+                "responses": {
+                    "201": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/passengers/{id}": {
+            "get": {
+                "tags": [
+                    "Passengers"
+                ],
+                "summary": "Detail passenger",
+                "operationId": "366e6912834650d8c4383014364db051",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Passengers"
+                ],
+                "summary": "Update passenger",
+                "operationId": "f19741fc9777ba7d1f7690a509b4f7de",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Passengers"
+                ],
+                "summary": "Hapus passenger",
+                "operationId": "eb4e7e26a9f699e04583400b35b6cf81",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/payments": {
+            "post": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Buat payment",
+                "operationId": "eb070e69d70db1676c580e22797dda6b",
+                "responses": {
+                    "201": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/payments/{id}": {
+            "get": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Detail payment",
+                "operationId": "a91a33a22a9a5c15161146c9ac38ee23",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/admin/payments/{id}/verify": {
+            "post": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Verifikasi payment admin",
+                "operationId": "3cb21f4b488f79b4e2bcfc66f2ab365f",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/profile": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Detail profile login",
+                "operationId": "840711b2cfe9f9c00a12c154bfb21787",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Update profile login",
+                "operationId": "1197366c57f9434a5e5a316534ef5b20",
+                "responses": {
+                    "200": {
+                        "description": "Berhasil"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "Token",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Airlines",
+            "description": "Airlines"
+        },
+        {
+            "name": "Airplanes",
+            "description": "Airplanes"
+        },
+        {
+            "name": "Airports",
+            "description": "Airports"
+        },
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Bookings",
+            "description": "Bookings"
+        },
+        {
+            "name": "Flights",
+            "description": "Flights"
+        },
+        {
+            "name": "Passengers",
+            "description": "Passengers"
+        },
+        {
+            "name": "Payments",
+            "description": "Payments"
+        },
+        {
+            "name": "Profile",
+            "description": "Profile"
+        }
+    ]
+}
