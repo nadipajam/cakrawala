@@ -6,7 +6,7 @@
 @section('content')
     <section class="space-y-5">
         <div class="grid gap-5 xl:grid-cols-[320px_1fr]">
-            <form method="GET" class="admin-card space-y-5">
+            <form method="GET" class="admin-ops-filter space-y-5">
                 <div>
                     <p class="admin-section-kicker">Service Desk</p>
                     <h2 class="admin-section-title">Refund dan change queue</h2>
@@ -48,7 +48,7 @@
             </form>
 
             <div class="space-y-5">
-                <article class="admin-hero-card">
+                <article class="admin-ops-hero">
                     <div class="admin-section-head">
                         <div>
                             <p class="admin-section-kicker">Request Queue</p>
@@ -58,26 +58,26 @@
                         <span class="admin-chip">{{ $requests->total() }} request</span>
                     </div>
 
-                    <div class="mt-5 grid gap-4 md:grid-cols-3">
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Visible requests</p>
-                            <p class="admin-metric-value">{{ $requests->count() }}</p>
+                    <div class="admin-ops-summary-grid">
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Visible requests</p>
+                            <p class="value">{{ $requests->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Request pada halaman aktif.</p>
                         </article>
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Pending / Open</p>
-                            <p class="admin-metric-value text-amber-600">{{ $requests->whereIn('status', ['pending', 'open'])->count() }}</p>
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Pending / Open</p>
+                            <p class="value text-amber-600">{{ $requests->whereIn('status', ['pending', 'open'])->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Kasus yang masih menunggu keputusan.</p>
                         </article>
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Processed</p>
-                            <p class="admin-metric-value text-emerald-700">{{ $requests->filter(fn ($item) => filled($item->processed_by))->count() }}</p>
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Processed</p>
+                            <p class="value text-emerald-700">{{ $requests->filter(fn ($item) => filled($item->processed_by))->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Request yang sudah pernah ditangani PIC.</p>
                         </article>
                     </div>
                 </article>
 
-                <article class="admin-card">
+                <article class="admin-ops-table-card">
                     <div class="admin-table-wrap">
                         <table class="admin-table">
                             <thead>

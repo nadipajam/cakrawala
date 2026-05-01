@@ -4,7 +4,8 @@
 @section('page-title', 'Create Airport')
 
 @section('content')
-    <section class="admin-card max-w-3xl">
+    <section class="admin-form-shell">
+        <article class="admin-form-card max-w-3xl">
         <form method="POST" action="{{ route('admin.airports.store') }}" class="grid gap-4">
             @csrf
             <div class="grid gap-4 sm:grid-cols-2">
@@ -31,5 +32,6 @@
                 <a href="{{ route('admin.airports.index') }}" class="admin-btn-secondary">Cancel</a>
             </div>
         </form>
+        </article>
     </section>
 @endsection

@@ -5,14 +5,14 @@
 
 @section('content')
     <section class="space-y-6">
-        <article class="admin-hero-card">
+        <article class="admin-hero-card admin-hero-card-management">
             <div class="grid gap-6 xl:grid-cols-[1.3fr_1fr]">
                 <div class="space-y-5">
                     <div class="admin-section-head">
                         <div class="max-w-2xl">
-                            <p class="admin-section-kicker">Management View</p>
-                            <h2 class="admin-section-title">Ringkasan keputusan untuk performa bisnis dan tim</h2>
-                            <p class="admin-section-copy">Halaman ini dirancang untuk membaca revenue, tren route, beban support, dan komposisi tim tanpa harus membuka banyak modul sekaligus.</p>
+                            <p class="admin-section-kicker">Management view</p>
+                            <h2 class="admin-section-title">Dashboard manager lebih tenang, lebih strategis, dan lebih fokus ke pembacaan tren.</h2>
+                            <p class="admin-section-copy">Komposisinya dibuat berbeda dari dashboard staff: sedikit aksi langsung, lebih banyak ruang untuk membaca revenue, route populer, support load, dan komposisi tim.</p>
                         </div>
                         <div class="flex flex-wrap items-center gap-2">
                             <a href="{{ route('admin.reports.index') }}" class="admin-btn-primary">Open Reports</a>
@@ -45,36 +45,26 @@
                 </div>
 
                 <div class="space-y-4">
-                    <article class="admin-list-card">
-                        <p class="admin-section-kicker">Decision Snapshot</p>
-                        <h3 class="mt-2 font-heading text-lg font-bold text-slate-800">Fokus manajerial</h3>
-                        <div class="mt-4 space-y-3">
-                            <div class="admin-list-row">
-                                <div>
-                                    <p class="text-sm font-semibold text-slate-700">Revenue bulan ini</p>
-                                    <p class="text-sm text-slate-500">Bandingkan dengan demand route populer.</p>
-                                </div>
-                                <p class="text-lg font-bold text-emerald-700">Rp{{ number_format((float) $stats['revenue_this_month'], 0, ',', '.') }}</p>
+                    <article class="admin-decision-panel">
+                        <p class="admin-section-kicker">Decision snapshot</p>
+                        <div class="mt-4 grid gap-3">
+                            <div class="admin-decision-item">
+                                <span>Revenue bulan ini</span>
+                                <strong>Rp{{ number_format((float) $stats['revenue_this_month'], 0, ',', '.') }}</strong>
                             </div>
-                            <div class="admin-list-row">
-                                <div>
-                                    <p class="text-sm font-semibold text-slate-700">Support queue</p>
-                                    <p class="text-sm text-slate-500">Pastikan load antar PIC tetap terdistribusi.</p>
-                                </div>
-                                <p class="text-lg font-bold text-[#0f3f78]">{{ $stats['open_contact_messages'] }}</p>
+                            <div class="admin-decision-item">
+                                <span>Support queue</span>
+                                <strong>{{ $stats['open_contact_messages'] }}</strong>
                             </div>
-                            <div class="admin-list-row">
-                                <div>
-                                    <p class="text-sm font-semibold text-slate-700">Booking base</p>
-                                    <p class="text-sm text-slate-500">Semakin besar booking, semakin penting pemantauan status.</p>
-                                </div>
-                                <p class="text-lg font-bold text-slate-800">{{ $stats['total_bookings'] }}</p>
+                            <div class="admin-decision-item">
+                                <span>Booking base</span>
+                                <strong>{{ $stats['total_bookings'] }}</strong>
                             </div>
                         </div>
                     </article>
 
                     <article class="admin-surface-muted">
-                        <p class="admin-section-kicker">Use Case</p>
+                        <p class="admin-section-kicker">Use case</p>
                         <h3 class="mt-2 font-heading text-lg font-bold text-slate-800">Pembacaan cepat</h3>
                         <p class="mt-2 text-sm leading-6 text-slate-600">Bagian bawah halaman memisahkan insight route populer, tren revenue, distribusi role, dan support watch agar keputusan operasional tidak bercampur dengan detail transaksi.</p>
                     </article>
@@ -86,7 +76,7 @@
             <article class="admin-card">
                 <div class="admin-section-head">
                     <div>
-                        <p class="admin-section-kicker">Team Composition</p>
+                        <p class="admin-section-kicker">Team composition</p>
                         <h2 class="admin-section-title">Role mix</h2>
                     </div>
                 </div>
@@ -107,7 +97,7 @@
             <article class="admin-card xl:col-span-2">
                 <div class="admin-section-head">
                     <div>
-                        <p class="admin-section-kicker">Top Performance</p>
+                        <p class="admin-section-kicker">Top performance</p>
                         <h2 class="admin-section-title">Popular routes</h2>
                     </div>
                     <a href="{{ route('admin.reports.index') }}" class="admin-btn-secondary">Open Reports</a>
@@ -141,7 +131,7 @@
             <article class="admin-card">
                 <div class="admin-section-head">
                     <div>
-                        <p class="admin-section-kicker">Revenue Curve</p>
+                        <p class="admin-section-kicker">Revenue curve</p>
                         <h2 class="admin-section-title">Monthly revenue</h2>
                     </div>
                 </div>
@@ -162,7 +152,7 @@
             <article class="admin-card">
                 <div class="admin-section-head">
                     <div>
-                        <p class="admin-section-kicker">Support Watch</p>
+                        <p class="admin-section-kicker">Support watch</p>
                         <h2 class="admin-section-title">Open support cases</h2>
                     </div>
                     <a href="{{ route('admin.contact-messages.index') }}" class="admin-btn-secondary">Open Inbox</a>

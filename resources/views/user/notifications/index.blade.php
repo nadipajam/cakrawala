@@ -1,30 +1,42 @@
 @extends('layouts.portal')
 
 @section('title', 'Cakrawala | Notifications')
-@section('active', 'profile')
+@section('active', 'notifications')
 
 @section('content')
     <section class="space-y-6">
-        <article class="portal-card">
-            <div class="portal-section-head">
+        <article class="support-hero-panel">
+            <div class="grid gap-6 xl:grid-cols-[1.18fr_.82fr]">
                 <div>
-                    <p class="portal-kicker">Inbox</p>
-                    <h1 class="portal-section-title">Notifications</h1>
-                    <p class="portal-section-copy">Update booking, pembayaran, dan balasan layanan disusun seperti inbox agar lebih mudah ditinjau.</p>
+                    <p class="booking-shell-kicker">Notification inbox</p>
+                    <h1 class="booking-shell-title">Seluruh update booking, payment, dan layanan masuk ke satu inbox yang lebih fokus.</h1>
+                    <p class="booking-shell-copy">Unread item, action link, dan waktu masuk sekarang lebih mudah dipindai supaya Anda tidak perlu membuka banyak halaman untuk tahu langkah berikutnya.</p>
                 </div>
-                @if ($unreadCount > 0)
+                <div class="support-summary-grid">
+                    <div class="support-summary-card">
+                        <span>Total items</span>
+                        <strong>{{ $notifications->total() }}</strong>
+                    </div>
+                    <div class="support-summary-card">
+                        <span>Unread</span>
+                        <strong>{{ $unreadCount }}</strong>
+                    </div>
+                </div>
+            </div>
+            @if ($unreadCount > 0)
+                <div class="mt-5">
                     <form method="POST" action="{{ route('notifications.read-all') }}">
                         @csrf
                         <button type="submit" class="portal-btn-blue">Mark All Read</button>
                     </form>
-                @endif
-            </div>
+                </div>
+            @endif
         </article>
 
         <div class="space-y-4">
             @forelse ($notifications as $notification)
                 @php($payload = $notification->data)
-                <article class="portal-route-card">
+                <article class="notification-inbox-card">
                     <div class="flex flex-wrap items-start justify-between gap-3">
                         <div class="min-w-0">
                             <div class="flex flex-wrap items-center gap-2">

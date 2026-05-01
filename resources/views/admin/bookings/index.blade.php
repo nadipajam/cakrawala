@@ -7,7 +7,7 @@
     @php($hasFilters = filled($search) || filled($status) || filled($date) || filled($user) || filled($flight) || filled($paymentStatus))
     <section class="space-y-5">
         <div class="grid gap-5 xl:grid-cols-[320px_1fr]">
-            <form method="GET" class="admin-card space-y-5">
+            <form method="GET" class="admin-ops-filter space-y-5">
                 <div class="space-y-3">
                     <p class="admin-section-kicker">Booking Console</p>
                     <h2 class="admin-section-title">Filter booking activity</h2>
@@ -63,7 +63,7 @@
             </form>
 
             <div class="space-y-5">
-                <article class="admin-hero-card">
+                <article class="admin-ops-hero">
                     <div class="admin-section-head">
                         <div>
                             <p class="admin-section-kicker">Booking Records</p>
@@ -78,26 +78,26 @@
                         </div>
                     </div>
 
-                    <div class="mt-5 grid gap-4 md:grid-cols-3">
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Visible records</p>
-                            <p class="admin-metric-value">{{ $bookings->count() }}</p>
+                    <div class="admin-ops-summary-grid">
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Visible records</p>
+                            <p class="value">{{ $bookings->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Jumlah row pada halaman aktif.</p>
                         </article>
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Pending focus</p>
-                            <p class="admin-metric-value text-amber-600">{{ $bookings->where('status', 'pending')->count() }}</p>
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Pending focus</p>
+                            <p class="value text-amber-600">{{ $bookings->where('status', 'pending')->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Booking pending di halaman saat ini.</p>
                         </article>
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Confirmed focus</p>
-                            <p class="admin-metric-value text-emerald-700">{{ $bookings->where('status', 'confirmed')->count() }}</p>
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Confirmed focus</p>
+                            <p class="value text-emerald-700">{{ $bookings->where('status', 'confirmed')->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Booking confirmed di halaman saat ini.</p>
                         </article>
                     </div>
                 </article>
 
-                <article class="admin-card space-y-4">
+                <article class="admin-ops-table-card space-y-4">
                     <div class="admin-section-head">
                         <div>
                             <p class="admin-section-kicker">Booking Records</p>

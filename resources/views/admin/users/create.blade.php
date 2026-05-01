@@ -5,7 +5,7 @@
 
 @section('content')
     <section class="space-y-6">
-        <article class="admin-card">
+        <article class="admin-form-card">
             <div class="admin-section-head">
                 <div>
                     <p class="admin-section-kicker">User Management</p>

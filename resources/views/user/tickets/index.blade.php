@@ -4,29 +4,66 @@
 @section('active', 'bookings')
 
 @section('content')
-    <section class="ticket-sheet mx-auto max-w-6xl space-y-6">
-        <article class="portal-card portal-print-hide">
-            <div class="portal-section-head">
-                <div class="min-w-0">
-                    <p class="portal-kicker">Ticket stack</p>
-                    <h1 class="portal-section-title">{{ $booking->booking_code }}</h1>
-                    <p class="portal-section-copy">
-                        {{ $flight->airline->name }} &middot; {{ $flight->departureAirport->code }} &rarr; {{ $flight->arrivalAirport->code }}
-                    </p>
+    <section class="ticket-lounge mx-auto max-w-7xl">
+        <div class="space-y-6">
+            <article class="journey-hero portal-print-hide">
+                <div class="journey-hero-grid">
+                    <div>
+                        <span class="journey-chip">
+                            <span class="journey-dot"></span>
+                            Ticket Lounge
+                        </span>
+                        <h1 class="journey-title">{{ $booking->booking_code }}</h1>
+                        <p class="journey-copy">
+                            Semua e-ticket untuk {{ $flight->airline->name }} dikumpulkan di satu stack.
+                            Anda tetap bisa print semua ticket sekaligus atau buka per passenger.
+                        </p>
+                        <div class="journey-action-row mt-5">
+                            <button type="button" onclick="window.print()" class="portal-btn-gold">Print All Tickets</button>
+                            <a href="{{ route('my-bookings.tickets.download-all', $booking) }}" class="portal-btn-blue">Download All PDFs</a>
+                            <a href="{{ route('my-bookings.show', $booking) }}" class="portal-btn-blue">Back to Booking</a>
+                        </div>
+                    </div>
+                    <div class="journey-meta-grid">
+                        <div class="journey-code">
+                            <span class="journey-code-label">Route</span>
+                            <span class="journey-code-value">{{ $flight->departureAirport->code }} -> {{ $flight->arrivalAirport->code }}</span>
+                        </div>
+                        <div class="journey-code">
+                            <span class="journey-code-label">Passenger Tickets</span>
+                            <span class="journey-code-value">{{ $ticketDetails->count() }}</span>
+                        </div>
+                    </div>
                 </div>
-                <span class="portal-inline-note">{{ $ticketDetails->count() }} passenger ticket{{ $ticketDetails->count() > 1 ? 's' : '' }}</span>
-            </div>
+            </article>
 
-            <div class="mt-5 flex flex-wrap items-center gap-3">
-                <button type="button" onclick="window.print()" class="portal-btn-gold">Print All Tickets</button>
-                <a href="{{ route('my-bookings.tickets.download-all', $booking) }}" class="portal-btn-blue">Download All PDFs</a>
-                <a href="{{ route('my-bookings.show', $booking) }}" class="portal-btn-blue">Back to Booking</a>
+            <div class="ticket-sheet space-y-6">
+                @foreach ($ticketDetails as $detail)
+                    @php($ticket = $detail->ticket)
+                    @include('user.tickets.partials.ticket-card', ['ticket' => $ticket, 'detail' => $detail, 'booking' => $booking, 'flight' => $flight, 'showSingleLink' => true, 'showPrintButton' => false])
+                @endforeach
             </div>
-        </article>
+        </div>
 
-        @foreach ($ticketDetails as $detail)
-            @php($ticket = $detail->ticket)
-            @include('user.tickets.partials.ticket-card', ['ticket' => $ticket, 'detail' => $detail, 'booking' => $booking, 'flight' => $flight, 'showSingleLink' => true, 'showPrintButton' => false])
-        @endforeach
+        <aside class="ticket-lounge-stack portal-print-hide">
+            <article class="journey-rail-card journey-rail-card-dark">
+                <p class="portal-kicker">Flight Snapshot</p>
+                <h2 class="mt-2 text-2xl font-bold">{{ $flight->airline->name }}</h2>
+                <div class="mt-5 space-y-3">
+                    <div class="portal-card-soft">
+                        <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Departure</p>
+                        <p class="mt-1 font-semibold text-slate-800">{{ $flight->departureAirport->code }}</p>
+                    </div>
+                    <div class="portal-card-soft">
+                        <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Arrival</p>
+                        <p class="mt-1 font-semibold text-slate-800">{{ $flight->arrivalAirport->code }}</p>
+                    </div>
+                    <div class="portal-card-soft">
+                        <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Departure Time</p>
+                        <p class="mt-1 font-semibold text-slate-800">{{ $flight->departure_time->format('d M Y H:i') }}</p>
+                    </div>
+                </div>
+            </article>
+        </aside>
     </section>
 @endsection

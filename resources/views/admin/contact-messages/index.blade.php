@@ -6,7 +6,7 @@
 @section('content')
     <section class="space-y-5">
         <div class="grid gap-5 xl:grid-cols-[320px_1fr]">
-            <form method="GET" class="admin-card space-y-5">
+            <form method="GET" class="admin-ops-filter space-y-5">
                 <div>
                     <p class="admin-section-kicker">Customer Support</p>
                     <h2 class="admin-section-title">Filter inbox bantuan</h2>
@@ -47,7 +47,7 @@
             </form>
 
             <div class="space-y-5">
-                <article class="admin-hero-card">
+                <article class="admin-support-hero">
                     <div class="admin-section-head">
                         <div>
                             <p class="admin-section-kicker">Support Queue</p>
@@ -57,26 +57,26 @@
                         <span class="admin-chip">{{ $messages->total() }} pesan</span>
                     </div>
 
-                    <div class="mt-5 grid gap-4 md:grid-cols-3">
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Visible messages</p>
-                            <p class="admin-metric-value">{{ $messages->count() }}</p>
+                    <div class="admin-ops-summary-grid">
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Visible messages</p>
+                            <p class="value">{{ $messages->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Jumlah case pada halaman aktif.</p>
                         </article>
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Open cases</p>
-                            <p class="admin-metric-value text-amber-600">{{ $messages->where('status', 'open')->count() }}</p>
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Open cases</p>
+                            <p class="value text-amber-600">{{ $messages->where('status', 'open')->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Case open yang menunggu penanganan.</p>
                         </article>
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Assigned cases</p>
-                            <p class="admin-metric-value text-[#0f3f78]">{{ $messages->filter(fn ($message) => filled($message->assigned_to))->count() }}</p>
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Assigned cases</p>
+                            <p class="value text-[#0f3f78]">{{ $messages->filter(fn ($message) => filled($message->assigned_to))->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Case yang sudah punya PIC.</p>
                         </article>
                     </div>
                 </article>
 
-                <article class="admin-card">
+                <article class="admin-ops-table-card">
                     <div class="admin-table-wrap mt-4">
                         <table class="admin-table">
                             <thead>

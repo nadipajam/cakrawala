@@ -1012,6 +1012,267 @@
     color: rgba(226,232,240,.76);
 }
 
+.journey-shell {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.journey-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 1.6rem;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 32px;
+    background:
+        radial-gradient(circle at top right, rgba(125,211,252,.18) 0%, transparent 24%),
+        linear-gradient(135deg, rgba(15,23,42,.96), rgba(29,78,216,.92));
+    color: #f8fafc;
+    box-shadow: 0 26px 52px rgba(15, 23, 42, .12);
+}
+
+.journey-hero::after {
+    content: "";
+    position: absolute;
+    inset: auto -3rem -3rem auto;
+    width: 11rem;
+    height: 11rem;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(248,250,252,.22) 0%, rgba(248,250,252,0) 70%);
+}
+
+.journey-hero-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.journey-meta-grid {
+    display: grid;
+    gap: .9rem;
+}
+
+.journey-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    padding: .7rem 1rem;
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 999px;
+    background: rgba(255,255,255,.08);
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.journey-dot {
+    width: .55rem;
+    height: .55rem;
+    border-radius: 999px;
+    background: #38bdf8;
+    box-shadow: 0 0 0 6px rgba(56,189,248,.16);
+}
+
+.journey-title {
+    margin-top: .85rem;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    line-height: .95;
+    letter-spacing: -.05em;
+    font-weight: 800;
+}
+
+.journey-copy {
+    margin-top: 1rem;
+    max-width: 46rem;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: rgba(226,232,240,.84);
+}
+
+.journey-code {
+    display: grid;
+    gap: .35rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 24px;
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(14px);
+}
+
+.journey-code-label {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: rgba(191,219,254,.9);
+}
+
+.journey-code-value {
+    font-size: 1.45rem;
+    font-weight: 800;
+    line-height: 1;
+    word-break: break-all;
+}
+
+.journey-action-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    align-items: center;
+}
+
+.journey-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.journey-rail {
+    display: grid;
+    gap: 1rem;
+}
+
+.journey-rail-card {
+    padding: 1.2rem;
+    border: 1px solid rgba(15,23,42,.08);
+    border-radius: 26px;
+    background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(248,250,252,.98));
+    box-shadow: 0 18px 36px rgba(15,23,42,.06);
+}
+
+.journey-rail-card-dark {
+    background: linear-gradient(180deg, rgba(15,23,42,.95), rgba(30,41,59,.96));
+    color: #f8fafc;
+}
+
+.journey-rail-card-dark .text-slate-500,
+.journey-rail-card-dark .text-slate-600,
+.journey-rail-card-dark .text-slate-700,
+.journey-rail-card-dark .portal-section-copy {
+    color: rgba(226,232,240,.78) !important;
+}
+
+.journey-rail-card-dark .text-slate-800,
+.journey-rail-card-dark .font-semibold,
+.journey-rail-card-dark .font-bold {
+    color: #f8fafc !important;
+}
+
+.journey-manifest {
+    display: grid;
+    gap: 1rem;
+}
+
+.journey-manifest-card {
+    position: relative;
+    overflow: hidden;
+    padding: 1.25rem;
+    border: 1px solid rgba(15,23,42,.08);
+    border-radius: 28px;
+    background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,250,252,.98));
+    box-shadow: 0 18px 36px rgba(15,23,42,.05);
+}
+
+.journey-manifest-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 5px;
+    background: linear-gradient(180deg, #1d4ed8, #38bdf8);
+}
+
+.journey-stat-grid {
+    display: grid;
+    gap: .85rem;
+}
+
+.journey-stat {
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(15,23,42,.08);
+    border-radius: 22px;
+    background: rgba(255,255,255,.86);
+}
+
+.ticket-lounge {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.ticket-lounge-stack {
+    display: grid;
+    gap: 1rem;
+}
+
+.ticket-lounge-card {
+    padding: 1.15rem;
+    border: 1px solid rgba(15,23,42,.08);
+    border-radius: 26px;
+    background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(248,250,252,.98));
+    box-shadow: 0 18px 36px rgba(15,23,42,.06);
+}
+
+.ticket-lounge-link {
+    display: grid;
+    gap: .25rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(15,23,42,.08);
+    border-radius: 22px;
+    background: rgba(255,255,255,.82);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.ticket-lounge-link:hover {
+    transform: translateY(-1px);
+    border-color: rgba(29,78,216,.18);
+    box-shadow: 0 14px 30px rgba(15,23,42,.06);
+}
+
+.ticket-lounge-link-active {
+    border-color: rgba(29,78,216,.22);
+    background: linear-gradient(135deg, rgba(15,23,42,.96), rgba(29,78,216,.94));
+}
+
+.ticket-lounge-link-active .ticket-lounge-link-title,
+.ticket-lounge-link-active .ticket-lounge-link-copy {
+    color: #f8fafc;
+}
+
+.ticket-lounge-link-title {
+    font-size: .98rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.ticket-lounge-link-copy {
+    font-size: .84rem;
+    color: #64748b;
+}
+
+@media (min-width: 1024px) {
+    .journey-hero-grid {
+        grid-template-columns: minmax(0, 1fr) 290px;
+        align-items: end;
+    }
+
+    .journey-grid {
+        grid-template-columns: minmax(0, 1fr) 320px;
+        align-items: start;
+    }
+
+    .journey-rail {
+        position: sticky;
+        top: 1rem;
+    }
+
+    .ticket-lounge {
+        grid-template-columns: minmax(0, 1fr) 300px;
+        align-items: start;
+    }
+
+    .ticket-lounge-stack {
+        position: sticky;
+        top: 1rem;
+    }
+}
+
 @media (min-width: 1280px) {
     .customer-workspace {
         grid-template-columns: 340px minmax(0, 1fr);
@@ -1147,5 +1408,569 @@
     .admin-table,
     .portal-table {
         min-width: 720px;
+    }
+}
+
+@layer components {
+    .portal-topbar-v2 {
+        @apply flex-col items-stretch gap-4;
+        background:
+            radial-gradient(circle at top left, rgba(191,219,254,.28) 0%, transparent 24%),
+            linear-gradient(135deg, rgba(255,255,255,.98), rgba(248,250,252,.94));
+    }
+
+    .portal-topbar-main,
+    .portal-topbar-side {
+        @apply flex items-start justify-between gap-3;
+    }
+
+    .portal-topbar-main {
+        @apply flex-col xl:flex-row xl:items-center;
+    }
+
+    .portal-topbar-side {
+        @apply items-center;
+    }
+
+    .portal-topbar-note {
+        @apply inline-flex shrink-0 items-center rounded-full border border-slate-200 bg-white/80 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-600;
+    }
+
+    .portal-topbar-divider {
+        @apply hidden h-6 w-px bg-slate-200 xl:block;
+    }
+
+    .admin-command-shell {
+        background:
+            radial-gradient(circle at 12% 14%, rgba(34,211,238,.1) 0%, transparent 20%),
+            radial-gradient(circle at 86% 12%, rgba(59,130,246,.12) 0%, transparent 22%),
+            linear-gradient(180deg, #e2e8f0 0%, #f8fafc 22%, #edf2f7 100%);
+    }
+
+    .admin-sidebar-brand {
+        @apply space-y-4;
+    }
+
+    .admin-sidebar-user {
+        @apply rounded-[24px] border border-white/10 bg-white/5 p-4;
+    }
+
+    .admin-sidebar-user-label {
+        @apply text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-300/80;
+    }
+
+    .admin-sidebar-user-name {
+        @apply mt-2 text-lg font-bold text-white;
+    }
+
+    .admin-sidebar-user-role {
+        @apply mt-1 text-sm text-slate-300;
+    }
+
+    .admin-sidebar-intro {
+        @apply mt-5 rounded-[24px] border border-white/10 bg-white/5 px-4 py-4;
+    }
+
+    .admin-command-shell .admin-sidebar {
+        border-color: rgba(15,23,42,.08);
+        background:
+            radial-gradient(circle at top right, rgba(34,211,238,.14) 0%, transparent 24%),
+            linear-gradient(180deg, rgba(2,6,23,.98), rgba(15,23,42,.96));
+        box-shadow: 0 26px 52px rgba(2,6,23,.18);
+    }
+
+    .admin-command-shell .admin-sidebar-group {
+        color: rgba(165,243,252,.68);
+    }
+
+    .admin-command-shell .admin-sidebar-link {
+        color: rgba(226,232,240,.82);
+        border: 1px solid transparent;
+    }
+
+    .admin-command-shell .admin-sidebar-link:hover {
+        background: rgba(255,255,255,.06);
+        color: #f8fafc;
+    }
+
+    .admin-command-shell .admin-sidebar-link-active {
+        border-color: rgba(34,211,238,.32);
+        background: linear-gradient(135deg, rgba(34,211,238,.18), rgba(37,99,235,.4));
+        color: #f8fafc;
+        box-shadow: none;
+    }
+
+    .admin-command-shell .admin-topbar {
+        background: rgba(255,255,255,.92);
+        box-shadow: 0 20px 44px rgba(15,23,42,.08);
+    }
+
+    .admin-command-shell .admin-card,
+    .admin-command-shell .admin-list-card,
+    .admin-command-shell .admin-kpi-card,
+    .admin-command-shell .admin-metric-tile,
+    .admin-command-shell .admin-info-card {
+        border-color: rgba(15,23,42,.08);
+        box-shadow: 0 18px 36px rgba(15,23,42,.06);
+    }
+
+    .customer-command-panel {
+        @apply relative overflow-hidden rounded-[32px] border border-slate-200 p-6 sm:p-7;
+        background:
+            radial-gradient(circle at 88% 12%, rgba(56,189,248,.18) 0%, transparent 22%),
+            radial-gradient(circle at 14% 18%, rgba(191,219,254,.32) 0%, transparent 20%),
+            linear-gradient(135deg, rgba(255,255,255,.98), rgba(239,246,255,.98) 44%, rgba(219,234,254,.96));
+        box-shadow: 0 28px 56px rgba(15,23,42,.08);
+    }
+
+    .customer-command-panel::after {
+        content: "";
+        @apply pointer-events-none absolute right-0 top-0 h-36 w-36 rounded-full;
+        background: radial-gradient(circle, rgba(37,99,235,.12) 0%, transparent 70%);
+    }
+
+    .customer-section-kicker {
+        @apply text-xs font-semibold uppercase tracking-[0.28em] text-blue-700/80;
+    }
+
+    .customer-section-title {
+        @apply mt-3 max-w-4xl font-heading text-3xl font-bold leading-tight text-slate-900 sm:text-4xl;
+    }
+
+    .customer-section-copy {
+        @apply mt-3 max-w-3xl text-sm leading-7 text-slate-600 sm:text-base;
+    }
+
+    .customer-spotlight-card {
+        @apply rounded-[24px] border border-slate-200 bg-white p-4 shadow-[0_14px_30px_rgba(15,23,42,.05)];
+        background: rgba(255,255,255,.88);
+    }
+
+    .customer-spotlight-label {
+        @apply text-[11px] font-semibold uppercase tracking-[0.24em] text-slate-400;
+    }
+
+    .customer-spotlight-value {
+        @apply mt-3 text-4xl font-bold leading-none text-slate-900;
+    }
+
+    .customer-spotlight-copy {
+        @apply mt-3 text-sm leading-6 text-slate-500;
+    }
+
+    .customer-queue-panel {
+        @apply rounded-[28px] border bg-slate-950 p-5 text-slate-100 shadow-[0_24px_48px_rgba(15,23,42,.16)];
+        border-color: rgba(15,23,42,.08);
+    }
+
+    .customer-queue-item {
+        @apply flex items-start justify-between gap-4 rounded-[22px] border border-white/10 bg-white/5 p-4;
+    }
+
+    .customer-queue-label {
+        @apply text-base font-semibold text-white;
+    }
+
+    .customer-queue-copy {
+        @apply mt-1 max-w-sm text-sm leading-6 text-slate-300;
+    }
+
+    .customer-queue-meta {
+        @apply shrink-0 text-right;
+    }
+
+    .customer-queue-value {
+        @apply text-3xl font-bold leading-none text-cyan-300;
+    }
+
+    .customer-queue-link {
+        @apply mt-3 inline-flex text-sm font-semibold text-white/90 underline decoration-cyan-400 underline-offset-4;
+    }
+
+    .admin-hero-card-command {
+        background:
+            radial-gradient(circle at 88% 12%, rgba(34,211,238,.22) 0%, transparent 24%),
+            linear-gradient(135deg, rgba(255,255,255,.98) 0%, rgba(240,249,255,.98) 44%, rgba(224,242,254,.96) 100%);
+    }
+
+    .admin-hero-card-ops {
+        background:
+            radial-gradient(circle at 88% 12%, rgba(251,191,36,.18) 0%, transparent 22%),
+            linear-gradient(135deg, rgba(255,255,255,.98) 0%, rgba(248,250,252,.98) 38%, rgba(254,249,195,.92) 100%);
+    }
+
+    .admin-hero-card-management {
+        background:
+            radial-gradient(circle at 90% 16%, rgba(167,139,250,.18) 0%, transparent 24%),
+            linear-gradient(135deg, rgba(255,255,255,.98) 0%, rgba(248,250,252,.98) 42%, rgba(237,233,254,.94) 100%);
+    }
+
+    .admin-command-aside {
+        @apply rounded-[24px] border bg-slate-950 p-5 text-slate-100 shadow-[0_24px_48px_rgba(15,23,42,.16)];
+        border-color: rgba(15,23,42,.08);
+    }
+
+    .admin-command-stat {
+        @apply flex items-center justify-between gap-4 rounded-[18px] border border-white/10 bg-white/5 px-4 py-3;
+    }
+
+    .admin-command-stat span {
+        @apply text-sm text-slate-300;
+    }
+
+    .admin-command-stat strong {
+        @apply text-lg font-bold text-cyan-300;
+    }
+
+    .admin-shift-board {
+        @apply rounded-[24px] border border-amber-200 bg-amber-50 p-5 shadow-[0_18px_36px_rgba(120,53,15,.08)];
+    }
+
+    .admin-shift-item {
+        @apply flex items-center justify-between gap-4 rounded-[18px] border border-amber-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700;
+    }
+
+    .admin-shift-item strong {
+        @apply text-lg text-amber-600;
+    }
+
+    .admin-decision-panel {
+        @apply rounded-[24px] border border-violet-200 bg-violet-50 p-5 shadow-[0_18px_36px_rgba(76,29,149,.08)];
+    }
+
+    .admin-decision-item {
+        @apply flex items-center justify-between gap-4 rounded-[18px] border border-violet-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700;
+    }
+
+    .admin-decision-item strong {
+        @apply text-lg text-violet-700;
+    }
+
+    .booking-composer-shell,
+    .booking-board-hero,
+    .booking-control-hero,
+    .payment-hero-panel,
+    .payment-detail-hero,
+    .payment-success-panel {
+        @apply relative overflow-hidden rounded-[32px] border border-slate-200 p-6 sm:p-7;
+        background:
+            radial-gradient(circle at 88% 14%, rgba(56,189,248,.18) 0%, transparent 22%),
+            radial-gradient(circle at 10% 20%, rgba(191,219,254,.24) 0%, transparent 18%),
+            linear-gradient(135deg, rgba(255,255,255,.98), rgba(248,250,252,.98) 42%, rgba(239,246,255,.96));
+        box-shadow: 0 28px 56px rgba(15,23,42,.08);
+    }
+
+    .booking-composer-shell::after,
+    .booking-board-hero::after,
+    .booking-control-hero::after,
+    .payment-hero-panel::after,
+    .payment-detail-hero::after,
+    .payment-success-panel::after {
+        content: "";
+        @apply pointer-events-none absolute -right-8 -top-8 h-36 w-36 rounded-full;
+        background: radial-gradient(circle, rgba(37,99,235,.14) 0%, transparent 72%);
+    }
+
+    .booking-shell-kicker {
+        @apply text-xs font-semibold uppercase tracking-[0.28em] text-blue-700/80;
+    }
+
+    .booking-shell-title {
+        @apply mt-3 max-w-4xl font-heading text-3xl font-bold leading-tight text-slate-900 sm:text-4xl;
+    }
+
+    .booking-shell-copy {
+        @apply mt-3 max-w-3xl text-sm leading-7 text-slate-600 sm:text-base;
+    }
+
+    .booking-shell-summary,
+    .booking-board-hero-side,
+    .booking-control-highlights,
+    .payment-hero-meta {
+        @apply grid gap-3 sm:grid-cols-2;
+    }
+
+    .booking-shell-summary-card,
+    .booking-board-metric,
+    .booking-control-highlight,
+    .payment-hero-meta-card {
+        @apply rounded-[22px] border border-slate-200 bg-white/90 p-4 shadow-[0_12px_28px_rgba(15,23,42,.05)];
+    }
+
+    .booking-shell-summary-card span,
+    .booking-board-metric span,
+    .booking-control-highlight span,
+    .payment-hero-meta-card span {
+        @apply text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400;
+    }
+
+    .booking-shell-summary-card strong,
+    .booking-board-metric strong,
+    .booking-control-highlight strong,
+    .payment-hero-meta-card strong {
+        @apply mt-3 block text-2xl font-bold text-slate-900;
+    }
+
+    .booking-step-card {
+        @apply flex items-start gap-3 rounded-[24px] border border-slate-200 bg-slate-50 px-4 py-4 transition duration-200;
+    }
+
+    .booking-step-card-active {
+        @apply border-blue-200 bg-blue-50 shadow-[0_16px_28px_rgba(37,99,235,.08)];
+    }
+
+    .booking-step-index {
+        @apply inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-slate-900 text-sm font-bold text-white;
+    }
+
+    .booking-step-title {
+        @apply font-semibold text-slate-800;
+    }
+
+    .booking-step-copy {
+        @apply mt-1 text-sm leading-6 text-slate-500;
+    }
+
+    .booking-passenger-card {
+        @apply flex cursor-pointer items-center justify-between gap-3 rounded-[22px] border border-slate-200 bg-white p-4 shadow-[0_10px_24px_rgba(15,23,42,.04)] transition duration-200 hover:-translate-y-0.5 hover:border-blue-200;
+    }
+
+    .booking-class-card {
+        @apply rounded-[24px] border border-slate-200 bg-white p-4 text-left shadow-[0_12px_28px_rgba(15,23,42,.04)] transition duration-200 hover:-translate-y-0.5 hover:border-blue-200;
+    }
+
+    .booking-class-card-active {
+        @apply border-blue-300 bg-blue-50 ring-2 ring-blue-200;
+    }
+
+    .booking-seat-stage {
+        @apply rounded-[28px] border border-slate-200 bg-[linear-gradient(180deg,rgba(255,255,255,1),rgba(248,250,252,.96))] p-5 shadow-[0_16px_34px_rgba(15,23,42,.05)];
+    }
+
+    .booking-seat-selection,
+    .booking-review-card,
+    .booking-board-card,
+    .booking-board-timeline,
+    .booking-board-actions,
+    .booking-control-rail-card,
+    .payment-summary-rail-card,
+    .qris-scan-stage {
+        @apply rounded-[24px] border border-slate-200 bg-white p-5 shadow-[0_14px_30px_rgba(15,23,42,.05)];
+    }
+
+    .booking-review-card {
+        @apply flex items-center justify-between gap-3;
+    }
+
+    .booking-board-card {
+        @apply p-6;
+        background:
+            radial-gradient(circle at top right, rgba(191,219,254,.18) 0%, transparent 18%),
+            linear-gradient(180deg, rgba(255,255,255,1), rgba(248,250,252,.96));
+    }
+
+    .booking-board-timeline,
+    .booking-board-actions,
+    .booking-live-panel,
+    .booking-control-rail,
+    .payment-summary-rail {
+        @apply h-fit;
+    }
+
+    .booking-board-timeline {
+        @apply grid gap-3;
+    }
+
+    .booking-board-timeline-item,
+    .payment-trail-item {
+        @apply flex items-center justify-between gap-3 rounded-[18px] border border-slate-200 bg-slate-50 px-4 py-3;
+    }
+
+    .booking-board-timeline-item span,
+    .payment-trail-item span {
+        @apply text-sm text-slate-500;
+    }
+
+    .booking-board-timeline-item strong,
+    .payment-trail-item strong {
+        @apply text-sm font-semibold text-slate-800;
+    }
+
+    .booking-board-actions {
+        @apply flex flex-col justify-between gap-4;
+    }
+
+    .booking-control-deadline {
+        @apply inline-flex rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700;
+    }
+
+    .booking-detail-passenger-card {
+        @apply flex flex-wrap items-center justify-between gap-3 rounded-[22px] border border-slate-200 bg-white p-4 shadow-[0_10px_24px_rgba(15,23,42,.04)];
+    }
+
+    .payment-channel-card {
+        @apply flex cursor-pointer items-start gap-3 rounded-[22px] border border-slate-200 bg-white p-4 shadow-[0_10px_24px_rgba(15,23,42,.04)] transition duration-200 hover:-translate-y-0.5 hover:border-blue-200;
+    }
+
+    .payment-channel-card-active {
+        @apply border-blue-300 bg-blue-50 ring-2 ring-blue-200;
+    }
+
+    .payment-instruction-panel {
+        @apply rounded-[24px] border border-slate-200 bg-[linear-gradient(180deg,rgba(255,255,255,1),rgba(248,250,252,.96))] p-5 shadow-[0_16px_34px_rgba(15,23,42,.05)];
+    }
+
+    .payment-detail-status {
+        @apply flex flex-col items-start justify-between gap-3 sm:items-end;
+    }
+
+    .payment-detail-status-card {
+        @apply rounded-[22px] border border-slate-200 bg-white/90 px-4 py-4 shadow-[0_12px_28px_rgba(15,23,42,.05)] sm:min-w-[220px];
+    }
+
+    .payment-detail-status-card span {
+        @apply text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400;
+    }
+
+    .payment-detail-status-card strong {
+        @apply mt-3 block text-2xl font-bold text-slate-900;
+    }
+
+    .support-hero-panel {
+        @apply relative overflow-hidden rounded-[32px] border border-slate-200 p-6 sm:p-7;
+        background:
+            radial-gradient(circle at 88% 14%, rgba(125,211,252,.18) 0%, transparent 22%),
+            radial-gradient(circle at 12% 18%, rgba(216,180,254,.18) 0%, transparent 18%),
+            linear-gradient(135deg, rgba(255,255,255,.98), rgba(248,250,252,.98) 42%, rgba(240,249,255,.96));
+        box-shadow: 0 28px 56px rgba(15,23,42,.08);
+    }
+
+    .support-hero-panel::after {
+        content: "";
+        @apply pointer-events-none absolute -right-8 -top-8 h-36 w-36 rounded-full;
+        background: radial-gradient(circle, rgba(59,130,246,.14) 0%, transparent 72%);
+    }
+
+    .support-summary-grid {
+        @apply grid gap-3 sm:grid-cols-2;
+    }
+
+    .support-summary-card {
+        @apply rounded-[22px] border border-slate-200 bg-white/90 p-4 shadow-[0_12px_28px_rgba(15,23,42,.05)];
+    }
+
+    .support-summary-card span {
+        @apply text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400;
+    }
+
+    .support-summary-card strong {
+        @apply mt-3 block text-2xl font-bold text-slate-900;
+    }
+
+    .support-rail {
+        @apply h-fit;
+    }
+
+    .support-rail-card {
+        @apply rounded-[28px] border border-slate-200 bg-white p-5 shadow-[0_16px_34px_rgba(15,23,42,.05)];
+    }
+
+    .passenger-vault-card,
+    .notification-inbox-card,
+    .service-case-card {
+        @apply rounded-[26px] border border-slate-200 bg-white p-5 shadow-[0_14px_30px_rgba(15,23,42,.05)];
+    }
+
+    .passenger-vault-card {
+        background:
+            radial-gradient(circle at top right, rgba(191,219,254,.16) 0%, transparent 16%),
+            linear-gradient(180deg, rgba(255,255,255,1), rgba(248,250,252,.96));
+    }
+
+    .notification-inbox-card,
+    .service-case-card {
+        background:
+            linear-gradient(180deg, rgba(255,255,255,1), rgba(248,250,252,.96));
+    }
+
+    .passenger-vault-edit[open] summary {
+        @apply mb-4;
+    }
+
+    .admin-ops-hero,
+    .admin-ops-detail-hero,
+    .admin-support-hero {
+        @apply relative overflow-hidden rounded-[30px] border border-slate-200 p-6 sm:p-7;
+        background:
+            radial-gradient(circle at 88% 14%, rgba(34,211,238,.16) 0%, transparent 22%),
+            radial-gradient(circle at 10% 18%, rgba(59,130,246,.14) 0%, transparent 18%),
+            linear-gradient(135deg, rgba(255,255,255,.99), rgba(248,250,252,.98) 42%, rgba(240,249,255,.96));
+        box-shadow: 0 24px 50px rgba(15,23,42,.08);
+    }
+
+    .admin-ops-hero::after,
+    .admin-ops-detail-hero::after,
+    .admin-support-hero::after {
+        content: "";
+        @apply pointer-events-none absolute -right-8 -top-8 h-36 w-36 rounded-full;
+        background: radial-gradient(circle, rgba(6,182,212,.16) 0%, transparent 72%);
+    }
+
+    .admin-ops-filter {
+        @apply rounded-[28px] border border-slate-200 bg-white p-5 shadow-[0_18px_36px_rgba(15,23,42,.05)];
+    }
+
+    .admin-ops-summary-grid {
+        @apply mt-5 grid gap-4 md:grid-cols-3;
+    }
+
+    .admin-ops-summary-card {
+        @apply rounded-[22px] border border-slate-200 bg-white/90 p-4 shadow-[0_12px_24px_rgba(15,23,42,.04)];
+    }
+
+    .admin-ops-summary-card .label {
+        @apply text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400;
+    }
+
+    .admin-ops-summary-card .value {
+        @apply mt-3 text-3xl font-bold leading-none text-slate-900;
+    }
+
+    .admin-ops-table-card,
+    .admin-ops-sidecard,
+    .admin-support-case-card {
+        @apply rounded-[28px] border border-slate-200 bg-white p-5 shadow-[0_16px_32px_rgba(15,23,42,.05)];
+    }
+
+    .admin-ops-inline-grid {
+        @apply grid gap-4 md:grid-cols-2 xl:grid-cols-4;
+    }
+
+    .admin-ops-info-card {
+        @apply rounded-[22px] border border-slate-200 bg-white/90 p-4 shadow-[0_10px_22px_rgba(15,23,42,.04)];
+    }
+
+    .admin-ops-trail {
+        @apply grid gap-3;
+    }
+
+    .admin-ops-trail-item {
+        @apply flex items-center justify-between gap-4 rounded-[18px] border border-slate-200 bg-slate-50 px-4 py-3;
+    }
+
+    .admin-ops-trail-item span {
+        @apply text-sm text-slate-500;
+    }
+
+    .admin-ops-trail-item strong {
+        @apply text-sm font-semibold text-slate-800;
+    }
+
+    .admin-form-shell {
+        @apply space-y-6;
+    }
+
+    .admin-form-card {
+        @apply rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_18px_36px_rgba(15,23,42,.05)];
     }
 }

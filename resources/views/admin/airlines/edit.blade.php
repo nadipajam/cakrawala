@@ -4,7 +4,8 @@
 @section('page-title', 'Edit Airline')
 
 @section('content')
-    <section class="admin-card max-w-3xl">
+    <section class="admin-form-shell">
+        <article class="admin-form-card max-w-3xl">
         <form method="POST" action="{{ route('admin.airlines.update', $airline) }}" enctype="multipart/form-data" class="grid gap-4">
             @csrf
             @method('PUT')
@@ -35,5 +36,6 @@
                 <a href="{{ route('admin.airlines.index') }}" class="admin-btn-secondary">Cancel</a>
             </div>
         </form>
+        </article>
     </section>
 @endsection

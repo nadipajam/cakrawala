@@ -6,7 +6,7 @@
 @section('content')
     <section class="space-y-5">
         <div class="grid gap-5 xl:grid-cols-[320px_1fr]">
-            <form method="GET" class="admin-card space-y-5">
+            <form method="GET" class="admin-ops-filter space-y-5">
                 <div>
                     <p class="admin-section-kicker">Airport Directory</p>
                     <h2 class="admin-section-title">Filter data bandara</h2>
@@ -39,7 +39,7 @@
             </form>
 
             <div class="space-y-5">
-                <article class="admin-hero-card">
+                <article class="admin-ops-hero">
                     <div class="admin-section-head">
                         <div>
                             <p class="admin-section-kicker">Airport Ledger</p>
@@ -49,26 +49,26 @@
                         <span class="admin-chip">{{ $airports->total() }} airport</span>
                     </div>
 
-                    <div class="mt-5 grid gap-4 md:grid-cols-3">
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Visible airports</p>
-                            <p class="admin-metric-value">{{ $airports->count() }}</p>
+                    <div class="admin-ops-summary-grid">
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Visible airports</p>
+                            <p class="value">{{ $airports->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Bandara pada halaman aktif.</p>
                         </article>
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Cities covered</p>
-                            <p class="admin-metric-value text-[#0f3f78]">{{ $airports->pluck('city')->filter()->unique()->count() }}</p>
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Cities covered</p>
+                            <p class="value text-[#0f3f78]">{{ $airports->pluck('city')->filter()->unique()->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Jumlah kota unik pada halaman ini.</p>
                         </article>
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Countries covered</p>
-                            <p class="admin-metric-value text-emerald-700">{{ $airports->pluck('country')->filter()->unique()->count() }}</p>
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Countries covered</p>
+                            <p class="value text-emerald-700">{{ $airports->pluck('country')->filter()->unique()->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Jumlah negara unik pada halaman ini.</p>
                         </article>
                     </div>
                 </article>
 
-                <article class="admin-card">
+                <article class="admin-ops-table-card">
                     <div class="admin-table-wrap">
                         <table class="admin-table">
                             <thead>

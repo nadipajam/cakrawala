@@ -4,56 +4,57 @@
 @section('active', 'bookings')
 
 @section('content')
-    <section class="space-y-6">
-        <article class="portal-card">
-            <div class="portal-section-head">
-                <div class="min-w-0">
-                    <p class="portal-kicker">Check-in desk</p>
-                    <h1 class="portal-section-title">{{ $booking->booking_code }}</h1>
-                    <p class="portal-section-copy">
-                        {{ $booking->flight->airline->name }} •
-                        {{ $booking->flight->departureAirport->code }} &rarr; {{ $booking->flight->arrivalAirport->code }} •
-                        {{ $booking->flight->departure_time->format('d M Y H:i') }}
+    <section class="journey-shell">
+        <article class="journey-hero">
+            <div class="journey-hero-grid">
+                <div>
+                    <span class="journey-chip">
+                        <span class="journey-dot"></span>
+                        Check-In Desk
+                    </span>
+                    <h1 class="journey-title">{{ $booking->booking_code }}</h1>
+                    <p class="journey-copy">
+                        Kelola check-in setiap passenger untuk {{ $booking->flight->airline->name }} dari
+                        {{ $booking->flight->departureAirport->code }} ke {{ $booking->flight->arrivalAirport->code }}.
+                        Boarding pass dan QR tetap diterbitkan per passenger.
                     </p>
+                    <div class="journey-action-row mt-5">
+                        <a href="{{ route('my-bookings.show', $booking) }}" class="portal-btn-blue">Back to Booking</a>
+                        <a href="{{ route('my-bookings.tickets', $booking) }}" class="portal-btn-gold">Open Tickets</a>
+                    </div>
                 </div>
-                <div class="flex flex-wrap items-center gap-2">
-                    <a href="{{ route('my-bookings.show', $booking) }}" class="portal-btn-blue">Back to Booking</a>
-                    <a href="{{ route('my-bookings.tickets', $booking) }}" class="portal-btn-blue">Open Tickets</a>
+                <div class="journey-meta-grid">
+                    <div class="journey-code">
+                        <span class="journey-code-label">Departure Time</span>
+                        <span class="journey-code-value">{{ $booking->flight->departure_time->format('d M Y H:i') }}</span>
+                    </div>
+                    <div class="journey-code">
+                        <span class="journey-code-label">Passenger Count</span>
+                        <span class="journey-code-value">{{ $booking->details->count() }}</span>
+                    </div>
                 </div>
             </div>
         </article>
 
         @if (! in_array($booking->status, ['confirmed', 'completed'], true))
-            <article class="portal-card">
-                <div class="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-amber-700">
-                    Check-in belum tersedia. Booking harus berstatus confirmed terlebih dahulu.
-                </div>
+            <article class="journey-rail-card border-amber-200 bg-amber-50 text-amber-800 shadow-none">
+                Check-in belum tersedia. Booking harus berstatus confirmed terlebih dahulu.
             </article>
         @endif
 
-        <article class="portal-card">
-            <p class="portal-kicker">Manifest</p>
-            <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Passenger Check-In Manifest</h2>
-            <p class="portal-section-copy">Setiap passenger memiliki boarding pass dan QR sendiri. Jika passenger lebih dari satu, lakukan check-in per passenger.</p>
-
-            <div class="mt-5 space-y-4">
+        <div class="journey-grid">
+            <div class="journey-manifest">
                 @forelse ($booking->details as $detail)
                     @php($availability = $checkInAvailability[$detail->id] ?? ['can_check_in' => false, 'reason' => null])
-                    <article class="portal-route-card">
-                        <div class="flex flex-wrap items-start justify-between gap-3">
-                            <div>
-                                <p class="text-lg font-semibold text-slate-800">{{ $detail->passenger?->full_name }}</p>
-                                <p class="text-sm text-slate-600">Seat {{ $detail->seat?->seat_number }} • {{ ucfirst($detail->seat?->class ?? '-') }}</p>
-                                <p class="text-sm text-slate-600">Ticket {{ $detail->ticket_number ?: '-' }}</p>
-                                <p class="mt-1 text-sm text-slate-500">
-                                    Status:
-                                    @include('admin.partials.status-badge', ['status' => $detail->boarding_status])
+                    <article class="journey-manifest-card">
+                        <div class="flex flex-wrap items-start justify-between gap-4">
+                            <div class="min-w-0">
+                                <p class="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">Passenger Manifest</p>
+                                <h2 class="mt-2 text-2xl font-bold text-slate-900">{{ $detail->passenger?->full_name }}</h2>
+                                <p class="mt-2 text-sm text-slate-600">
+                                    Seat {{ $detail->seat?->seat_number }} | {{ ucfirst($detail->seat?->class ?? '-') }} | Ticket {{ $detail->ticket_number ?: '-' }}
                                 </p>
-                                @if ($detail->checked_in_at)
-                                    <p class="mt-1 text-xs text-slate-500">Checked in at {{ $detail->checked_in_at->format('d M Y H:i') }}</p>
-                                @endif
                             </div>
-
                             <div class="flex flex-wrap items-center gap-2">
                                 @if ($availability['can_check_in'])
                                     <form method="POST" action="{{ route('my-bookings.checkin.store', [$booking, $detail]) }}">
@@ -73,13 +74,38 @@
                             </div>
                         </div>
 
+                        <div class="journey-stat-grid mt-5 sm:grid-cols-2 xl:grid-cols-4">
+                            <div class="journey-stat">
+                                <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Boarding Status</p>
+                                <div class="mt-2">@include('admin.partials.status-badge', ['status' => $detail->boarding_status])</div>
+                            </div>
+                            <div class="journey-stat">
+                                <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Check-In Reference</p>
+                                <p class="mt-2 font-semibold text-slate-900">{{ $detail->checkin_reference ?: '-' }}</p>
+                            </div>
+                            <div class="journey-stat">
+                                <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Boarding Group</p>
+                                <p class="mt-2 font-semibold text-slate-900">{{ $detail->boarding_group ?: '-' }}</p>
+                            </div>
+                            <div class="journey-stat">
+                                <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Gate</p>
+                                <p class="mt-2 font-semibold text-slate-900">{{ $detail->gate_number ?: '-' }}</p>
+                            </div>
+                        </div>
+
+                        @if ($detail->checked_in_at)
+                            <p class="mt-4 text-xs text-slate-500">Checked in at {{ $detail->checked_in_at->format('d M Y H:i') }}</p>
+                        @endif
+
                         @if (! $availability['can_check_in'] && $detail->boarding_status === 'not_checked_in' && $availability['reason'])
-                            <p class="mt-3 text-sm text-amber-700">{{ $availability['reason'] }}</p>
+                            <p class="mt-4 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-700">
+                                {{ $availability['reason'] }}
+                            </p>
                         @endif
 
                         @if (in_array($detail->boarding_status, ['checked_in', 'boarded'], true))
-                            <div class="mt-4 grid gap-4 lg:grid-cols-[220px_1fr]">
-                                <div class="rounded-xl border border-dashed border-orange-200 bg-white p-3 text-center">
+                            <div class="mt-5 grid gap-4 lg:grid-cols-[220px_1fr]">
+                                <div class="portal-surface-muted text-center">
                                     <img
                                         src="{{ route('my-bookings.checkin.qr', [$booking, $detail]) }}"
                                         alt="Boarding QR {{ $detail->passenger?->full_name }}"
@@ -88,29 +114,52 @@
                                 </div>
                                 <div class="grid gap-3 sm:grid-cols-2">
                                     <div class="portal-card-soft">
-                                        <p class="text-xs text-slate-500">Check-In Reference</p>
-                                        <p class="font-semibold text-slate-800">{{ $detail->checkin_reference ?: '-' }}</p>
-                                    </div>
-                                    <div class="portal-card-soft">
-                                        <p class="text-xs text-slate-500">Boarding Group</p>
-                                        <p class="font-semibold text-slate-800">{{ $detail->boarding_group ?: '-' }}</p>
-                                    </div>
-                                    <div class="portal-card-soft">
-                                        <p class="text-xs text-slate-500">Gate</p>
-                                        <p class="font-semibold text-slate-800">{{ $detail->gate_number ?: '-' }}</p>
+                                        <p class="text-xs text-slate-500">Flight</p>
+                                        <p class="font-semibold text-slate-800">{{ $booking->flight->flight_number }}</p>
                                     </div>
                                     <div class="portal-card-soft">
                                         <p class="text-xs text-slate-500">Boarding Time</p>
                                         <p class="font-semibold text-slate-800">{{ $booking->flight->departure_time->format('d M Y H:i') }}</p>
+                                    </div>
+                                    <div class="portal-card-soft">
+                                        <p class="text-xs text-slate-500">Route</p>
+                                        <p class="font-semibold text-slate-800">{{ $booking->flight->departureAirport->code }} -> {{ $booking->flight->arrivalAirport->code }}</p>
+                                    </div>
+                                    <div class="portal-card-soft">
+                                        <p class="text-xs text-slate-500">Airline</p>
+                                        <p class="font-semibold text-slate-800">{{ $booking->flight->airline->name }}</p>
                                     </div>
                                 </div>
                             </div>
                         @endif
                     </article>
                 @empty
-                    <p class="portal-card-soft text-slate-500">Tidak ada detail passenger pada booking ini.</p>
+                    <article class="journey-rail-card text-slate-500">
+                        Tidak ada detail passenger pada booking ini.
+                    </article>
                 @endforelse
             </div>
-        </article>
+
+            <aside class="journey-rail">
+                <article class="journey-rail-card journey-rail-card-dark">
+                    <p class="portal-kicker">Desk Rules</p>
+                    <h2 class="mt-2 text-2xl font-bold">Check-in Flow</h2>
+                    <div class="mt-4 space-y-3">
+                        <div class="portal-card-soft">
+                            <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Step 1</p>
+                            <p class="mt-1 font-semibold text-slate-800">Pastikan booking sudah confirmed.</p>
+                        </div>
+                        <div class="portal-card-soft">
+                            <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Step 2</p>
+                            <p class="mt-1 font-semibold text-slate-800">Lakukan check-in satu passenger per satu passenger.</p>
+                        </div>
+                        <div class="portal-card-soft">
+                            <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Step 3</p>
+                            <p class="mt-1 font-semibold text-slate-800">Unduh boarding pass atau buka QR setelah status berubah.</p>
+                        </div>
+                    </div>
+                </article>
+            </aside>
+        </div>
     </section>
 @endsection

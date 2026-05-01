@@ -5,7 +5,7 @@
 
 @section('content')
     <section class="space-y-6">
-        <article class="admin-hero-card">
+        <article class="admin-ops-detail-hero">
             <div class="admin-section-head">
                 <div class="max-w-3xl">
                     <p class="admin-section-kicker">Passenger Profile</p>
@@ -14,19 +14,19 @@
                 </div>
             </div>
 
-            <div class="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                <div class="admin-info-card"><p class="admin-info-label">Full Name</p><p class="admin-info-value">{{ $passenger->full_name }}</p></div>
-                <div class="admin-info-card"><p class="admin-info-label">Gender</p><p class="admin-info-value">{{ ucfirst($passenger->gender) }}</p></div>
-                <div class="admin-info-card"><p class="admin-info-label">Birth Date</p><p class="admin-info-value">{{ $passenger->birth_date?->format('d M Y') }}</p></div>
-                <div class="admin-info-card"><p class="admin-info-label">User Owner</p><p class="admin-info-value">{{ $passenger->user?->name }}</p></div>
-                <div class="admin-info-card"><p class="admin-info-label">Identity Number</p><p class="admin-info-value">{{ $passenger->identity_number ?: '-' }}</p></div>
-                <div class="admin-info-card"><p class="admin-info-label">Passport Number</p><p class="admin-info-value">{{ $passenger->passport_number ?: '-' }}</p></div>
-                <div class="admin-info-card"><p class="admin-info-label">Nationality</p><p class="admin-info-value">{{ $passenger->nationality ?: '-' }}</p></div>
-                <div class="admin-info-card"><p class="admin-info-label">Created At</p><p class="admin-info-value">{{ $passenger->created_at?->format('d M Y H:i') }}</p></div>
+            <div class="admin-ops-inline-grid">
+                <div class="admin-ops-info-card"><p class="admin-info-label">Full Name</p><p class="admin-info-value">{{ $passenger->full_name }}</p></div>
+                <div class="admin-ops-info-card"><p class="admin-info-label">Gender</p><p class="admin-info-value">{{ ucfirst($passenger->gender) }}</p></div>
+                <div class="admin-ops-info-card"><p class="admin-info-label">Birth Date</p><p class="admin-info-value">{{ $passenger->birth_date?->format('d M Y') }}</p></div>
+                <div class="admin-ops-info-card"><p class="admin-info-label">User Owner</p><p class="admin-info-value">{{ $passenger->user?->name }}</p></div>
+                <div class="admin-ops-info-card"><p class="admin-info-label">Identity Number</p><p class="admin-info-value">{{ $passenger->identity_number ?: '-' }}</p></div>
+                <div class="admin-ops-info-card"><p class="admin-info-label">Passport Number</p><p class="admin-info-value">{{ $passenger->passport_number ?: '-' }}</p></div>
+                <div class="admin-ops-info-card"><p class="admin-info-label">Nationality</p><p class="admin-info-value">{{ $passenger->nationality ?: '-' }}</p></div>
+                <div class="admin-ops-info-card"><p class="admin-info-label">Created At</p><p class="admin-info-value">{{ $passenger->created_at?->format('d M Y H:i') }}</p></div>
             </div>
         </article>
 
-        <article class="admin-card">
+        <article class="admin-ops-table-card">
             <div class="admin-section-head">
                 <div>
                     <p class="admin-section-kicker">Travel History</p>

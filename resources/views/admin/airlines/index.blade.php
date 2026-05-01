@@ -6,7 +6,7 @@
 @section('content')
     <section class="space-y-5">
         <div class="grid gap-5 xl:grid-cols-[320px_1fr]">
-            <form method="GET" class="admin-card space-y-5">
+            <form method="GET" class="admin-ops-filter space-y-5">
                 <div>
                     <p class="admin-section-kicker">Airline Directory</p>
                     <h2 class="admin-section-title">Filter data maskapai</h2>
@@ -29,7 +29,7 @@
             </form>
 
             <div class="space-y-5">
-                <article class="admin-hero-card">
+                <article class="admin-ops-hero">
                     <div class="admin-section-head">
                         <div>
                             <p class="admin-section-kicker">Airline Ledger</p>
@@ -39,26 +39,26 @@
                         <span class="admin-chip">{{ $airlines->total() }} airline</span>
                     </div>
 
-                    <div class="mt-5 grid gap-4 md:grid-cols-3">
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Visible airlines</p>
-                            <p class="admin-metric-value">{{ $airlines->count() }}</p>
+                    <div class="admin-ops-summary-grid">
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Visible airlines</p>
+                            <p class="value">{{ $airlines->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Maskapai pada halaman aktif.</p>
                         </article>
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Airplanes</p>
-                            <p class="admin-metric-value text-[#0f3f78]">{{ $airlines->sum('airplanes_count') }}</p>
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Airplanes</p>
+                            <p class="value text-[#0f3f78]">{{ $airlines->sum('airplanes_count') }}</p>
                             <p class="mt-2 text-sm text-slate-500">Total armada yang tampil pada halaman ini.</p>
                         </article>
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Flights</p>
-                            <p class="admin-metric-value text-emerald-700">{{ $airlines->sum('flights_count') }}</p>
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Flights</p>
+                            <p class="value text-emerald-700">{{ $airlines->sum('flights_count') }}</p>
                             <p class="mt-2 text-sm text-slate-500">Total jadwal terkait pada halaman ini.</p>
                         </article>
                     </div>
                 </article>
 
-                <article class="admin-card">
+                <article class="admin-ops-table-card">
                     <div class="admin-table-wrap">
                         <table class="admin-table">
                             <thead>

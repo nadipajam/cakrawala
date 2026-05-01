@@ -5,7 +5,7 @@
 
 @section('content')
     <section class="space-y-6">
-        <article class="admin-card">
+        <article class="admin-ops-detail-hero">
             <div class="admin-section-head">
                 <div>
                     <p class="admin-section-kicker">Support Request</p>
@@ -18,20 +18,20 @@
                 </div>
             </div>
 
-            <div class="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                <article class="admin-info-card">
+            <div class="admin-ops-inline-grid">
+                <article class="admin-ops-info-card">
                     <p class="admin-info-label">Name</p>
                     <p class="admin-info-value">{{ $contactMessage->name }}</p>
                 </article>
-                <article class="admin-info-card">
+                <article class="admin-ops-info-card">
                     <p class="admin-info-label">Email</p>
                     <p class="admin-info-value break-all">{{ $contactMessage->email }}</p>
                 </article>
-                <article class="admin-info-card">
+                <article class="admin-ops-info-card">
                     <p class="admin-info-label">Phone</p>
                     <p class="admin-info-value">{{ $contactMessage->phone ?: '-' }}</p>
                 </article>
-                <article class="admin-info-card">
+                <article class="admin-ops-info-card">
                     <p class="admin-info-label">Customer Link</p>
                     <p class="admin-info-value">{{ $contactMessage->user?->name ?: 'Guest / public form' }}</p>
                 </article>
@@ -43,7 +43,7 @@
             </div>
         </article>
 
-        <article class="admin-card">
+        <article class="admin-ops-table-card">
             <div class="admin-section-head">
                 <div>
                     <p class="admin-section-kicker">Case Handling</p>

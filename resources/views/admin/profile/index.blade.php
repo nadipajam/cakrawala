@@ -4,8 +4,20 @@
 @section('page-title', 'Profile')
 
 @section('content')
-    <section class="grid gap-6 xl:grid-cols-2">
-        <article class="admin-card">
+    <section class="space-y-6">
+        <article class="admin-ops-hero">
+            <div class="admin-section-head">
+                <div>
+                    <p class="admin-section-kicker">Admin profile</p>
+                    <h2 class="admin-section-title">Kelola identitas backoffice dan keamanan akses dari satu halaman.</h2>
+                    <p class="admin-section-copy">Bagian ini menutup area admin dengan workspace yang fokus ke akun operator, bukan data transaksi.</p>
+                </div>
+                <span class="admin-chip">{{ $admin->roleLabel() }}</span>
+            </div>
+        </article>
+
+        <div class="grid gap-6 xl:grid-cols-2">
+        <article class="admin-form-card">
             <h2 class="font-heading text-xl font-bold text-[#0f3f78]">Update Profile</h2>
             <form method="POST" action="{{ route('admin.profile.update') }}" class="mt-4 grid gap-4">
                 @csrf
@@ -26,7 +38,7 @@
             </form>
         </article>
 
-        <article class="admin-card">
+        <article class="admin-form-card">
             <h2 class="font-heading text-xl font-bold text-[#0f3f78]">Change Password</h2>
             <form method="POST" action="{{ route('admin.profile.password') }}" class="mt-4 grid gap-4">
                 @csrf
@@ -46,5 +58,6 @@
                 <button class="admin-btn-primary" type="submit">Update Password</button>
             </form>
         </article>
+        </div>
     </section>
 @endsection

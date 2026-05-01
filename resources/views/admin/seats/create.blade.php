@@ -4,7 +4,8 @@
 @section('page-title', 'Create Seat')
 
 @section('content')
-    <section class="admin-card max-w-3xl">
+    <section class="admin-form-shell">
+        <article class="admin-form-card max-w-3xl">
         <form method="POST" action="{{ route('admin.seats.store') }}" class="grid gap-4">
             @csrf
             <div class="grid gap-4 sm:grid-cols-3">
@@ -36,5 +37,6 @@
                 <a href="{{ route('admin.seats.index') }}" class="admin-btn-secondary">Cancel</a>
             </div>
         </form>
+        </article>
     </section>
 @endsection

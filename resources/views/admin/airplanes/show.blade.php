@@ -5,7 +5,7 @@
 
 @section('content')
     <section class="space-y-6">
-        <article class="admin-hero-card">
+        <article class="admin-ops-detail-hero">
             <div class="admin-section-head">
                 <div class="max-w-3xl">
                     <p class="admin-section-kicker">Airplane Overview</p>
@@ -15,22 +15,22 @@
                 <span class="admin-chip">{{ $airplane->registration_number }}</span>
             </div>
 
-            <div class="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                <div class="admin-info-card"><p class="admin-info-label">Airline</p><p class="admin-info-value">{{ $airplane->airline?->name }}</p></div>
-                <div class="admin-info-card"><p class="admin-info-label">Model</p><p class="admin-info-value">{{ $airplane->model }}</p></div>
-                <div class="admin-info-card"><p class="admin-info-label">Registration</p><p class="admin-info-value">{{ $airplane->registration_number }}</p></div>
-                <div class="admin-info-card"><p class="admin-info-label">Capacity</p><p class="admin-info-value">{{ $airplane->capacity }}</p></div>
+            <div class="admin-ops-inline-grid">
+                <div class="admin-ops-info-card"><p class="admin-info-label">Airline</p><p class="admin-info-value">{{ $airplane->airline?->name }}</p></div>
+                <div class="admin-ops-info-card"><p class="admin-info-label">Model</p><p class="admin-info-value">{{ $airplane->model }}</p></div>
+                <div class="admin-ops-info-card"><p class="admin-info-label">Registration</p><p class="admin-info-value">{{ $airplane->registration_number }}</p></div>
+                <div class="admin-ops-info-card"><p class="admin-info-label">Capacity</p><p class="admin-info-value">{{ $airplane->capacity }}</p></div>
             </div>
 
             @if ($airplane->description)
-                <div class="admin-list-card mt-4">
+                <div class="admin-ops-sidecard mt-4">
                     <p class="admin-section-kicker">Description</p>
                     <p class="mt-3 text-sm leading-6 text-slate-600">{{ $airplane->description }}</p>
                 </div>
             @endif
 
             <div class="mt-5 grid gap-4 lg:grid-cols-[1fr_280px]">
-                <form method="POST" action="{{ route('admin.airplanes.generate-seats', $airplane) }}" class="admin-list-card grid gap-4">
+                <form method="POST" action="{{ route('admin.airplanes.generate-seats', $airplane) }}" class="admin-ops-sidecard grid gap-4">
                     @csrf
                     <div>
                         <h2 class="font-heading text-xl font-bold text-slate-800">Generate cabin layout</h2>
@@ -57,7 +57,7 @@
 
                 <div class="grid gap-3">
                     @foreach ($cabinSummary as $summary)
-                        <div class="admin-list-card">
+                        <div class="admin-ops-sidecard">
                             <p class="admin-info-label">{{ $summary['label'] }}</p>
                             <p class="mt-2 text-lg font-semibold text-slate-800">{{ $summary['seat_count'] }} seats</p>
                             <p class="text-sm text-slate-500">{{ $summary['row_count'] }} rows</p>
@@ -68,7 +68,7 @@
         </article>
 
         <div class="grid gap-6 xl:grid-cols-2">
-            <article class="admin-card">
+            <article class="admin-ops-table-card">
                 <div class="admin-section-head">
                     <div>
                         <p class="admin-section-kicker">Cabin Layout</p>
@@ -95,7 +95,7 @@
                 </div>
             </article>
 
-            <article class="admin-card">
+            <article class="admin-ops-table-card">
                 <div class="admin-section-head">
                     <div>
                         <p class="admin-section-kicker">Flight Usage</p>

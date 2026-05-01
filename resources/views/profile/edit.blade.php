@@ -5,21 +5,30 @@
 
 @section('content')
     <section class="space-y-6">
-        <article class="portal-card">
-            <div class="portal-section-head">
+        <article class="support-hero-panel">
+            <div class="grid gap-6 xl:grid-cols-[1.15fr_.85fr]">
                 <div>
-                    <p class="portal-kicker">Identity center</p>
-                    <h1 class="portal-section-title">Profile & Security</h1>
-                    <p class="portal-section-copy">Kelola identitas akun, email, nomor kontak, dan keamanan login dari satu area yang lebih rapi.</p>
+                    <p class="booking-shell-kicker">Account studio</p>
+                    <h1 class="booking-shell-title">Kelola identitas akun, kontak, dan keamanan dari satu studio yang lebih rapi.</h1>
+                    <p class="booking-shell-copy">Profile, password, dan aksi penghapusan akun sekarang dipisahkan lebih jelas agar perubahan data tidak bercampur dengan kontrol keamanan.</p>
                 </div>
-                <span class="portal-inline-note">{{ $user->roleLabel() }}</span>
+                <div class="support-summary-grid">
+                    <div class="support-summary-card">
+                        <span>Role</span>
+                        <strong>{{ $user->roleLabel() }}</strong>
+                    </div>
+                    <div class="support-summary-card">
+                        <span>Primary email</span>
+                        <strong class="text-base sm:text-lg">{{ $user->email }}</strong>
+                    </div>
+                </div>
             </div>
         </article>
 
         <div class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_380px]">
             <article class="portal-card">
                 <p class="portal-kicker">Profile editor</p>
-                <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Update Profile</h2>
+                <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Update profile</h2>
                 <form method="POST" action="{{ route('profile.update') }}" class="mt-5 space-y-4">
                     @csrf
                     @method('PATCH')
@@ -50,21 +59,23 @@
                 </form>
             </article>
 
-            <aside class="portal-side-panel">
-                <p class="portal-kicker">Account snapshot</p>
-                <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Account Snapshot</h2>
-                <div class="mt-5 space-y-3">
-                    <div class="portal-card-soft">
-                        <p class="text-sm text-slate-500">Name</p>
-                        <p class="font-semibold text-slate-800">{{ $user->name }}</p>
-                    </div>
-                    <div class="portal-card-soft">
-                        <p class="text-sm text-slate-500">Email</p>
-                        <p class="font-semibold text-slate-800">{{ $user->email }}</p>
-                    </div>
-                    <div class="portal-card-soft">
-                        <p class="text-sm text-slate-500">Phone</p>
-                        <p class="font-semibold text-slate-800">{{ $user->phone ?: '-' }}</p>
+            <aside class="support-rail">
+                <div class="support-rail-card">
+                    <p class="portal-kicker">Account snapshot</p>
+                    <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Current data</h2>
+                    <div class="mt-5 space-y-3">
+                        <div class="portal-card-soft">
+                            <p class="text-sm text-slate-500">Name</p>
+                            <p class="font-semibold text-slate-800">{{ $user->name }}</p>
+                        </div>
+                        <div class="portal-card-soft">
+                            <p class="text-sm text-slate-500">Email</p>
+                            <p class="font-semibold text-slate-800">{{ $user->email }}</p>
+                        </div>
+                        <div class="portal-card-soft">
+                            <p class="text-sm text-slate-500">Phone</p>
+                            <p class="font-semibold text-slate-800">{{ $user->phone ?: '-' }}</p>
+                        </div>
                     </div>
                 </div>
             </aside>
@@ -73,7 +84,7 @@
         <div class="grid gap-6 xl:grid-cols-2">
             <article class="portal-card">
                 <p class="portal-kicker">Security controls</p>
-                <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Change Password</h2>
+                <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Change password</h2>
                 <form method="POST" action="{{ route('password.update') }}" class="mt-5 space-y-4">
                     @csrf
                     @method('PUT')
@@ -103,7 +114,7 @@
 
             <article class="portal-card">
                 <p class="portal-kicker">Account removal</p>
-                <h2 class="mt-2 font-heading text-3xl font-bold text-red-700">Delete Account</h2>
+                <h2 class="mt-2 font-heading text-3xl font-bold text-red-700">Delete account</h2>
                 <p class="mt-2 max-w-2xl text-sm leading-7 text-slate-600">Tindakan ini permanen. Semua akses akun akan hilang dan Anda harus memasukkan password untuk konfirmasi terakhir.</p>
                 <form method="POST" action="{{ route('profile.destroy') }}" class="mt-6 space-y-4">
                     @csrf

@@ -9,7 +9,7 @@
     @php($flight = $booking?->flight)
 
     <section class="space-y-6">
-        <article class="admin-hero-card">
+        <article class="admin-ops-detail-hero">
             <div class="admin-section-head">
                 <div class="max-w-3xl">
                     <p class="admin-section-kicker">Ticket Review</p>
@@ -22,19 +22,19 @@
             </div>
 
             <div class="mt-5 grid gap-4 xl:grid-cols-[1.35fr_.95fr]">
-                <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                    <div class="admin-info-card"><p class="admin-info-label">Ticket Number</p><p class="admin-info-value">{{ $detail?->ticket_number ?: '-' }}</p></div>
-                    <div class="admin-info-card"><p class="admin-info-label">Booking Code</p><p class="admin-info-value">{{ $booking?->booking_code ?: '-' }}</p></div>
-                    <div class="admin-info-card"><p class="admin-info-label">Passenger</p><p class="admin-info-value">{{ $detail?->passenger?->full_name ?: '-' }}</p></div>
-                    <div class="admin-info-card"><p class="admin-info-label">Seat</p><p class="admin-info-value">{{ $detail?->seat?->seat_number ?: '-' }}</p></div>
-                    <div class="admin-info-card"><p class="admin-info-label">Flight</p><p class="admin-info-value">{{ $flight?->flight_number ?: '-' }}</p></div>
-                    <div class="admin-info-card"><p class="admin-info-label">Route</p><p class="admin-info-value">{{ $flight?->departureAirport?->code ?: '-' }} - {{ $flight?->arrivalAirport?->code ?: '-' }}</p></div>
-                    <div class="admin-info-card"><p class="admin-info-label">Issued At</p><p class="admin-info-value">{{ $ticket->issued_at?->format('d M Y H:i') ?: '-' }}</p></div>
-                    <div class="admin-info-card"><p class="admin-info-label">Booking Status</p><div class="mt-2">@include('admin.partials.status-badge', ['status' => $booking?->status])</div></div>
+                <div class="admin-ops-inline-grid">
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Ticket Number</p><p class="admin-info-value">{{ $detail?->ticket_number ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Booking Code</p><p class="admin-info-value">{{ $booking?->booking_code ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Passenger</p><p class="admin-info-value">{{ $detail?->passenger?->full_name ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Seat</p><p class="admin-info-value">{{ $detail?->seat?->seat_number ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Flight</p><p class="admin-info-value">{{ $flight?->flight_number ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Route</p><p class="admin-info-value">{{ $flight?->departureAirport?->code ?: '-' }} - {{ $flight?->arrivalAirport?->code ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Issued At</p><p class="admin-info-value">{{ $ticket->issued_at?->format('d M Y H:i') ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Booking Status</p><div class="mt-2">@include('admin.partials.status-badge', ['status' => $booking?->status])</div></div>
                 </div>
 
                 <aside class="space-y-4">
-                    <div class="admin-list-card space-y-3">
+                    <div class="admin-ops-sidecard space-y-3">
                         <p class="admin-section-kicker">Ticket Actions</p>
                         <h3 class="font-heading text-lg font-bold text-slate-800">Output dan reissue</h3>
                         @if (auth()->user()->isAdmin() || auth()->user()->isStaff())
@@ -53,7 +53,7 @@
                         @endif
                     </div>
 
-                    <div class="admin-surface-muted">
+                    <div class="admin-ops-sidecard">
                         <p class="admin-section-kicker">Related Booking</p>
                         @if ($booking)
                             <p class="mt-2 font-semibold text-slate-800">{{ $booking->user?->name }} ({{ $booking->user?->email }})</p>

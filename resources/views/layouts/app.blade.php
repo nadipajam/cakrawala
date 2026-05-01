@@ -9,7 +9,7 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="portal-shell font-sans antialiased text-slate-700">
+    <body class="customer-shell font-sans antialiased text-slate-700">
         <div class="app-shell">
             @include('layouts.navigation')
 

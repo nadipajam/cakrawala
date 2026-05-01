@@ -4,7 +4,8 @@
 @section('page-title', 'Create Airplane')
 
 @section('content')
-    <section class="admin-card max-w-4xl">
+    <section class="admin-form-shell">
+        <article class="admin-form-card max-w-4xl">
         <form method="POST" action="{{ route('admin.airplanes.store') }}" enctype="multipart/form-data" class="grid gap-4">
             @csrf
             <div class="grid gap-4 md:grid-cols-2">
@@ -43,5 +44,6 @@
                 <a href="{{ route('admin.airplanes.index') }}" class="admin-btn-secondary">Cancel</a>
             </div>
         </form>
+        </article>
     </section>
 @endsection

@@ -5,7 +5,7 @@
 
 @section('content')
     <section class="space-y-6">
-        <article class="admin-hero-card">
+        <article class="admin-ops-detail-hero">
             <div class="admin-section-head">
                 <div class="max-w-3xl">
                     <p class="admin-section-kicker">Airport Overview</p>
@@ -15,16 +15,16 @@
                 <span class="admin-chip">{{ $airport->code }}</span>
             </div>
 
-            <div class="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                <div class="admin-info-card"><p class="admin-info-label">Code</p><p class="admin-info-value">{{ $airport->code }}</p></div>
-                <div class="admin-info-card"><p class="admin-info-label">Name</p><p class="admin-info-value">{{ $airport->name }}</p></div>
-                <div class="admin-info-card"><p class="admin-info-label">City</p><p class="admin-info-value">{{ $airport->city }}</p></div>
-                <div class="admin-info-card"><p class="admin-info-label">Country</p><p class="admin-info-value">{{ $airport->country }}</p></div>
+            <div class="admin-ops-inline-grid">
+                <div class="admin-ops-info-card"><p class="admin-info-label">Code</p><p class="admin-info-value">{{ $airport->code }}</p></div>
+                <div class="admin-ops-info-card"><p class="admin-info-label">Name</p><p class="admin-info-value">{{ $airport->name }}</p></div>
+                <div class="admin-ops-info-card"><p class="admin-info-label">City</p><p class="admin-info-value">{{ $airport->city }}</p></div>
+                <div class="admin-ops-info-card"><p class="admin-info-label">Country</p><p class="admin-info-value">{{ $airport->country }}</p></div>
             </div>
         </article>
 
         <div class="grid gap-6 md:grid-cols-2">
-            <article class="admin-card">
+            <article class="admin-ops-table-card">
                 <div class="admin-section-head">
                     <div>
                         <p class="admin-section-kicker">Departure Flow</p>
@@ -44,7 +44,7 @@
                 </div>
             </article>
 
-            <article class="admin-card">
+            <article class="admin-ops-table-card">
                 <div class="admin-section-head">
                     <div>
                         <p class="admin-section-kicker">Arrival Flow</p>

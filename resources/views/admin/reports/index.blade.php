@@ -7,7 +7,7 @@
     @php($activeFilterCount = collect($filters)->filter(fn ($value) => $value !== null && $value !== '' && $value !== 0)->count())
     <section class="space-y-6">
         <div class="grid gap-6 xl:grid-cols-[340px_1fr]">
-            <form method="GET" class="admin-card space-y-5">
+            <form method="GET" class="admin-ops-filter space-y-5">
                 <div>
                     <p class="admin-section-kicker">Report Builder</p>
                     <h2 class="admin-section-title">Bangun laporan operasional</h2>
@@ -68,7 +68,7 @@
             </form>
 
             <div class="space-y-6">
-                <article class="admin-hero-card">
+                <article class="admin-ops-hero">
                     <div class="admin-section-head">
                         <div>
                             <p class="admin-section-kicker">Report Canvas</p>
@@ -78,37 +78,37 @@
                         <span class="admin-chip">{{ $activeFilterCount > 0 ? $activeFilterCount.' filter aktif' : 'Semua data' }}</span>
                     </div>
 
-                    <div class="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Total Booking</p>
-                            <p class="admin-metric-value">{{ $summary['total_bookings'] }}</p>
+                    <div class="admin-ops-summary-grid xl:grid-cols-5">
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Total Booking</p>
+                            <p class="value">{{ $summary['total_bookings'] }}</p>
                             <p class="mt-2 text-sm text-slate-500">Transaksi booking sesuai filter laporan.</p>
                         </article>
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Payment Paid</p>
-                            <p class="admin-metric-value text-emerald-700">{{ $summary['total_paid_payments'] }}</p>
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Payment Paid</p>
+                            <p class="value text-emerald-700">{{ $summary['total_paid_payments'] }}</p>
                             <p class="mt-2 text-sm text-slate-500">Pembayaran berhasil tervalidasi.</p>
                         </article>
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Cancelled Booking</p>
-                            <p class="admin-metric-value text-red-600">{{ $summary['total_cancelled_bookings'] }}</p>
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Cancelled Booking</p>
+                            <p class="value text-red-600">{{ $summary['total_cancelled_bookings'] }}</p>
                             <p class="mt-2 text-sm text-slate-500">Booking yang dibatalkan di periode ini.</p>
                         </article>
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Flight Aktif</p>
-                            <p class="admin-metric-value">{{ $summary['total_active_flights'] }}</p>
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Flight Aktif</p>
+                            <p class="value">{{ $summary['total_active_flights'] }}</p>
                             <p class="mt-2 text-sm text-slate-500">Status flight scheduled atau delayed.</p>
                         </article>
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Pendapatan</p>
-                            <p class="admin-metric-value text-emerald-700">Rp{{ number_format((float) $summary['revenue_total'], 0, ',', '.') }}</p>
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Pendapatan</p>
+                            <p class="value text-emerald-700">Rp{{ number_format((float) $summary['revenue_total'], 0, ',', '.') }}</p>
                             <p class="mt-2 text-sm text-slate-500">Akumulasi nominal payment berstatus paid.</p>
                         </article>
                     </div>
                 </article>
 
                 <div class="grid gap-6 xl:grid-cols-3">
-                    <article class="admin-card xl:col-span-2">
+                    <article class="admin-ops-table-card xl:col-span-2">
                         <div class="admin-section-head">
                             <div>
                                 <p class="admin-section-kicker">Traffic Insight</p>
@@ -140,7 +140,7 @@
                         </div>
                     </article>
 
-                    <article class="admin-card">
+                    <article class="admin-ops-table-card">
                         <div class="admin-section-head">
                             <div>
                                 <p class="admin-section-kicker">Booking Mix</p>
@@ -166,7 +166,7 @@
                 </div>
 
                 <div class="grid gap-6 lg:grid-cols-2">
-                    <article class="admin-card">
+                    <article class="admin-ops-table-card">
                         <div class="admin-section-head">
                             <div>
                                 <p class="admin-section-kicker">Revenue Trend</p>
@@ -188,7 +188,7 @@
                         </div>
                     </article>
 
-                    <article class="admin-card">
+                    <article class="admin-ops-table-card">
                         <div class="admin-section-head">
                             <div>
                                 <p class="admin-section-kicker">Payment Preference</p>

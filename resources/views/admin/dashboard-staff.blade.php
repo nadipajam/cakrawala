@@ -5,14 +5,14 @@
 
 @section('content')
     <section class="space-y-6">
-        <article class="admin-hero-card">
+        <article class="admin-hero-card admin-hero-card-ops">
             <div class="grid gap-6 xl:grid-cols-[1.35fr_1fr]">
                 <div class="space-y-5">
                     <div class="admin-section-head">
                         <div class="max-w-2xl">
-                            <p class="admin-section-kicker">Operations Desk</p>
-                            <h2 class="admin-section-title">Panel kerja staff untuk antrean harian</h2>
-                            <p class="admin-section-copy">Fokus halaman ini ada pada keberangkatan terdekat, verifikasi pembayaran, dan pesan support yang perlu ditindaklanjuti cepat.</p>
+                            <p class="admin-section-kicker">Operations desk</p>
+                            <h2 class="admin-section-title">Ruang kerja staff dibuat seperti antrean tindakan, bukan ringkasan eksekutif.</h2>
+                            <p class="admin-section-copy">Arah visual dashboard staff lebih padat dan langsung ke tugas: pembayaran pending, departure dekat, dan pesan support yang perlu diproses tanpa banyak distraksi.</p>
                         </div>
                         <div class="flex flex-wrap items-center gap-2">
                             <a href="{{ route('admin.payments.index') }}" class="admin-btn-primary">Open Payments</a>
@@ -45,40 +45,26 @@
                 </div>
 
                 <div class="space-y-4">
-                    <article class="admin-list-card">
-                        <div class="admin-section-head">
-                            <div>
-                                <p class="admin-section-kicker">Action Focus</p>
-                                <h3 class="admin-section-title text-lg">Prioritas shift ini</h3>
-                            </div>
-                        </div>
+                    <article class="admin-shift-board">
+                        <p class="admin-section-kicker">Shift board</p>
                         <div class="mt-4 space-y-3">
-                            <div class="admin-list-row">
-                                <div>
-                                    <p class="text-sm font-semibold text-slate-700">Pembayaran pending</p>
-                                    <p class="text-sm text-slate-500">Selesaikan verifikasi untuk mempercepat ticketing.</p>
-                                </div>
-                                <p class="text-lg font-bold text-amber-600">{{ $stats['payment_pending'] }}</p>
+                            <div class="admin-shift-item">
+                                <span>Pembayaran pending</span>
+                                <strong>{{ $stats['payment_pending'] }}</strong>
                             </div>
-                            <div class="admin-list-row">
-                                <div>
-                                    <p class="text-sm font-semibold text-slate-700">Inbox terbuka</p>
-                                    <p class="text-sm text-slate-500">Pastikan assignment PIC tetap seimbang.</p>
-                                </div>
-                                <p class="text-lg font-bold text-[#0f3f78]">{{ $stats['open_contact_messages'] }}</p>
+                            <div class="admin-shift-item">
+                                <span>Inbox terbuka</span>
+                                <strong>{{ $stats['open_contact_messages'] }}</strong>
                             </div>
-                            <div class="admin-list-row">
-                                <div>
-                                    <p class="text-sm font-semibold text-slate-700">Open bookings</p>
-                                    <p class="text-sm text-slate-500">Booking pending perlu dipantau sebelum expired.</p>
-                                </div>
-                                <p class="text-lg font-bold text-slate-800">{{ $stats['booking_pending'] }}</p>
+                            <div class="admin-shift-item">
+                                <span>Open bookings</span>
+                                <strong>{{ $stats['booking_pending'] }}</strong>
                             </div>
                         </div>
                     </article>
 
                     <article class="admin-surface-muted">
-                        <p class="admin-section-kicker">Flight Desk</p>
+                        <p class="admin-section-kicker">Flight desk</p>
                         <h3 class="mt-2 font-heading text-lg font-bold text-slate-800">Kesiapan operasional</h3>
                         <p class="mt-2 text-sm leading-6 text-slate-600">Gunakan daftar departure di bawah untuk melihat jalur yang harus diprioritaskan saat ada perubahan jadwal, check-in, atau permintaan pelanggan.</p>
                     </article>
@@ -90,7 +76,7 @@
             <article class="admin-card">
                 <div class="admin-section-head">
                     <div>
-                        <p class="admin-section-kicker">Departure Watch</p>
+                        <p class="admin-section-kicker">Departure watch</p>
                         <h2 class="admin-section-title">Upcoming departures</h2>
                     </div>
                     <a href="{{ route('admin.flights.index') }}" class="admin-btn-secondary">View Flights</a>
@@ -124,7 +110,7 @@
             <article class="admin-card">
                 <div class="admin-section-head">
                     <div>
-                        <p class="admin-section-kicker">Payment Queue</p>
+                        <p class="admin-section-kicker">Payment queue</p>
                         <h2 class="admin-section-title">Pending payments</h2>
                     </div>
                     <a href="{{ route('admin.payments.index') }}" class="admin-btn-secondary">Open Payments</a>
@@ -159,7 +145,7 @@
         <article class="admin-card">
             <div class="admin-section-head">
                 <div>
-                    <p class="admin-section-kicker">Support Queue</p>
+                    <p class="admin-section-kicker">Support queue</p>
                     <h2 class="admin-section-title">Open support messages</h2>
                 </div>
                 <a href="{{ route('admin.contact-messages.index') }}" class="admin-btn-secondary">Open Inbox</a>

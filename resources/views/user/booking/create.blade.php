@@ -18,44 +18,58 @@
         {{ Js::from($seatMap['available_ids']) }},
         {{ Js::from($classPrices) }},
         '{{ $initialClass }}'
-    )" class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
+    )" class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_370px]">
         <div class="space-y-6">
-            <article class="portal-card">
-                <div class="portal-section-head">
+            <article class="booking-composer-shell">
+                <div class="grid gap-6 xl:grid-cols-[1.15fr_.85fr]">
                     <div>
-                        <p class="portal-kicker">Booking composer</p>
-                        <h1 class="portal-section-title">Booking {{ $flight->flight_number }}</h1>
-                        <p class="portal-section-copy">
-                            {{ $flight->departureAirport->city }} ({{ $flight->departureAirport->code }})
-                            &rarr; {{ $flight->arrivalAirport->city }} ({{ $flight->arrivalAirport->code }})
-                            • {{ $flight->departure_time->format('d M Y H:i') }} - {{ $flight->arrival_time->format('d M Y H:i') }}
+                        <p class="booking-shell-kicker">Booking composer</p>
+                        <h1 class="booking-shell-title">Susun booking untuk {{ $flight->flight_number }} dengan flow yang lebih terarah.</h1>
+                        <p class="booking-shell-copy">
+                            {{ $flight->departureAirport->city }} ({{ $flight->departureAirport->code }}) to
+                            {{ $flight->arrivalAirport->city }} ({{ $flight->arrivalAirport->code }}) |
+                            {{ $flight->departure_time->format('d M Y H:i') }} - {{ $flight->arrival_time->format('d M Y H:i') }}
                         </p>
                     </div>
-                    <span class="portal-inline-note">Base fare Rp{{ number_format((float) $flight->price, 0, ',', '.') }}</span>
+
+                    <div class="booking-shell-summary">
+                        <div class="booking-shell-summary-card">
+                            <span>Base fare</span>
+                            <strong>Rp{{ number_format((float) $flight->price, 0, ',', '.') }}</strong>
+                        </div>
+                        <div class="booking-shell-summary-card">
+                            <span>Selected class</span>
+                            <strong x-text="classLabel(selectedClass)"></strong>
+                        </div>
+                        <div class="booking-shell-summary-card">
+                            <span>Estimated total</span>
+                            <strong x-text="formattedTotal()"></strong>
+                        </div>
+                    </div>
                 </div>
             </article>
 
             <article class="portal-card">
                 <div class="grid gap-3 md:grid-cols-3">
-                    <div class="portal-process-step" :class="step === 1 ? 'portal-process-step-active' : ''">
-                        <span class="portal-brand-mark h-9 w-9 text-sm">01</span>
+                    <div class="booking-step-card" :class="step === 1 ? 'booking-step-card-active' : ''">
+                        <span class="booking-step-index">01</span>
                         <div>
-                            <p>Passenger</p>
-                            <p class="text-xs font-medium text-slate-500">Pilih siapa yang akan terbang.</p>
+                            <p class="booking-step-title">Passenger manifest</p>
+                            <p class="booking-step-copy">Pilih siapa yang akan masuk ke booking ini.</p>
                         </div>
                     </div>
-                    <div class="portal-process-step" :class="step === 2 ? 'portal-process-step-active' : ''">
-                        <span class="portal-brand-mark h-9 w-9 text-sm">02</span>
+                    <div class="booking-step-card" :class="step === 2 ? 'booking-step-card-active' : ''">
+                        <span class="booking-step-index">02</span>
                         <div>
-                            <p>Cabin & Seat</p>
-                            <p class="text-xs font-medium text-slate-500">Tetapkan class dan seat.</p>
+                            <p class="booking-step-title">Cabin and seat</p>
+                            <p class="booking-step-copy">Tetapkan class dan seat untuk setiap traveler.</p>
                         </div>
                     </div>
-                    <div class="portal-process-step" :class="step === 3 ? 'portal-process-step-active' : ''">
-                        <span class="portal-brand-mark h-9 w-9 text-sm">03</span>
+                    <div class="booking-step-card" :class="step === 3 ? 'booking-step-card-active' : ''">
+                        <span class="booking-step-index">03</span>
                         <div>
-                            <p>Summary</p>
-                            <p class="text-xs font-medium text-slate-500">Review sebelum konfirmasi.</p>
+                            <p class="booking-step-title">Review and confirm</p>
+                            <p class="booking-step-copy">Periksa mapping passenger, seat, dan total harga.</p>
                         </div>
                     </div>
                 </div>
@@ -70,7 +84,8 @@
                         <div class="portal-section-head">
                             <div>
                                 <p class="portal-kicker">Step 1</p>
-                                <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Choose Passenger</h2>
+                                <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Passenger manifest</h2>
+                                <p class="portal-section-copy">Centang penumpang yang akan dimasukkan ke booking ini. Jumlah pilihan akan menentukan jumlah seat yang harus dipilih.</p>
                             </div>
                         </div>
 
@@ -84,10 +99,10 @@
                         @else
                             <div class="mt-4 grid gap-3 sm:grid-cols-2">
                                 @foreach ($passengers as $passenger)
-                                    <label class="portal-card-soft flex cursor-pointer items-center justify-between gap-3">
+                                    <label class="booking-passenger-card">
                                         <span class="min-w-0">
                                             <span class="block font-semibold text-slate-800">{{ $passenger->full_name }}</span>
-                                            <span class="text-sm text-slate-500">{{ optional($passenger->birth_date)->format('d M Y') }}</span>
+                                            <span class="mt-1 block text-sm text-slate-500">{{ optional($passenger->birth_date)->format('d M Y') }}</span>
                                         </span>
                                         <input type="checkbox" class="h-4 w-4 rounded border-slate-300 text-[#0f3f78]" :value="{{ $passenger->id }}" x-model="selectedPassengers">
                                     </label>
@@ -99,8 +114,8 @@
                     <div x-show="step === 2" x-cloak class="space-y-5">
                         <div>
                             <p class="portal-kicker">Step 2</p>
-                            <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Choose Cabin & Seat</h2>
-                            <p class="portal-section-copy">Jumlah seat harus sama dengan jumlah passenger agar booking bisa diproses.</p>
+                            <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Cabin selection and seat map</h2>
+                            <p class="portal-section-copy">Seat yang dipilih harus sama dengan jumlah passenger. Saat ganti cabin class, pilihan seat akan di-reset agar mapping tetap valid.</p>
                         </div>
 
                         <div class="grid gap-3 lg:grid-cols-3">
@@ -108,8 +123,8 @@
                                 <button
                                     type="button"
                                     @click="setClass('{{ $classKey }}')"
-                                    class="portal-card-soft text-left transition duration-200"
-                                    :class="selectedClass === '{{ $classKey }}' ? 'ring-2 ring-[#0f3f78] border-[#0f3f78] bg-white' : 'hover:bg-white'"
+                                    class="booking-class-card"
+                                    :class="selectedClass === '{{ $classKey }}' ? 'booking-class-card-active' : ''"
                                 >
                                     <div class="flex items-start justify-between gap-3">
                                         <div>
@@ -125,7 +140,7 @@
 
                         <div class="space-y-4">
                             @foreach ($seatMap['classes'] as $classKey => $seatClass)
-                                <div x-show="selectedClass === '{{ $classKey }}'" x-cloak class="portal-surface-muted space-y-4">
+                                <div x-show="selectedClass === '{{ $classKey }}'" x-cloak class="booking-seat-stage">
                                     <div class="flex flex-wrap items-center justify-between gap-3">
                                         <div>
                                             <p class="portal-kicker">{{ $seatClass['short_label'] }}</p>
@@ -142,7 +157,7 @@
                             @endforeach
                         </div>
 
-                        <div class="portal-card-soft">
+                        <div class="booking-seat-selection">
                             <p class="text-sm text-slate-600">
                                 Terpilih <strong x-text="selectedSeats.length"></strong> seat dari <strong x-text="selectedPassengers.length"></strong> passenger
                             </p>
@@ -156,14 +171,15 @@
 
                     <div x-show="step === 3" x-cloak>
                         <p class="portal-kicker">Step 3</p>
-                        <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Review Summary</h2>
+                        <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Review booking summary</h2>
+                        <p class="portal-section-copy">Pastikan setiap traveler sudah dipasangkan dengan seat yang benar sebelum booking dikirim.</p>
                         <div class="mt-4 space-y-3">
                             <template x-for="(item, index) in summaryItems()" :key="index">
-                                <div class="portal-card-soft flex items-center justify-between gap-3">
+                                <div class="booking-review-card">
                                     <div>
                                         <p class="font-semibold text-slate-800" x-text="item.passenger_name"></p>
                                         <p class="text-sm text-slate-500">
-                                            Seat <span x-text="item.seat_number"></span> • <span x-text="item.class_label"></span>
+                                            Seat <span x-text="item.seat_number"></span> | <span x-text="item.class_label"></span>
                                         </p>
                                     </div>
                                     <p class="font-semibold text-[#0f3f78]" x-text="item.formatted_price"></p>
@@ -193,9 +209,9 @@
             </article>
         </div>
 
-        <aside class="portal-side-panel">
+        <aside class="portal-side-panel booking-live-panel">
             <p class="portal-kicker">Live panel</p>
-            <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Live Panel</h2>
+            <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Current build</h2>
             <div class="mt-5 space-y-3">
                 <div class="portal-card-soft">
                     <p class="text-sm text-slate-500">Selected class</p>

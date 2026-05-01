@@ -4,27 +4,58 @@
 @section('active', 'bookings')
 
 @section('content')
+    @php
+        $statusSummary = [
+            'pending' => $bookings->getCollection()->where('status', 'pending')->count(),
+            'confirmed' => $bookings->getCollection()->where('status', 'confirmed')->count(),
+            'completed' => $bookings->getCollection()->where('status', 'completed')->count(),
+            'cancelled' => $bookings->getCollection()->where('status', 'cancelled')->count(),
+        ];
+    @endphp
+
     <section class="space-y-6">
-        <article class="portal-card">
-            <div class="portal-section-head">
+        <article class="booking-board-hero">
+            <div class="grid gap-6 xl:grid-cols-[1.18fr_.82fr]">
                 <div>
-                    <p class="portal-kicker">Booking ledger</p>
-                    <h1 class="portal-section-title">My Bookings</h1>
-                    <p class="portal-section-copy">Semua booking aktif, pending, dan selesai disusun seperti board kerja agar mudah dipantau dan ditindaklanjuti.</p>
+                    <p class="booking-shell-kicker">Booking board</p>
+                    <h1 class="booking-shell-title">Seluruh booking Anda diposisikan seperti antrean kerja yang siap ditindaklanjuti.</h1>
+                    <p class="booking-shell-copy">Pending payment, trip confirmed, sampai booking yang selesai disatukan dalam board yang lebih mudah dipindai daripada daftar lama.</p>
                 </div>
+
+                <div class="booking-board-hero-side">
+                    <div class="booking-board-metric">
+                        <span>Pending</span>
+                        <strong>{{ $statusSummary['pending'] }}</strong>
+                    </div>
+                    <div class="booking-board-metric">
+                        <span>Confirmed</span>
+                        <strong>{{ $statusSummary['confirmed'] }}</strong>
+                    </div>
+                    <div class="booking-board-metric">
+                        <span>Completed</span>
+                        <strong>{{ $statusSummary['completed'] }}</strong>
+                    </div>
+                    <div class="booking-board-metric">
+                        <span>Cancelled</span>
+                        <strong>{{ $statusSummary['cancelled'] }}</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
                 <a href="{{ route('flights.index') }}" class="portal-btn-gold">Search New Flight</a>
             </div>
         </article>
 
         <div class="space-y-4">
             @forelse ($bookings as $booking)
-                <article class="portal-route-card">
-                    <div class="grid gap-5 xl:grid-cols-[minmax(0,1fr)_240px]">
+                <article class="booking-board-card">
+                    <div class="grid gap-5 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,.9fr)_250px]">
                         <div class="space-y-4">
                             <div class="flex flex-wrap items-start justify-between gap-3">
                                 <div>
                                     <p class="portal-kicker">{{ $booking->flight->airline->name }}</p>
                                     <h2 class="mt-2 text-2xl font-bold text-slate-800">{{ $booking->booking_code }}</h2>
+                                    <p class="mt-2 text-sm text-slate-500">{{ $booking->flight->flight_number }} | {{ $booking->flight->departure_time->format('d M Y H:i') }}</p>
                                 </div>
                                 <div>
                                     @if ($booking->status === 'pending')
@@ -39,23 +70,36 @@
                                 </div>
                             </div>
 
-                            <div class="grid gap-3 md:grid-cols-3">
+                            <div class="grid gap-3 md:grid-cols-2">
                                 <div class="portal-card-soft">
                                     <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Route</p>
-                                    <p class="mt-2 font-semibold text-slate-800">{{ $booking->flight->departureAirport->code }} &rarr; {{ $booking->flight->arrivalAirport->code }}</p>
+                                    <p class="mt-2 font-semibold text-slate-800">{{ $booking->flight->departureAirport->city }} ({{ $booking->flight->departureAirport->code }})</p>
+                                    <p class="text-sm text-slate-500">{{ $booking->flight->arrivalAirport->city }} ({{ $booking->flight->arrivalAirport->code }})</p>
                                 </div>
                                 <div class="portal-card-soft">
-                                    <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Departure</p>
-                                    <p class="mt-2 font-semibold text-slate-800">{{ $booking->flight->departure_time->format('d M Y H:i') }}</p>
-                                </div>
-                                <div class="portal-card-soft">
-                                    <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Passengers</p>
+                                    <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Travelers</p>
                                     <p class="mt-2 font-semibold text-slate-800">{{ $booking->details->count() }} traveler{{ $booking->details->count() > 1 ? 's' : '' }}</p>
+                                    <p class="text-sm text-slate-500">Cabin mix tersimpan di detail booking.</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="portal-surface-muted flex flex-col justify-between gap-4">
+                        <div class="booking-board-timeline">
+                            <div class="booking-board-timeline-item">
+                                <span>Booking created</span>
+                                <strong>{{ $booking->created_at?->format('d M Y H:i') ?: '-' }}</strong>
+                            </div>
+                            <div class="booking-board-timeline-item">
+                                <span>Departure</span>
+                                <strong>{{ $booking->flight->departure_time->format('d M Y H:i') }}</strong>
+                            </div>
+                            <div class="booking-board-timeline-item">
+                                <span>Payment deadline</span>
+                                <strong>{{ $booking->expired_at?->format('d M Y H:i:s') ?: '-' }}</strong>
+                            </div>
+                        </div>
+
+                        <div class="booking-board-actions">
                             <div>
                                 <p class="text-sm text-slate-500">Total</p>
                                 <p class="mt-2 text-3xl font-bold text-[#0f3f78]">Rp{{ number_format((float) $booking->total_price, 0, ',', '.') }}</p>

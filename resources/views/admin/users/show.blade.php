@@ -5,7 +5,7 @@
 
 @section('content')
     <section class="space-y-6">
-        <article class="admin-hero-card">
+        <article class="admin-ops-detail-hero">
             <div class="admin-section-head">
                 <div class="max-w-3xl">
                     <p class="admin-section-kicker">User Profile</p>
@@ -21,31 +21,31 @@
             </div>
 
             <div class="mt-5 grid gap-4 xl:grid-cols-[1.35fr_.95fr]">
-                <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                    <div class="admin-info-card"><p class="admin-info-label">Name</p><p class="admin-info-value">{{ $user->name }}</p></div>
-                    <div class="admin-info-card"><p class="admin-info-label">Email</p><p class="admin-info-value break-all">{{ $user->email }}</p></div>
-                    <div class="admin-info-card"><p class="admin-info-label">Phone</p><p class="admin-info-value">{{ $user->phone ?: '-' }}</p></div>
-                    <div class="admin-info-card"><p class="admin-info-label">Registered</p><p class="admin-info-value">{{ $user->created_at?->format('d M Y H:i') }}</p></div>
-                    <div class="admin-info-card"><p class="admin-info-label">Role</p><p class="admin-info-value">{{ $user->roleLabel() }}</p></div>
-                    <div class="admin-info-card"><p class="admin-info-label">Employee ID</p><p class="admin-info-value">{{ $user->employee_id ?: '-' }}</p></div>
-                    <div class="admin-info-card"><p class="admin-info-label">Department</p><p class="admin-info-value">{{ $user->department ?: '-' }}</p></div>
-                    <div class="admin-info-card"><p class="admin-info-label">Job Title</p><p class="admin-info-value">{{ $user->job_title ?: '-' }}</p></div>
+                <div class="admin-ops-inline-grid">
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Name</p><p class="admin-info-value">{{ $user->name }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Email</p><p class="admin-info-value break-all">{{ $user->email }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Phone</p><p class="admin-info-value">{{ $user->phone ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Registered</p><p class="admin-info-value">{{ $user->created_at?->format('d M Y H:i') }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Role</p><p class="admin-info-value">{{ $user->roleLabel() }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Employee ID</p><p class="admin-info-value">{{ $user->employee_id ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Department</p><p class="admin-info-value">{{ $user->department ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Job Title</p><p class="admin-info-value">{{ $user->job_title ?: '-' }}</p></div>
                 </div>
 
                 <aside class="grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
-                    <article class="admin-list-card">
+                    <article class="admin-ops-sidecard">
                         <p class="admin-info-label">Total Passenger</p>
                         <p class="mt-2 text-2xl font-bold text-slate-800">{{ $user->passengers_count }}</p>
                     </article>
-                    <article class="admin-list-card">
+                    <article class="admin-ops-sidecard">
                         <p class="admin-info-label">Total Booking</p>
                         <p class="mt-2 text-2xl font-bold text-slate-800">{{ $user->bookings_count }}</p>
                     </article>
-                    <article class="admin-list-card">
+                    <article class="admin-ops-sidecard">
                         <p class="admin-info-label">Total Ticket</p>
                         <p class="mt-2 text-2xl font-bold text-[#0f3f78]">{{ $ticketCount }}</p>
                     </article>
-                    <article class="admin-surface-muted">
+                    <article class="admin-ops-sidecard">
                         <p class="admin-section-kicker">Payment Snapshot</p>
                         <p class="mt-2 text-sm text-slate-700">Paid {{ $paymentStats['paid'] }}, Pending {{ $paymentStats['pending'] }}, Failed {{ $paymentStats['failed'] }}.</p>
                     </article>
@@ -53,7 +53,7 @@
             </div>
         </article>
 
-        <article class="admin-card">
+        <article class="admin-ops-table-card">
             <div class="admin-section-head">
                 <div>
                     <p class="admin-section-kicker">Passenger Manifest</p>
@@ -88,7 +88,7 @@
             </div>
         </article>
 
-        <article class="admin-card">
+        <article class="admin-ops-table-card">
             <div class="admin-section-head">
                 <div>
                     <p class="admin-section-kicker">Recent Demand</p>

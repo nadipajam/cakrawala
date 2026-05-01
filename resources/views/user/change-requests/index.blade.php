@@ -5,16 +5,30 @@
 
 @section('content')
     <section class="space-y-6">
-        <article class="portal-card">
-            <p class="portal-kicker">Service desk</p>
-            <h1 class="portal-section-title">Refund & Change Request</h1>
-            <p class="portal-section-copy">Ajukan refund, reschedule, perbaikan nama, atau cancel request dari booking yang memenuhi syarat.</p>
+        <article class="support-hero-panel">
+            <div class="grid gap-6 xl:grid-cols-[1.1fr_.9fr]">
+                <div>
+                    <p class="booking-shell-kicker">Service desk</p>
+                    <h1 class="booking-shell-title">Ajukan refund atau perubahan perjalanan dari desk layanan yang lebih jelas.</h1>
+                    <p class="booking-shell-copy">Permintaan baru, panduan tipe request, dan riwayat penanganan sekarang disusun seperti desk support agar lebih mudah dipahami daripada form dan daftar biasa.</p>
+                </div>
+                <div class="support-summary-grid">
+                    <div class="support-summary-card">
+                        <span>Total cases</span>
+                        <strong>{{ $changeRequests->total() }}</strong>
+                    </div>
+                    <div class="support-summary-card">
+                        <span>Available bookings</span>
+                        <strong>{{ $bookings->count() }}</strong>
+                    </div>
+                </div>
+            </div>
         </article>
 
         <div class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
             <article class="portal-card">
                 <p class="portal-kicker">New case</p>
-                <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Buat Permintaan Baru</h2>
+                <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Buat permintaan baru</h2>
                 <form method="POST" action="{{ route('my-bookings.change-requests.store') }}" class="mt-5 space-y-4">
                     @csrf
                     <div>
@@ -71,26 +85,28 @@
                 </form>
             </article>
 
-            <aside class="portal-side-panel">
-                <p class="portal-kicker">Request guide</p>
-                <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Jenis Request</h2>
-                <div class="mt-5 space-y-3">
-                    @foreach ($requestTypes as $type)
-                        <article class="portal-card-soft">
-                            <p class="font-semibold text-slate-800">{{ $type['label'] }}</p>
-                            <p class="mt-1 text-sm text-slate-600">{{ $type['description'] }}</p>
-                        </article>
-                    @endforeach
+            <aside class="support-rail">
+                <div class="support-rail-card">
+                    <p class="portal-kicker">Request guide</p>
+                    <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Jenis request</h2>
+                    <div class="mt-5 space-y-3">
+                        @foreach ($requestTypes as $type)
+                            <article class="portal-card-soft">
+                                <p class="font-semibold text-slate-800">{{ $type['label'] }}</p>
+                                <p class="mt-1 text-sm text-slate-600">{{ $type['description'] }}</p>
+                            </article>
+                        @endforeach
+                    </div>
                 </div>
             </aside>
         </div>
 
         <article class="portal-card">
             <p class="portal-kicker">Case history</p>
-            <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Riwayat Permintaan</h2>
+            <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Riwayat permintaan</h2>
             <div class="mt-4 space-y-3">
                 @forelse ($changeRequests as $item)
-                    <article class="portal-route-card">
+                    <article class="service-case-card">
                         <div class="flex flex-wrap items-start justify-between gap-3">
                             <div class="min-w-0">
                                 <p class="font-semibold text-slate-800">{{ \App\Support\BookingChangeRequestCatalog::label($item->request_type) }}</p>

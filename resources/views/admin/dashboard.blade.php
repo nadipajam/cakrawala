@@ -5,14 +5,14 @@
 
 @section('content')
     <section class="space-y-6">
-        <article class="admin-hero-card">
-            <div class="grid gap-6 xl:grid-cols-[1.45fr_.95fr]">
+        <article class="admin-hero-card admin-hero-card-command">
+            <div class="grid gap-6 xl:grid-cols-[1.35fr_1fr]">
                 <div class="space-y-5">
                     <div class="admin-section-head">
                         <div class="max-w-2xl">
-                            <p class="admin-section-kicker">System Overview</p>
-                            <h2 class="admin-section-title">Command center untuk operasi Cakrawala</h2>
-                            <p class="admin-section-copy">Pantau trafik booking, performa revenue, kesiapan tim backoffice, dan inbox support dari satu layar kerja yang lebih ringkas.</p>
+                            <p class="admin-section-kicker">Command center</p>
+                            <h2 class="admin-section-title">Operasi harian disusun seperti ruang kendali, bukan halaman ringkasan biasa.</h2>
+                            <p class="admin-section-copy">Fokus utama dashboard admin penuh adalah membaca kesehatan sistem, distribusi traffic, dan area yang perlu intervensi cepat dari banyak modul sekaligus.</p>
                         </div>
                         <div class="flex flex-wrap items-center gap-2">
                             <a href="{{ route('admin.bookings.index') }}" class="admin-btn-primary">Open Bookings</a>
@@ -45,34 +45,20 @@
                 </div>
 
                 <div class="space-y-4">
-                    <article class="admin-list-card">
-                        <div class="admin-section-head">
-                            <div>
-                                <p class="admin-section-kicker">Revenue Pulse</p>
-                                <h3 class="admin-section-title text-lg">Snapshot bisnis</h3>
+                    <article class="admin-command-aside">
+                        <p class="admin-section-kicker">Revenue pulse</p>
+                        <div class="mt-4 grid gap-3">
+                            <div class="admin-command-stat">
+                                <span>Revenue total</span>
+                                <strong>Rp{{ number_format($stats['revenue_total'], 0, ',', '.') }}</strong>
                             </div>
-                        </div>
-                        <div class="mt-4 space-y-3">
-                            <div class="admin-list-row">
-                                <div>
-                                    <p class="text-sm font-semibold text-slate-700">Revenue total</p>
-                                    <p class="text-sm text-slate-500">Akumulasi pembayaran paid.</p>
-                                </div>
-                                <p class="text-right text-lg font-bold text-emerald-700">Rp{{ number_format($stats['revenue_total'], 0, ',', '.') }}</p>
+                            <div class="admin-command-stat">
+                                <span>Revenue bulan ini</span>
+                                <strong>Rp{{ number_format($stats['revenue_this_month'], 0, ',', '.') }}</strong>
                             </div>
-                            <div class="admin-list-row">
-                                <div>
-                                    <p class="text-sm font-semibold text-slate-700">Revenue bulan ini</p>
-                                    <p class="text-sm text-slate-500">Performa pendapatan berjalan.</p>
-                                </div>
-                                <p class="text-right text-lg font-bold text-emerald-700">Rp{{ number_format($stats['revenue_this_month'], 0, ',', '.') }}</p>
-                            </div>
-                            <div class="admin-list-row">
-                                <div>
-                                    <p class="text-sm font-semibold text-slate-700">Payment queue</p>
-                                    <p class="text-sm text-slate-500">Transaksi yang menunggu verifikasi.</p>
-                                </div>
-                                <p class="text-right text-lg font-bold text-amber-600">{{ $stats['payment_pending'] }}</p>
+                            <div class="admin-command-stat">
+                                <span>Payment queue</span>
+                                <strong>{{ $stats['payment_pending'] }}</strong>
                             </div>
                         </div>
                     </article>
@@ -80,7 +66,7 @@
                     <article class="admin-surface-muted space-y-3">
                         <div class="flex items-start justify-between gap-3">
                             <div>
-                                <p class="admin-section-kicker">Operations Watch</p>
+                                <p class="admin-section-kicker">Operations watch</p>
                                 <h3 class="admin-section-title text-lg">Prioritas hari ini</h3>
                             </div>
                             <span class="admin-chip">{{ count($quickAlerts) }} alert</span>
@@ -122,7 +108,7 @@
             <article class="admin-card space-y-4">
                 <div class="admin-section-head">
                     <div>
-                        <p class="admin-section-kicker">Demand Flow</p>
+                        <p class="admin-section-kicker">Demand flow</p>
                         <h2 class="admin-section-title">Booking per bulan</h2>
                         <p class="admin-section-copy">Pergerakan jumlah booking untuk membaca pola demand dan kapasitas operasional.</p>
                     </div>
@@ -143,7 +129,7 @@
             <article class="admin-card space-y-4">
                 <div class="admin-section-head">
                     <div>
-                        <p class="admin-section-kicker">Team Mix</p>
+                        <p class="admin-section-kicker">Team mix</p>
                         <h2 class="admin-section-title">Backoffice structure</h2>
                     </div>
                 </div>
@@ -184,7 +170,7 @@
             <article class="admin-card">
                 <div class="admin-section-head">
                     <div>
-                        <p class="admin-section-kicker">Recent Demand</p>
+                        <p class="admin-section-kicker">Recent demand</p>
                         <h2 class="admin-section-title">Booking terbaru</h2>
                     </div>
                     <a href="{{ route('admin.bookings.index') }}" class="admin-btn-secondary">Lihat semua</a>
@@ -220,7 +206,7 @@
             <article class="admin-card">
                 <div class="admin-section-head">
                     <div>
-                        <p class="admin-section-kicker">Cashflow Queue</p>
+                        <p class="admin-section-kicker">Cashflow queue</p>
                         <h2 class="admin-section-title">Payment terbaru</h2>
                     </div>
                     <a href="{{ route('admin.payments.index') }}" class="admin-btn-secondary">Lihat semua</a>
@@ -257,7 +243,7 @@
         <article class="admin-card">
             <div class="admin-section-head">
                 <div>
-                    <p class="admin-section-kicker">Support Watch</p>
+                    <p class="admin-section-kicker">Support watch</p>
                     <h2 class="admin-section-title">Inbox bantuan aktif</h2>
                     <p class="admin-section-copy">Kasus yang masih perlu assignment atau tindak lanjut dari tim backoffice.</p>
                 </div>

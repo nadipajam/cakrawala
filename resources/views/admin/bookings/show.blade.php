@@ -6,7 +6,7 @@
 @section('content')
     @php($latestPayment = $booking->payments->sortByDesc('created_at')->first())
     <section class="space-y-6">
-        <article class="admin-hero-card space-y-5">
+        <article class="admin-ops-detail-hero space-y-5">
             <div class="admin-section-head">
                 <div class="min-w-0 max-w-3xl">
                     <p class="admin-section-kicker">Booking Overview</p>
@@ -20,44 +20,44 @@
             </div>
 
             <div class="grid gap-4 xl:grid-cols-[1.35fr_.95fr]">
-                <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                    <article class="admin-info-card">
+                <div class="admin-ops-inline-grid">
+                    <article class="admin-ops-info-card">
                         <p class="admin-info-label">User</p>
                         <p class="admin-info-value break-words">{{ $booking->user?->name ?: '-' }}</p>
                         <p class="mt-2 break-all text-sm text-slate-500">{{ $booking->user?->email ?: 'Email tidak tersedia' }}</p>
                     </article>
-                    <article class="admin-info-card">
+                    <article class="admin-ops-info-card">
                         <p class="admin-info-label">Flight</p>
                         <p class="admin-info-value">{{ $booking->flight?->flight_number ?: '-' }}</p>
                         <p class="mt-2 text-sm text-slate-500">{{ $booking->flight?->airline?->name ?: 'Airline tidak tersedia' }}</p>
                         <p class="mt-1 text-sm text-slate-500">{{ $booking->flight?->airplane?->model ?: 'Pesawat tidak tersedia' }}</p>
                     </article>
-                    <article class="admin-info-card">
+                    <article class="admin-ops-info-card">
                         <p class="admin-info-label">Route</p>
                         <p class="admin-info-value">{{ $booking->flight?->departureAirport?->code }} - {{ $booking->flight?->arrivalAirport?->code }}</p>
                         <p class="mt-2 text-sm text-slate-500">{{ $booking->flight?->departureAirport?->city }} ke {{ $booking->flight?->arrivalAirport?->city }}</p>
                     </article>
-                    <article class="admin-info-card">
+                    <article class="admin-ops-info-card">
                         <p class="admin-info-label">Schedule</p>
                         <p class="admin-info-value">{{ $booking->flight?->departure_time?->format('d M Y H:i') ?: '-' }}</p>
                         <p class="mt-2 text-sm text-slate-500">Tiba {{ $booking->flight?->arrival_time?->format('d M Y H:i') ?: '-' }}</p>
                     </article>
-                    <article class="admin-info-card">
+                    <article class="admin-ops-info-card">
                         <p class="admin-info-label">Total Passenger</p>
                         <p class="admin-info-value">{{ $booking->total_passengers }}</p>
                         <p class="mt-2 text-sm text-slate-500">Manifest passenger</p>
                     </article>
-                    <article class="admin-info-card">
+                    <article class="admin-ops-info-card">
                         <p class="admin-info-label">Total Price</p>
                         <p class="admin-info-value">Rp{{ number_format((float) $booking->total_price, 0, ',', '.') }}</p>
                         <p class="mt-2 text-sm text-slate-500">Termasuk add-on aktif</p>
                     </article>
-                    <article class="admin-info-card">
+                    <article class="admin-ops-info-card">
                         <p class="admin-info-label">Add-Ons</p>
                         <p class="admin-info-value">{{ $booking->addons->whereIn('status', ['selected', 'paid'])->count() }}</p>
                         <p class="mt-2 text-sm text-slate-500">Selected atau paid addon item</p>
                     </article>
-                    <article class="admin-info-card">
+                    <article class="admin-ops-info-card">
                         <p class="admin-info-label">Change Requests</p>
                         <p class="admin-info-value">{{ $booking->changeRequests->count() }}</p>
                         <p class="mt-2 text-sm text-slate-500">Request perubahan terkait booking ini</p>
@@ -65,25 +65,25 @@
                 </div>
 
                 <aside class="space-y-4">
-                    <article class="admin-list-card">
+                    <article class="admin-ops-sidecard">
                         <p class="admin-section-kicker">Workflow</p>
                         <h3 class="mt-2 font-heading text-lg font-bold text-slate-800">Operational action</h3>
-                        <div class="mt-4 space-y-3">
-                            <div class="admin-list-row">
+                        <div class="admin-ops-trail">
+                            <div class="admin-ops-trail-item">
                                 <div>
                                     <p class="text-sm font-semibold text-slate-700">Booking status</p>
                                     <p class="text-sm text-slate-500">Status utama transaksi booking.</p>
                                 </div>
                                 <div>@include('admin.partials.status-badge', ['status' => $booking->status])</div>
                             </div>
-                            <div class="admin-list-row">
+                            <div class="admin-ops-trail-item">
                                 <div>
                                     <p class="text-sm font-semibold text-slate-700">Payment status</p>
                                     <p class="text-sm text-slate-500">Mengikuti transaksi pembayaran terakhir.</p>
                                 </div>
                                 <div>@include('admin.partials.status-badge', ['status' => $latestPayment?->payment_status])</div>
                             </div>
-                            <div class="admin-list-row">
+                            <div class="admin-ops-trail-item">
                                 <div>
                                     <p class="text-sm font-semibold text-slate-700">Expired at</p>
                                     <p class="text-sm text-slate-500">Batas waktu sebelum booking hangus.</p>
@@ -94,7 +94,7 @@
                     </article>
 
                     @if (auth()->user()->isAdmin() || auth()->user()->isStaff())
-                        <article class="admin-surface-muted space-y-4">
+                        <article class="admin-ops-sidecard space-y-4">
                             <div>
                                 <p class="admin-section-kicker">Booking Actions</p>
                                 <h3 class="mt-2 font-heading text-lg font-bold text-slate-800">Update transaksi</h3>
@@ -124,7 +124,7 @@
             </div>
         </article>
 
-        <article class="admin-card">
+        <article class="admin-ops-table-card">
             <div class="admin-section-head">
                 <div>
                     <p class="admin-section-kicker">Passenger Manifest</p>
@@ -197,7 +197,7 @@
         </article>
 
         <div class="grid gap-6 xl:grid-cols-2">
-            <article class="admin-card">
+            <article class="admin-ops-table-card">
                 <div class="admin-section-head">
                     <div>
                         <p class="admin-section-kicker">Ancillary</p>
@@ -234,7 +234,7 @@
                 </div>
             </article>
 
-            <article class="admin-card">
+            <article class="admin-ops-table-card">
                 <div class="admin-section-head">
                     <div>
                         <p class="admin-section-kicker">Service Desk</p>
@@ -272,7 +272,7 @@
             </article>
         </div>
 
-        <article class="admin-card">
+        <article class="admin-ops-table-card">
             <div class="admin-section-head">
                 <div>
                     <p class="admin-section-kicker">Payment Ledger</p>

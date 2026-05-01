@@ -6,7 +6,7 @@
 @section('content')
     <section class="space-y-5">
         <div class="grid gap-5 xl:grid-cols-[320px_1fr]">
-            <form method="GET" class="admin-card space-y-5">
+            <form method="GET" class="admin-ops-filter space-y-5">
                 <div>
                     <p class="admin-section-kicker">Flight Desk</p>
                     <h2 class="admin-section-title">Filter jadwal penerbangan</h2>
@@ -60,7 +60,7 @@
             </form>
 
             <div class="space-y-5">
-                <article class="admin-hero-card">
+                <article class="admin-ops-hero">
                     <div class="admin-section-head">
                         <div>
                             <p class="admin-section-kicker">Flight Monitor</p>
@@ -70,26 +70,26 @@
                         <span class="admin-chip">{{ $flights->total() }} flight</span>
                     </div>
 
-                    <div class="mt-5 grid gap-4 md:grid-cols-3">
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Visible schedules</p>
-                            <p class="admin-metric-value">{{ $flights->count() }}</p>
+                    <div class="admin-ops-summary-grid">
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Visible schedules</p>
+                            <p class="value">{{ $flights->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Jumlah jadwal pada halaman aktif.</p>
                         </article>
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Scheduled</p>
-                            <p class="admin-metric-value text-emerald-700">{{ $flights->where('status', 'scheduled')->count() }}</p>
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Scheduled</p>
+                            <p class="value text-emerald-700">{{ $flights->where('status', 'scheduled')->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Flight berstatus scheduled pada halaman ini.</p>
                         </article>
-                        <article class="admin-metric-tile">
-                            <p class="admin-metric-label">Delayed / Cancelled</p>
-                            <p class="admin-metric-value text-amber-600">{{ $flights->whereIn('status', ['delayed', 'cancelled'])->count() }}</p>
+                        <article class="admin-ops-summary-card">
+                            <p class="label">Delayed / Cancelled</p>
+                            <p class="value text-amber-600">{{ $flights->whereIn('status', ['delayed', 'cancelled'])->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Jadwal yang perlu perhatian operasional.</p>
                         </article>
                     </div>
                 </article>
 
-                <article class="admin-card">
+                <article class="admin-ops-table-card">
                     <div class="admin-table-wrap">
                         <table class="admin-table">
                             <thead>

@@ -5,7 +5,7 @@
 
 @section('content')
     <section class="space-y-6">
-        <article class="admin-hero-card">
+        <article class="admin-ops-detail-hero">
             <div class="admin-section-head">
                 <div class="max-w-3xl">
                     <p class="admin-section-kicker">Seat Overview</p>
@@ -15,15 +15,15 @@
                 <span class="admin-chip">{{ ucfirst($seat->class) }}</span>
             </div>
 
-            <div class="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                <div class="admin-info-card"><p class="admin-info-label">Airline</p><p class="admin-info-value">{{ $seat->airplane?->airline?->name }}</p></div>
-                <div class="admin-info-card"><p class="admin-info-label">Airplane</p><p class="admin-info-value">{{ $seat->airplane?->model }} ({{ $seat->airplane?->registration_number }})</p></div>
-                <div class="admin-info-card"><p class="admin-info-label">Seat Number</p><p class="admin-info-value">{{ $seat->seat_number }}</p></div>
-                <div class="admin-info-card"><p class="admin-info-label">Class</p><p class="admin-info-value">{{ ucfirst($seat->class) }}</p></div>
+            <div class="admin-ops-inline-grid">
+                <div class="admin-ops-info-card"><p class="admin-info-label">Airline</p><p class="admin-info-value">{{ $seat->airplane?->airline?->name }}</p></div>
+                <div class="admin-ops-info-card"><p class="admin-info-label">Airplane</p><p class="admin-info-value">{{ $seat->airplane?->model }} ({{ $seat->airplane?->registration_number }})</p></div>
+                <div class="admin-ops-info-card"><p class="admin-info-label">Seat Number</p><p class="admin-info-value">{{ $seat->seat_number }}</p></div>
+                <div class="admin-ops-info-card"><p class="admin-info-label">Class</p><p class="admin-info-value">{{ ucfirst($seat->class) }}</p></div>
             </div>
         </article>
 
-        <article class="admin-card">
+        <article class="admin-ops-table-card">
             <div class="admin-section-head">
                 <div>
                     <p class="admin-section-kicker">Usage History</p>

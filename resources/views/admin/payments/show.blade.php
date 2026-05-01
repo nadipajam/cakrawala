@@ -5,7 +5,7 @@
 
 @section('content')
     <section class="space-y-6">
-        <article class="admin-hero-card">
+        <article class="admin-ops-detail-hero">
             <div class="admin-section-head">
                 <div class="max-w-3xl">
                     <p class="admin-section-kicker">Payment Review</p>
@@ -16,33 +16,33 @@
             </div>
 
             <div class="mt-5 grid gap-4 xl:grid-cols-[1.35fr_.95fr]">
-                <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                    <div class="admin-info-card"><p class="text-sm text-slate-500">Payment ID</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->id }}</p></div>
-                    <div class="admin-info-card"><p class="text-sm text-slate-500">Booking</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->booking?->booking_code }}</p></div>
-                    <div class="admin-info-card"><p class="text-sm text-slate-500">User</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->booking?->user?->name }}</p></div>
-                    <div class="admin-info-card"><p class="text-sm text-slate-500">Method</p><p class="mt-2 font-semibold text-slate-800">{{ \App\Support\PaymentMethodCatalog::label($payment->payment_method) }}</p></div>
-                    <div class="admin-info-card"><p class="text-sm text-slate-500">Amount</p><p class="mt-2 font-semibold text-slate-800">Rp{{ number_format((float) $payment->amount, 0, ',', '.') }}</p></div>
-                    <div class="admin-info-card"><p class="text-sm text-slate-500">Transaction Code</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->transaction_code ?: '-' }}</p></div>
-                    <div class="admin-info-card"><p class="text-sm text-slate-500">Paid At</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->paid_at?->format('d M Y H:i') ?: '-' }}</p></div>
-                    <div class="admin-info-card"><p class="text-sm text-slate-500">Submitted At</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->submitted_at?->format('d M Y H:i') ?: '-' }}</p></div>
-                    <div class="admin-info-card"><p class="text-sm text-slate-500">Payer Name</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->payer_name ?: '-' }}</p></div>
-                    <div class="admin-info-card"><p class="text-sm text-slate-500">Payer Phone</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->payer_phone ?: '-' }}</p></div>
-                    <div class="admin-info-card"><p class="text-sm text-slate-500">Sender Bank</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->payer_bank_name ?: '-' }}</p></div>
-                    <div class="admin-info-card"><p class="text-sm text-slate-500">Sender Account</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->payer_bank_account_number ?: '-' }}</p></div>
+                <div class="admin-ops-inline-grid">
+                    <div class="admin-ops-info-card"><p class="text-sm text-slate-500">Payment ID</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->id }}</p></div>
+                    <div class="admin-ops-info-card"><p class="text-sm text-slate-500">Booking</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->booking?->booking_code }}</p></div>
+                    <div class="admin-ops-info-card"><p class="text-sm text-slate-500">User</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->booking?->user?->name }}</p></div>
+                    <div class="admin-ops-info-card"><p class="text-sm text-slate-500">Method</p><p class="mt-2 font-semibold text-slate-800">{{ \App\Support\PaymentMethodCatalog::label($payment->payment_method) }}</p></div>
+                    <div class="admin-ops-info-card"><p class="text-sm text-slate-500">Amount</p><p class="mt-2 font-semibold text-slate-800">Rp{{ number_format((float) $payment->amount, 0, ',', '.') }}</p></div>
+                    <div class="admin-ops-info-card"><p class="text-sm text-slate-500">Transaction Code</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->transaction_code ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="text-sm text-slate-500">Paid At</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->paid_at?->format('d M Y H:i') ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="text-sm text-slate-500">Submitted At</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->submitted_at?->format('d M Y H:i') ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="text-sm text-slate-500">Payer Name</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->payer_name ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="text-sm text-slate-500">Payer Phone</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->payer_phone ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="text-sm text-slate-500">Sender Bank</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->payer_bank_name ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="text-sm text-slate-500">Sender Account</p><p class="mt-2 font-semibold text-slate-800">{{ $payment->payer_bank_account_number ?: '-' }}</p></div>
                 </div>
 
                 <aside class="space-y-4">
-                    <div class="admin-list-card">
+                    <div class="admin-ops-sidecard">
                         <p class="admin-section-kicker">Booking Link</p>
                         <h3 class="mt-2 font-heading text-lg font-bold text-slate-800">Informasi booking</h3>
-                        <div class="mt-4 space-y-3">
-                            <div class="admin-list-row">
+                        <div class="admin-ops-trail">
+                            <div class="admin-ops-trail-item">
                                 <div>
                                     <p class="text-sm font-semibold text-slate-700">{{ $payment->booking?->flight?->flight_number }} - {{ $payment->booking?->flight?->airline?->name }}</p>
                                     <p class="text-sm text-slate-500">{{ $payment->booking?->flight?->departureAirport?->code }} - {{ $payment->booking?->flight?->arrivalAirport?->code }}</p>
                                 </div>
                             </div>
-                            <div class="admin-list-row">
+                            <div class="admin-ops-trail-item">
                                 <div>
                                     <p class="text-sm font-semibold text-slate-700">Notes</p>
                                     <p class="text-sm text-slate-500">{{ $payment->payment_notes ?: '-' }}</p>
@@ -51,7 +51,7 @@
                         </div>
                     </div>
 
-                    <div class="admin-surface-muted">
+                    <div class="admin-ops-sidecard">
                         <p class="admin-section-kicker">Proof File</p>
                         <h3 class="mt-2 font-heading text-lg font-bold text-slate-800">Bukti pembayaran</h3>
                         @if ($payment->proof_file)
@@ -63,7 +63,7 @@
                     </div>
 
                     @if ($payment->payment_status === 'pending' && (auth()->user()->isAdmin() || auth()->user()->isStaff()))
-                        <div class="admin-list-card space-y-3">
+                        <div class="admin-ops-sidecard space-y-3">
                             <p class="admin-section-kicker">Verification</p>
                             <h3 class="font-heading text-lg font-bold text-slate-800">Aksi transaksi</h3>
                             <form method="POST" action="{{ route('admin.payments.verify', $payment) }}">
@@ -82,7 +82,7 @@
             </div>
         </article>
 
-        <article class="admin-card">
+        <article class="admin-ops-table-card">
             <div class="admin-section-head">
                 <div>
                     <p class="admin-section-kicker">Passenger Manifest</p>

@@ -5,7 +5,7 @@
 
 @section('content')
     <section class="space-y-6">
-        <article class="admin-hero-card space-y-5">
+        <article class="admin-ops-detail-hero space-y-5">
             <div class="admin-section-head">
                 <div class="max-w-3xl">
                     <p class="admin-section-kicker">Request #{{ $changeRequest->id }}</p>
@@ -16,25 +16,25 @@
             </div>
 
             <div class="grid gap-4 xl:grid-cols-[1.35fr_.95fr]">
-                <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                    <article class="admin-info-card">
+                <div class="admin-ops-inline-grid">
+                    <article class="admin-ops-info-card">
                         <p class="admin-info-label">Booking</p>
                         <p class="admin-info-value">{{ $changeRequest->booking?->booking_code ?: '-' }}</p>
                         @if ($changeRequest->booking)
                             <a href="{{ route('admin.bookings.show', $changeRequest->booking) }}" class="mt-2 inline-flex text-sm font-semibold text-[#0f3f78] underline">Open booking</a>
                         @endif
                     </article>
-                    <article class="admin-info-card">
+                    <article class="admin-ops-info-card">
                         <p class="admin-info-label">User</p>
                         <p class="admin-info-value">{{ $changeRequest->user?->name ?: '-' }}</p>
                         <p class="mt-2 break-all text-sm text-slate-500">{{ $changeRequest->user?->email ?: '-' }}</p>
                     </article>
-                    <article class="admin-info-card">
+                    <article class="admin-ops-info-card">
                         <p class="admin-info-label">Current Route</p>
                         <p class="admin-info-value">{{ $changeRequest->booking?->flight?->departureAirport?->code ?: '-' }} - {{ $changeRequest->booking?->flight?->arrivalAirport?->code ?: '-' }}</p>
                         <p class="mt-2 text-sm text-slate-500">{{ $changeRequest->booking?->flight?->flight_number ?: '-' }}</p>
                     </article>
-                    <article class="admin-info-card">
+                    <article class="admin-ops-info-card">
                         <p class="admin-info-label">Preferred Flight</p>
                         @if ($changeRequest->preferredFlight)
                             <p class="admin-info-value">{{ $changeRequest->preferredFlight->flight_number }}</p>
@@ -46,14 +46,14 @@
                 </div>
 
                 <aside class="space-y-4">
-                    <article class="admin-list-card">
+                    <article class="admin-ops-sidecard">
                         <p class="admin-section-kicker">Reason</p>
                         <h3 class="mt-2 font-heading text-lg font-bold text-slate-800">Alasan customer</h3>
                         <p class="mt-3 text-sm leading-6 text-slate-600">{{ $changeRequest->reason }}</p>
                     </article>
 
                     @if ($changeRequest->processedByUser)
-                        <article class="admin-surface-muted">
+                        <article class="admin-ops-sidecard">
                             <p class="admin-section-kicker">Last Processed</p>
                             <p class="mt-2 text-sm text-slate-700">Diproses oleh <strong>{{ $changeRequest->processedByUser->name }}</strong> pada {{ $changeRequest->processed_at?->format('d M Y H:i') ?: '-' }}.</p>
                         </article>
@@ -62,7 +62,7 @@
             </div>
         </article>
 
-        <article class="admin-card">
+        <article class="admin-ops-table-card">
             <div class="admin-section-head">
                 <div>
                     <p class="admin-section-kicker">Resolution Desk</p>

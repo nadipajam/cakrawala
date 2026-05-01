@@ -9,7 +9,7 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans text-slate-700 antialiased">
+    <body class="customer-shell font-sans text-slate-700 antialiased">
         <div class="guest-shell">
             <div class="guest-card">
                 <a href="/" class="mx-auto mb-6 flex w-fit items-center gap-3">

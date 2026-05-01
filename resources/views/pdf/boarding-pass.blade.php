@@ -8,35 +8,38 @@
             margin: 0;
             font-family: DejaVu Sans, sans-serif;
             color: #1e293b;
-            background: #fff7f1;
+            background: #fffaf5;
         }
 
         .page {
-            padding: 30px;
+            padding: 28px;
         }
 
         .pass {
-            border: 1px solid #f2cfb3;
-            border-radius: 20px;
             overflow: hidden;
-            background: #fff;
+            border: 1px solid #f1d7c0;
+            border-radius: 24px;
+            background: #ffffff;
         }
 
-        .header {
-            padding: 20px 24px;
-            background: linear-gradient(130deg, #f08a3a 0%, #c85716 100%);
-            color: #fff;
+        .hero {
+            padding: 22px 24px;
+            background:
+                radial-gradient(circle at top right, rgba(255,255,255,.18) 0%, transparent 24%),
+                linear-gradient(135deg, #9a3412 0%, #f08a3a 100%);
+            color: #fff7ed;
         }
 
-        .title {
-            font-size: 12px;
-            letter-spacing: .25em;
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .28em;
             text-transform: uppercase;
-            opacity: .9;
+            color: rgba(255, 237, 213, 0.9);
         }
 
         .code {
-            margin-top: 8px;
+            margin-top: 10px;
             font-size: 30px;
             font-weight: 700;
             word-break: break-all;
@@ -45,7 +48,7 @@
         .sub {
             margin-top: 4px;
             font-size: 13px;
-            opacity: .92;
+            color: rgba(255, 247, 237, 0.92);
         }
 
         .body {
@@ -61,17 +64,18 @@
 
         td {
             width: 50%;
-            border: 1px solid #f4dcc6;
-            border-radius: 12px;
-            padding: 10px 12px;
+            padding: 12px 14px;
+            border: 1px solid #f1ddca;
+            border-radius: 16px;
             background: #fffaf5;
             vertical-align: top;
         }
 
         .label {
             font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .16em;
             text-transform: uppercase;
-            letter-spacing: .12em;
             color: #9a5a2d;
         }
 
@@ -83,22 +87,40 @@
             word-break: break-word;
         }
 
-        .qr {
+        .bottom {
             margin-top: 14px;
-            border: 1px dashed #efc8a7;
-            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .qr {
+            float: left;
+            width: 196px;
             text-align: center;
-            padding: 16px;
-            background: #fff;
+            padding: 14px;
+            border: 1px dashed #efc8a7;
+            border-radius: 18px;
+            background: #ffffff;
         }
 
         .qr svg {
-            width: 150px;
-            height: 150px;
+            width: 145px;
+            height: 145px;
+        }
+
+        .meta {
+            margin-left: 222px;
+        }
+
+        .meta-card {
+            margin-bottom: 10px;
+            padding: 12px 14px;
+            border: 1px solid #f1ddca;
+            border-radius: 16px;
+            background: #fffaf5;
         }
 
         .note {
-            margin-top: 10px;
+            margin-top: 12px;
             font-size: 11px;
             color: #9a5a2d;
             text-align: center;
@@ -108,8 +130,8 @@
 <body>
     <div class="page">
         <div class="pass">
-            <div class="header">
-                <div class="title">Boarding Pass</div>
+            <div class="hero">
+                <div class="eyebrow">Boarding Pass</div>
                 <div class="code">{{ $detail->checkin_reference ?: '-' }}</div>
                 <div class="sub">{{ $flight->airline->name }} | {{ $booking->booking_code }}</div>
             </div>
@@ -148,9 +170,22 @@
                     </tr>
                 </table>
 
-                <div class="qr">
-                    {!! $qrMarkup !!}
+                <div class="bottom">
+                    <div class="qr">
+                        {!! $qrMarkup !!}
+                    </div>
+                    <div class="meta">
+                        <div class="meta-card">
+                            <div class="label">Booking Code</div>
+                            <div class="value">{{ $booking->booking_code }}</div>
+                        </div>
+                        <div class="meta-card">
+                            <div class="label">Boarding Status</div>
+                            <div class="value">{{ ucfirst(str_replace('_', ' ', (string) $detail->boarding_status)) }}</div>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="note">Tunjukkan boarding pass ini saat boarding dan siapkan identitas resmi.</div>
             </div>
         </div>
