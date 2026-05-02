@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="flex items-center gap-2">
-                <button class="admin-btn-primary" type="submit">Update Flight</button>
+                <button class="admin-btn-primary" type="submit">Perbarui Penerbangan</button>
                 <a href="{{ route('admin.flights.index') }}" class="admin-btn-secondary">Cancel</a>
             </div>
         </form>

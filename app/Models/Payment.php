@@ -18,6 +18,13 @@ class Payment extends Model
         'amount',
         'payment_status',
         'transaction_code',
+        'midtrans_order_id',
+        'midtrans_transaction_id',
+        'midtrans_snap_token',
+        'midtrans_redirect_url',
+        'midtrans_payment_type',
+        'midtrans_status_code',
+        'midtrans_payload',
         'paid_at',
         'proof_file',
         'submitted_at',
@@ -29,6 +36,7 @@ class Payment extends Model
             'amount' => 'decimal:2',
             'paid_at' => 'datetime',
             'submitted_at' => 'datetime',
+            'midtrans_payload' => 'array',
         ];
     }
 

@@ -32,6 +32,12 @@ class AdminUserSeeder extends Seeder
                 'phone' => '08123456781',
                 'role' => 'manager',
             ],
+            [
+                'email' => 'customer@cakrawala.com',
+                'name' => 'Customer Cakrawala',
+                'phone' => '08123456782',
+                'role' => 'customer',
+            ],
         ];
 
         foreach ($accounts as $account) {

@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', 'Cakrawala | Flight Detail')
+@section('title', 'Cakrawala | Detail Penerbangan')
 @section('active', 'flights')
 
 @section('content')
@@ -25,11 +25,11 @@
                         </p>
                     </div>
                     @if ($flight->status === 'scheduled')
-                        <span class="portal-status-confirmed self-start">On Time</span>
+                        <span class="portal-status-confirmed self-start">Tepat Waktu</span>
                     @elseif ($flight->status === 'delayed')
-                        <span class="portal-status-pending self-start">Delayed</span>
+                        <span class="portal-status-pending self-start">Tertunda</span>
                     @elseif ($flight->status === 'cancelled')
-                        <span class="portal-status-cancelled self-start">Cancelled</span>
+                        <span class="portal-status-cancelled self-start">Dibatalkan</span>
                     @else
                         <span class="portal-status-default self-start">{{ ucfirst($flight->status) }}</span>
                     @endif
@@ -59,7 +59,7 @@
                 <div class="portal-section-head">
                     <div>
                         <p class="portal-kicker">Cabin classes</p>
-                        <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Seat Availability</h2>
+                        <h2 class="mt-2 font-heading text-3xl font-bold text-[#c2410c]">Ketersediaan Kursi</h2>
                         <p class="portal-section-copy">Pilih kabin yang ingin dipreview. Layout kursi mengikuti struktur yang sama dengan halaman booking.</p>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                             type="button"
                             @click="selectedClass = '{{ $classKey }}'"
                             class="portal-card-soft text-left transition duration-200"
-                            :class="selectedClass === '{{ $classKey }}' ? 'ring-2 ring-[#0f3f78] border-[#0f3f78] bg-white' : 'hover:bg-white'"
+                            :class="selectedClass === '{{ $classKey }}' ? 'ring-2 ring-[#c2410c] border-[#c2410c] bg-white' : 'hover:bg-white'"
                         >
                             <div class="flex items-start justify-between gap-3">
                                 <div class="min-w-0">
@@ -79,7 +79,7 @@
                                 </div>
                                 <span class="portal-status-default self-start">{{ $availableSeatCounts[$classKey] ?? 0 }}</span>
                             </div>
-                            <p class="mt-4 text-2xl font-bold text-[#0f3f78]">Rp{{ number_format((float) ($classPrices[$classKey] ?? 0), 0, ',', '.') }}</p>
+                            <p class="mt-4 text-2xl font-bold text-[#c2410c]">Rp{{ number_format((float) ($classPrices[$classKey] ?? 0), 0, ',', '.') }}</p>
                         </button>
                     @endforeach
                 </div>
@@ -92,7 +92,7 @@
                                     <p class="portal-kicker">{{ $seatClass['short_label'] }}</p>
                                     <h3 class="mt-2 text-2xl font-bold text-slate-800">{{ $seatClass['label'] }}</h3>
                                 </div>
-                                <span class="portal-status-confirmed">{{ $seatClass['available_count'] }} seat available</span>
+                                <span class="portal-status-confirmed">{{ $seatClass['available_count'] }} kursi tersedia</span>
                             </div>
 
                             @include('partials.seat-map', ['seatClass' => $seatClass, 'interactive' => false, 'classKey' => $classKey])
@@ -104,23 +104,23 @@
 
         <aside class="portal-side-panel">
             <p class="portal-kicker">Booking panel</p>
-            <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Ready to Book?</h2>
-            <p class="mt-2 text-sm leading-7 text-slate-600">Pilih class, cek seat availability, lalu lanjutkan ke booking untuk menetapkan passenger dan seat.</p>
+            <h2 class="mt-2 font-heading text-3xl font-bold text-[#c2410c]">Siap Booking?</h2>
+            <p class="mt-2 text-sm leading-7 text-slate-600">Pilih kelas, cek ketersediaan kursi, lalu lanjutkan ke booking untuk menentukan penumpang dan kursi.</p>
 
             <div class="mt-5 space-y-3">
                 @foreach ($seatMap['classes'] as $classKey => $seatClass)
                     <div x-show="selectedClass === '{{ $classKey }}'" x-cloak class="space-y-3">
                         <div class="portal-card-soft">
-                            <p class="text-sm text-slate-500">Cabin</p>
+                            <p class="text-sm text-slate-500">Kabin</p>
                             <p class="text-xl font-semibold text-slate-800">{{ $seatClass['label'] }}</p>
                         </div>
                         <div class="portal-card-soft">
-                            <p class="text-sm text-slate-500">Available seats</p>
-                            <p class="text-xl font-semibold text-slate-800">{{ $availableSeatCounts[$classKey] ?? 0 }} seats</p>
+                            <p class="text-sm text-slate-500">Kursi tersedia</p>
+                            <p class="text-xl font-semibold text-slate-800">{{ $availableSeatCounts[$classKey] ?? 0 }} kursi</p>
                         </div>
                         <div class="portal-card-soft">
-                            <p class="text-sm text-slate-500">Price per passenger</p>
-                            <p class="text-3xl font-bold text-[#0f3f78]">Rp{{ number_format((float) ($classPrices[$classKey] ?? 0), 0, ',', '.') }}</p>
+                            <p class="text-sm text-slate-500">Harga per penumpang</p>
+                            <p class="text-3xl font-bold text-[#c2410c]">Rp{{ number_format((float) ($classPrices[$classKey] ?? 0), 0, ',', '.') }}</p>
                         </div>
                     </div>
                 @endforeach
@@ -140,17 +140,17 @@
                             href="{{ route('booking.create', ['flight' => $flight->id, 'class' => $classKey]) }}"
                             class="portal-btn-gold mt-6 w-full justify-center"
                         >
-                            Book {{ $seatClass['short_label'] }}
+                            Booking {{ $seatClass['short_label'] }}
                         </a>
                     @endforeach
                 @else
                     <a href="{{ route('admin.dashboard') }}" class="portal-btn-blue mt-6 w-full justify-center">
-                        Open Backoffice Dashboard
+                        Buka Dashboard Admin
                     </a>
                 @endif
             @else
                 <a href="{{ route('login') }}" class="portal-btn-gold mt-6 w-full justify-center">
-                    Login to Book
+                    Masuk untuk Booking
                 </a>
             @endauth
         </aside>

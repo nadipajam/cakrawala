@@ -5,7 +5,7 @@
 
 @section('content')
     <section class="space-y-5">
-        <div class="grid gap-5 xl:grid-cols-[320px_1fr]">
+        <div class="grid gap-5 xl:grid-cols-[320px_minmax(0,1fr)]">
             <form method="GET" class="admin-ops-filter space-y-5">
                 <div>
                     <p class="admin-section-kicker">Airport Directory</p>
@@ -15,7 +15,7 @@
 
                 <div class="space-y-4">
                     <div>
-                        <label class="admin-label" for="search">Search</label>
+                        <label class="admin-label" for="search">Cari</label>
                         <input id="search" name="search" value="{{ $search }}" class="admin-field" placeholder="Code atau nama">
                     </div>
                     <div>
@@ -32,7 +32,7 @@
                     <p class="text-sm text-slate-500">Panel filter memudahkan pemisahan airport internasional dan domestik saat data mulai besar.</p>
                     <div class="flex flex-wrap items-center gap-2">
                         <button class="admin-btn-primary" type="submit">Filter</button>
-                        <a class="admin-btn-secondary" href="{{ route('admin.airports.index') }}">Reset</a>
+                        <a class="admin-btn-secondary" href="{{ route('admin.airports.index') }}">Atur Ulang</a>
                         <a href="{{ route('admin.airports.create') }}" class="admin-btn-secondary">Tambah Airport</a>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                         </article>
                         <article class="admin-ops-summary-card">
                             <p class="label">Cities covered</p>
-                            <p class="value text-[#0f3f78]">{{ $airports->pluck('city')->filter()->unique()->count() }}</p>
+                            <p class="value text-[#c2410c]">{{ $airports->pluck('city')->filter()->unique()->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Jumlah kota unik pada halaman ini.</p>
                         </article>
                         <article class="admin-ops-summary-card">
@@ -78,7 +78,7 @@
                                     <th>City</th>
                                     <th>Country</th>
                                     <th>Flights Count</th>
-                                    <th>Actions</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">
@@ -95,7 +95,7 @@
                                             <form action="{{ route('admin.airports.destroy', $airport) }}" method="POST" class="inline" onsubmit="return confirm('Hapus airport ini?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="admin-btn-secondary" type="submit">Delete</button>
+                                                <button class="admin-btn-secondary" type="submit">Hapus</button>
                                             </form>
                                         </td>
                                     </tr>

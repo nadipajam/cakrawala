@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Support\UserRole;
 use Closure;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
@@ -27,7 +28,22 @@ class RoleMiddleware
             return redirect()->route('login');
         }
 
-        if ($roles !== [] && ! in_array($request->user()->role, $roles, true)) {
+        $normalizedRole = UserRole::normalize($request->user()->role);
+        $normalizedAllowedRoles = collect($roles)
+            ->map(fn (string $role) => UserRole::normalize($role))
+            ->unique()
+            ->values()
+            ->all();
+
+        if ($normalizedAllowedRoles !== [] && ! in_array($normalizedRole, $normalizedAllowedRoles, true)) {
+            if (! ($request->expectsJson() || $request->is('api/*'))) {
+                if (in_array($normalizedRole, UserRole::backofficeValues(), true)) {
+                    return redirect()->route('admin.dashboard');
+                }
+
+                return redirect()->route('dashboard');
+            }
+
             throw new AuthorizationException('Unauthorized');
         }
 

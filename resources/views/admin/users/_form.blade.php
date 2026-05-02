@@ -48,5 +48,5 @@
 
 <div class="mt-5 flex flex-wrap items-center gap-2">
     <button class="admin-btn-primary" type="submit">{{ $submitLabel }}</button>
-    <a href="{{ route('admin.users.index') }}" class="admin-btn-secondary">Back</a>
+    <a href="{{ route('admin.users.index') }}" class="admin-btn-secondary">Kembali</a>
 </div>

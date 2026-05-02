@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Create User | Cakrawala')
-@section('page-title', 'Create User')
+@section('title', 'Tambah Pengguna | Cakrawala')
+@section('page-title', 'Tambah Pengguna')
 
 @section('content')
     <section class="space-y-6">
@@ -16,7 +16,7 @@
 
             <form method="POST" action="{{ route('admin.users.store') }}" class="mt-5">
                 @php($method = 'POST')
-                @php($submitLabel = 'Create User')
+                @php($submitLabel = 'Tambah Pengguna')
                 @include('admin.users._form')
             </form>
         </article>

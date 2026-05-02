@@ -1,40 +1,40 @@
 @extends('layouts.admin')
 
-@section('title', 'Detail User | Cakrawala')
-@section('page-title', 'User Detail')
+@section('title', 'Detail Pengguna | Cakrawala')
+@section('page-title', 'Detail Pengguna')
 
 @section('content')
     <section class="space-y-6">
         <article class="admin-ops-detail-hero">
             <div class="admin-section-head">
                 <div class="max-w-3xl">
-                    <p class="admin-section-kicker">User Profile</p>
+                    <p class="admin-section-kicker">Profil pengguna</p>
                     <h2 class="admin-section-title">{{ $user->name }}</h2>
                     <p class="admin-section-copy">Detail profil, booking, passenger, dan aktivitas pembayaran user dipusatkan dalam satu tampilan yang lebih mudah dibaca.</p>
                 </div>
                 <div class="flex flex-wrap items-center gap-2">
                     <span class="admin-chip">{{ $user->roleLabel() }}</span>
                     @if (auth()->user()->canManageUsers())
-                        <a href="{{ route('admin.users.edit', $user) }}" class="admin-btn-secondary">Edit User</a>
+                        <a href="{{ route('admin.users.edit', $user) }}" class="admin-btn-secondary">Edit Pengguna</a>
                     @endif
                 </div>
             </div>
 
             <div class="mt-5 grid gap-4 xl:grid-cols-[1.35fr_.95fr]">
                 <div class="admin-ops-inline-grid">
-                    <div class="admin-ops-info-card"><p class="admin-info-label">Name</p><p class="admin-info-value">{{ $user->name }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Nama</p><p class="admin-info-value">{{ $user->name }}</p></div>
                     <div class="admin-ops-info-card"><p class="admin-info-label">Email</p><p class="admin-info-value break-all">{{ $user->email }}</p></div>
-                    <div class="admin-ops-info-card"><p class="admin-info-label">Phone</p><p class="admin-info-value">{{ $user->phone ?: '-' }}</p></div>
-                    <div class="admin-ops-info-card"><p class="admin-info-label">Registered</p><p class="admin-info-value">{{ $user->created_at?->format('d M Y H:i') }}</p></div>
-                    <div class="admin-ops-info-card"><p class="admin-info-label">Role</p><p class="admin-info-value">{{ $user->roleLabel() }}</p></div>
-                    <div class="admin-ops-info-card"><p class="admin-info-label">Employee ID</p><p class="admin-info-value">{{ $user->employee_id ?: '-' }}</p></div>
-                    <div class="admin-ops-info-card"><p class="admin-info-label">Department</p><p class="admin-info-value">{{ $user->department ?: '-' }}</p></div>
-                    <div class="admin-ops-info-card"><p class="admin-info-label">Job Title</p><p class="admin-info-value">{{ $user->job_title ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Telepon</p><p class="admin-info-value">{{ $user->phone ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Terdaftar</p><p class="admin-info-value">{{ $user->created_at?->format('d M Y H:i') }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Peran</p><p class="admin-info-value">{{ $user->roleLabel() }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">ID Karyawan</p><p class="admin-info-value">{{ $user->employee_id ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Departemen</p><p class="admin-info-value">{{ $user->department ?: '-' }}</p></div>
+                    <div class="admin-ops-info-card"><p class="admin-info-label">Jabatan</p><p class="admin-info-value">{{ $user->job_title ?: '-' }}</p></div>
                 </div>
 
                 <aside class="grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
                     <article class="admin-ops-sidecard">
-                        <p class="admin-info-label">Total Passenger</p>
+                        <p class="admin-info-label">Total Penumpang</p>
                         <p class="mt-2 text-2xl font-bold text-slate-800">{{ $user->passengers_count }}</p>
                     </article>
                     <article class="admin-ops-sidecard">
@@ -42,12 +42,12 @@
                         <p class="mt-2 text-2xl font-bold text-slate-800">{{ $user->bookings_count }}</p>
                     </article>
                     <article class="admin-ops-sidecard">
-                        <p class="admin-info-label">Total Ticket</p>
-                        <p class="mt-2 text-2xl font-bold text-[#0f3f78]">{{ $ticketCount }}</p>
+                        <p class="admin-info-label">Total Tiket</p>
+                        <p class="mt-2 text-2xl font-bold text-[#c2410c]">{{ $ticketCount }}</p>
                     </article>
                     <article class="admin-ops-sidecard">
-                        <p class="admin-section-kicker">Payment Snapshot</p>
-                        <p class="mt-2 text-sm text-slate-700">Paid {{ $paymentStats['paid'] }}, Pending {{ $paymentStats['pending'] }}, Failed {{ $paymentStats['failed'] }}.</p>
+                        <p class="admin-section-kicker">Ringkasan pembayaran</p>
+                        <p class="mt-2 text-sm text-slate-700">Lunas {{ $paymentStats['paid'] }}, Menunggu {{ $paymentStats['pending'] }}, Gagal {{ $paymentStats['failed'] }}.</p>
                     </article>
                 </aside>
             </div>
@@ -56,19 +56,19 @@
         <article class="admin-ops-table-card">
             <div class="admin-section-head">
                 <div>
-                    <p class="admin-section-kicker">Passenger Manifest</p>
-                    <h2 class="admin-section-title">Passenger list</h2>
+                    <p class="admin-section-kicker">Manifest penumpang</p>
+                    <h2 class="admin-section-title">Daftar penumpang</h2>
                 </div>
             </div>
             <div class="admin-table-wrap mt-4">
                 <table class="admin-table">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Nama</th>
                             <th>Gender</th>
-                            <th>Birth Date</th>
-                            <th>Identity</th>
-                            <th>Action</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Identitas</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">
@@ -91,7 +91,7 @@
         <article class="admin-ops-table-card">
             <div class="admin-section-head">
                 <div>
-                    <p class="admin-section-kicker">Recent Demand</p>
+                    <p class="admin-section-kicker">Permintaan terbaru</p>
                     <h2 class="admin-section-title">Booking terbaru</h2>
                 </div>
             </div>
@@ -99,12 +99,12 @@
                 <table class="admin-table">
                     <thead>
                         <tr>
-                            <th>Booking Code</th>
-                            <th>Flight</th>
+                            <th>Kode Booking</th>
+                            <th>Penerbangan</th>
                             <th>Total</th>
                             <th>Status</th>
-                            <th>Payment</th>
-                            <th>Action</th>
+                            <th>Pembayaran</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">

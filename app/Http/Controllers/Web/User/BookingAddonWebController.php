@@ -46,7 +46,9 @@ class BookingAddonWebController extends Controller
 
         $this->addonService->add($request->user(), $booking, $request->validated());
 
-        return back()->with('status', 'Add-on berhasil ditambahkan.');
+        return back()
+            ->with('status', 'Add-on berhasil ditambahkan.')
+            ->with('status_type', 'success');
     }
 
     public function destroy(Request $request, Booking $booking, BookingAddon $addon): RedirectResponse
@@ -54,8 +56,16 @@ class BookingAddonWebController extends Controller
         abort_unless($booking->user_id === $request->user()->id, 403);
         abort_unless($addon->booking_id === $booking->id, 404);
 
+        if ($addon->status === 'cancelled') {
+            return back()
+                ->with('status', 'Add-on ini sudah dibatalkan sebelumnya.')
+                ->with('status_type', 'warning');
+        }
+
         $this->addonService->cancel($request->user(), $addon);
 
-        return back()->with('status', 'Add-on berhasil dibatalkan.');
+        return back()
+            ->with('status', 'Add-on berhasil dibatalkan.')
+            ->with('status_type', 'success');
     }
 }

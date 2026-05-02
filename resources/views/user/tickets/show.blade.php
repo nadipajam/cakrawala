@@ -11,11 +11,11 @@
                     <div>
                         <span class="journey-chip">
                             <span class="journey-dot"></span>
-                            E-Ticket Detail
+                            Detail E-Ticket
                         </span>
-                        <h1 class="journey-title">{{ $detail->ticket_number ?: 'Ticket' }}</h1>
+                        <h1 class="journey-title">{{ $detail->ticket_number ?: 'Tiket' }}</h1>
                         <p class="journey-copy">
-                            Buka e-ticket per passenger tanpa mengubah akses ke ticket lain dalam booking yang sama.
+                            Buka e-ticket per penumpang tanpa mengubah akses ke tiket lain dalam booking yang sama.
                         </p>
                     </div>
                     <div class="journey-meta-grid">
@@ -36,29 +36,29 @@
 
         <aside class="ticket-lounge-stack portal-print-hide">
             <article class="journey-rail-card journey-rail-card-dark">
-                <p class="portal-kicker">Ticket Actions</p>
+                <p class="portal-kicker">Aksi tiket</p>
                 <div class="mt-4 space-y-3">
                     @if (($relatedTicketDetails->count() ?? 0) > 1)
                         <a href="{{ route('my-bookings.tickets', $booking) }}" class="ticket-lounge-link">
-                            <span class="ticket-lounge-link-title">Open All Tickets</span>
-                            <span class="ticket-lounge-link-copy">Kembali ke stack semua passenger ticket.</span>
+                            <span class="ticket-lounge-link-title">Buka Semua Tiket</span>
+                            <span class="ticket-lounge-link-copy">Kembali ke daftar semua tiket penumpang.</span>
                         </a>
                         <a href="{{ route('my-bookings.tickets.download-all', $booking) }}" class="ticket-lounge-link">
-                            <span class="ticket-lounge-link-title">Download All PDFs</span>
+                            <span class="ticket-lounge-link-title">Unduh Semua PDF</span>
                             <span class="ticket-lounge-link-copy">Unduh satu paket e-ticket booking ini.</span>
                         </a>
                     @endif
                     <a href="{{ route('my-bookings.show', $booking) }}" class="ticket-lounge-link">
-                        <span class="ticket-lounge-link-title">Back to Booking</span>
-                        <span class="ticket-lounge-link-copy">Kembali ke control panel booking.</span>
+                        <span class="ticket-lounge-link-title">Kembali ke Booking</span>
+                        <span class="ticket-lounge-link-copy">Kembali ke halaman detail booking.</span>
                     </a>
                 </div>
             </article>
 
             @if (($relatedTicketDetails->count() ?? 0) > 1)
                 <article class="ticket-lounge-card">
-                    <p class="portal-kicker">Related Tickets</p>
-                    <h2 class="mt-2 text-2xl font-bold text-slate-900">Other Passenger Tickets</h2>
+                    <p class="portal-kicker">Tiket terkait</p>
+                    <h2 class="mt-2 text-2xl font-bold text-slate-900">Tiket Penumpang Lain</h2>
                     <div class="mt-4 space-y-3">
                         @foreach ($relatedTicketDetails as $relatedDetail)
                             <a

@@ -46,7 +46,8 @@ class PassengerWebController extends Controller
 
         return redirect()
             ->route('passengers.index')
-            ->with('status', 'Passenger berhasil ditambahkan.');
+            ->with('status', 'Passenger berhasil ditambahkan.')
+            ->with('status_type', 'success');
     }
 
     public function update(UpdatePassengerRequest $request, Passenger $passenger): RedirectResponse
@@ -57,7 +58,8 @@ class PassengerWebController extends Controller
 
         return redirect()
             ->route('passengers.index')
-            ->with('status', 'Passenger berhasil diperbarui.');
+            ->with('status', 'Passenger berhasil diperbarui.')
+            ->with('status_type', 'success');
     }
 
     public function destroy(Request $request, Passenger $passenger): RedirectResponse
@@ -68,6 +70,7 @@ class PassengerWebController extends Controller
 
         return redirect()
             ->route('passengers.index')
-            ->with('status', 'Passenger berhasil dihapus.');
+            ->with('status', 'Passenger berhasil dihapus.')
+            ->with('status_type', 'success');
     }
 }

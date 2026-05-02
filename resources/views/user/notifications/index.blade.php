@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', 'Cakrawala | Notifications')
+@section('title', 'Cakrawala | Notifikasi')
 @section('active', 'notifications')
 
 @section('content')
@@ -8,17 +8,17 @@
         <article class="support-hero-panel">
             <div class="grid gap-6 xl:grid-cols-[1.18fr_.82fr]">
                 <div>
-                    <p class="booking-shell-kicker">Notification inbox</p>
-                    <h1 class="booking-shell-title">Seluruh update booking, payment, dan layanan masuk ke satu inbox yang lebih fokus.</h1>
-                    <p class="booking-shell-copy">Unread item, action link, dan waktu masuk sekarang lebih mudah dipindai supaya Anda tidak perlu membuka banyak halaman untuk tahu langkah berikutnya.</p>
+                    <p class="booking-shell-kicker">Pusat notifikasi</p>
+                    <h1 class="booking-shell-title">Seluruh pembaruan booking, pembayaran, dan layanan tersaji dalam satu halaman.</h1>
+                    <p class="booking-shell-copy">Notifikasi terbaru, tautan tindakan, dan waktu masuk disusun jelas agar langkah berikutnya lebih cepat dipahami.</p>
                 </div>
                 <div class="support-summary-grid">
                     <div class="support-summary-card">
-                        <span>Total items</span>
+                        <span>Total notifikasi</span>
                         <strong>{{ $notifications->total() }}</strong>
                     </div>
                     <div class="support-summary-card">
-                        <span>Unread</span>
+                        <span>Belum dibaca</span>
                         <strong>{{ $unreadCount }}</strong>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                 <div class="mt-5">
                     <form method="POST" action="{{ route('notifications.read-all') }}">
                         @csrf
-                        <button type="submit" class="portal-btn-blue">Mark All Read</button>
+                        <button type="submit" class="portal-btn-blue">Tandai Semua Dibaca</button>
                     </form>
                 </div>
             @endif
@@ -42,12 +42,12 @@
                             <div class="flex flex-wrap items-center gap-2">
                                 <h2 class="text-xl font-semibold text-slate-800">{{ $payload['title'] }}</h2>
                                 @if (blank($notification->read_at))
-                                    <span class="portal-status-pending">Unread</span>
+                                    <span class="portal-status-pending">Belum Dibaca</span>
                                 @endif
                             </div>
                             <p class="mt-2 text-slate-600">{{ $payload['message'] }}</p>
                             @if (! empty($payload['action_url']))
-                                <a href="{{ $payload['action_url'] }}" class="portal-anchor-link mt-3 inline-flex">Open related page</a>
+                                <a href="{{ $payload['action_url'] }}" class="portal-anchor-link mt-3 inline-flex">Buka Halaman Terkait</a>
                             @endif
                         </div>
                         <div class="flex flex-col items-end gap-2">
@@ -55,14 +55,14 @@
                             @if (blank($notification->read_at))
                                 <form method="POST" action="{{ route('notifications.read', $notification->id) }}">
                                     @csrf
-                                    <button type="submit" class="portal-btn-blue px-3 py-2 text-sm">Mark Read</button>
+                                    <button type="submit" class="portal-btn-blue px-3 py-2 text-sm">Tandai Dibaca</button>
                                 </form>
                             @endif
                         </div>
                     </div>
                 </article>
             @empty
-                <div class="portal-card text-center text-slate-600">No notification yet.</div>
+                <div class="portal-card text-center text-slate-600">Belum ada notifikasi.</div>
             @endforelse
         </div>
 

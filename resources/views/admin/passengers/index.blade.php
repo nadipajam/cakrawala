@@ -5,7 +5,7 @@
 
 @section('content')
     <section class="space-y-5">
-        <div class="grid gap-5 xl:grid-cols-[320px_1fr]">
+        <div class="grid gap-5 xl:grid-cols-[320px_minmax(0,1fr)]">
             <form method="GET" class="admin-ops-filter space-y-5">
                 <div>
                     <p class="admin-section-kicker">Passenger Directory</p>
@@ -14,7 +14,7 @@
                 </div>
                 <div class="space-y-4">
                     <div>
-                        <label for="search" class="admin-label">Search Passenger</label>
+                        <label for="search" class="admin-label">Cari penumpang</label>
                         <input id="search" name="search" value="{{ $search }}" class="admin-field" placeholder="Nama passenger">
                     </div>
                     <div>
@@ -31,7 +31,7 @@
                     <p class="text-sm text-slate-500">Gunakan filter user saat satu akun menyimpan banyak profil passenger.</p>
                     <div class="flex flex-wrap items-center gap-2">
                         <button class="admin-btn-primary" type="submit">Filter</button>
-                        <a href="{{ route('admin.passengers.index') }}" class="admin-btn-secondary">Reset</a>
+                        <a href="{{ route('admin.passengers.index') }}" class="admin-btn-secondary">Atur Ulang</a>
                     </div>
                 </div>
             </form>
@@ -55,7 +55,7 @@
                         </article>
                         <article class="admin-ops-summary-card">
                             <p class="label">Male</p>
-                            <p class="value text-[#0f3f78]">{{ $passengers->where('gender', 'male')->count() }}</p>
+                            <p class="value text-[#c2410c]">{{ $passengers->where('gender', 'male')->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Profil dengan gender male pada halaman ini.</p>
                         </article>
                         <article class="admin-ops-summary-card">
@@ -77,8 +77,8 @@
                                     <th>Gender</th>
                                     <th>Birth Date</th>
                                     <th>Nationality</th>
-                                    <th>Created</th>
-                                    <th>Action</th>
+                                    <th>Dibuat</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">

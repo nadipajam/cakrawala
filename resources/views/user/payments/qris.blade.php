@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', 'Cakrawala | QRIS Payment')
+@section('title', 'Cakrawala | Pembayaran QRIS')
 @section('active', 'bookings')
 
 @section('content')
@@ -9,13 +9,13 @@
             <article class="payment-hero-panel">
                 <div class="grid gap-6 xl:grid-cols-[1.06fr_.94fr]">
                     <div>
-                        <p class="booking-shell-kicker">Instant payment</p>
+                        <p class="booking-shell-kicker">Pembayaran instan</p>
                         <h1 class="booking-shell-title">{{ $paymentLabel }}</h1>
                         <p class="booking-shell-copy">Scan QR berikut sebelum timer habis. Saat scan sukses, status pembayaran akan berubah otomatis dan booking bisa lanjut ke tahap berikutnya.</p>
                     </div>
                     <div class="payment-hero-meta">
                         <div class="payment-hero-meta-card">
-                            <span>Countdown</span>
+                            <span>Hitung mundur</span>
                             <strong x-text="countdown"></strong>
                         </div>
                         <div class="payment-hero-meta-card">
@@ -27,33 +27,33 @@
             </article>
 
             <article class="portal-card">
-                <div class="grid gap-6 lg:grid-cols-[320px_1fr]">
+                <div class="grid gap-6 lg:grid-cols-[320px_minmax(0,1fr)]">
                     <div class="qris-scan-stage text-center">
                         <div class="portal-brand-mark mx-auto h-12 w-12 text-sm">QR</div>
                         <div class="mt-4 flex justify-center">
                             <img src="{{ $qrCode }}" alt="QRIS Demo" class="h-64 w-64 object-contain">
                         </div>
-                        <p class="mt-4 text-sm leading-7 text-slate-500">Saat QR berhasil discan, pembayaran akan otomatis masuk status paid dan tiket diterbitkan.</p>
+                        <p class="mt-4 text-sm leading-7 text-slate-500">Saat QR berhasil dipindai, status pembayaran otomatis menjadi lunas dan tiket dapat diterbitkan.</p>
                     </div>
 
                     <div class="space-y-4">
                         <div class="portal-card-soft">
                             <p class="text-sm text-slate-500">Booking</p>
                             <p class="font-semibold text-slate-800">{{ $payment->booking->booking_code }}</p>
-                            <p class="mt-1 text-sm text-slate-600">{{ $payment->booking->flight->airline->name }} | {{ $payment->booking->flight->departureAirport->code }} to {{ $payment->booking->flight->arrivalAirport->code }}</p>
+                            <p class="mt-1 text-sm text-slate-600">{{ $payment->booking->flight->airline->name }} | {{ $payment->booking->flight->departureAirport->code }} ke {{ $payment->booking->flight->arrivalAirport->code }}</p>
                         </div>
                         <div class="portal-card-soft">
                             <p class="text-sm text-slate-500">Batas pembayaran</p>
                             <p class="font-semibold text-slate-800">{{ optional($payment->booking->expired_at)->format('d M Y H:i:s') ?: '-' }}</p>
                         </div>
                         <div class="portal-card-soft">
-                            <p class="text-sm text-slate-500">Simulated scan URL</p>
+                            <p class="text-sm text-slate-500">Tautan simulasi pindai</p>
                             <p class="mt-1 break-all text-xs text-slate-500">{{ $scanUrl }}</p>
                         </div>
                         <div class="flex flex-wrap items-center gap-3">
-                            <a href="{{ $scanUrl }}" target="_blank" class="portal-btn-gold">Simulate QR Scan</a>
-                            <a href="{{ route('payments.show', $payment) }}" class="portal-btn-blue">Payment Detail</a>
-                            <a href="{{ route('my-bookings.show', $payment->booking) }}" class="portal-btn-blue">Back to Booking</a>
+                            <a href="{{ $scanUrl }}" target="_blank" class="portal-btn-gold">Simulasikan Pindai QR</a>
+                            <a href="{{ route('payments.show', $payment) }}" class="portal-btn-blue">Detail Pembayaran</a>
+                            <a href="{{ route('my-bookings.show', $payment->booking) }}" class="portal-btn-blue">Kembali ke Booking</a>
                         </div>
                     </div>
                 </div>
@@ -62,15 +62,15 @@
 
         <aside class="payment-summary-rail">
             <div class="payment-summary-rail-card">
-                <p class="portal-kicker">Live state</p>
-                <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">QRIS status</h2>
+                <p class="portal-kicker">Status langsung</p>
+                <h2 class="mt-2 font-heading text-3xl font-bold text-[#c2410c]">QRIS status</h2>
                 <div class="mt-5 space-y-3">
                     <div class="portal-card-soft">
-                        <p class="text-sm text-slate-500">Payment status</p>
+                        <p class="text-sm text-slate-500">Status pembayaran</p>
                         <p class="font-semibold text-slate-800">{{ ucfirst($payment->payment_status) }}</p>
                     </div>
                     <div class="portal-card-soft">
-                        <p class="text-sm text-slate-500">Booking status</p>
+                        <p class="text-sm text-slate-500">Status booking</p>
                         <p class="font-semibold text-slate-800">{{ ucfirst($payment->booking->status) }}</p>
                     </div>
                 </div>

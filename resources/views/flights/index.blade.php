@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', 'Cakrawala | Flights')
+@section('title', 'Cakrawala | Penerbangan')
 @section('active', 'flights')
 
 @section('content')
@@ -15,22 +15,22 @@
 
                 <div class="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
                     <div class="portal-stack-card">
-                        <p class="text-xs uppercase tracking-[0.22em] text-orange-700/80">Results</p>
-                        <p class="mt-2 text-3xl font-bold text-[#0f3f78]">{{ $flights->total() }}</p>
-                        <p class="mt-1 text-sm text-slate-600">Flight cocok dengan filter aktif.</p>
+                        <p class="text-xs uppercase tracking-[0.22em] text-orange-700/80">Hasil</p>
+                        <p class="mt-2 text-3xl font-bold text-[#c2410c]">{{ $flights->total() }}</p>
+                        <p class="mt-1 text-sm text-slate-600">Penerbangan cocok dengan filter aktif.</p>
                     </div>
                     <div class="portal-stack-card">
-                        <p class="text-xs uppercase tracking-[0.22em] text-orange-700/80">Airlines</p>
+                        <p class="text-xs uppercase tracking-[0.22em] text-orange-700/80">Maskapai</p>
                         <p class="mt-2 text-3xl font-bold text-slate-800">{{ $flights->pluck('airline_id')->filter()->unique()->count() }}</p>
                         <p class="mt-1 text-sm text-slate-600">Maskapai tampil di halaman ini.</p>
                     </div>
                     <div class="portal-stack-card">
-                        <p class="text-xs uppercase tracking-[0.22em] text-orange-700/80">Fare range</p>
+                        <p class="text-xs uppercase tracking-[0.22em] text-orange-700/80">Rentang tarif</p>
                         <p class="mt-2 text-lg font-bold text-slate-800">
                             @if ($flights->count() > 0)
                                 Rp{{ number_format((float) $flights->min('price'), 0, ',', '.') }} - Rp{{ number_format((float) $flights->max('price'), 0, ',', '.') }}
                             @else
-                                No fare
+                                Tidak ada tarif
                             @endif
                         </p>
                         <p class="mt-1 text-sm text-slate-600">Rentang harga dasar dari hasil saat ini.</p>
@@ -43,104 +43,104 @@
             <article class="portal-bento-card">
                 <div class="portal-section-head">
                     <div>
-                        <p class="portal-kicker">Search matrix</p>
-                        <h2 class="text-2xl font-bold text-[color:var(--cakrawala-ink-900)] sm:text-3xl">Filter flights</h2>
+                        <p class="portal-kicker">Matriks pencarian</p>
+                        <h2 class="text-2xl font-bold text-[color:var(--cakrawala-ink-900)] sm:text-3xl">Filter penerbangan</h2>
                     </div>
-                    <a href="{{ route('flights.index') }}" class="portal-inline-note">Reset all</a>
+                    <a href="{{ route('flights.index') }}" class="portal-inline-note">Reset semua</a>
                 </div>
 
                 <form action="{{ route('flights.index') }}" method="GET" class="mt-6 grid gap-4 md:grid-cols-2 2xl:grid-cols-4">
                     <div>
-                        <label for="from" class="portal-label">From</label>
+                        <label for="from" class="portal-label">Dari</label>
                         <select id="from" name="from" class="portal-select">
-                            <option value="">All origin</option>
+                            <option value="">Semua asal</option>
                             @foreach ($airports as $airport)
                                 <option value="{{ $airport->id }}" @selected(($filters['from'] ?? null) == $airport->id)>{{ $airport->city }} ({{ $airport->code }})</option>
                             @endforeach
                         </select>
                     </div>
                     <div>
-                        <label for="to" class="portal-label">To</label>
+                        <label for="to" class="portal-label">Ke</label>
                         <select id="to" name="to" class="portal-select">
-                            <option value="">All destination</option>
+                            <option value="">Semua tujuan</option>
                             @foreach ($airports as $airport)
                                 <option value="{{ $airport->id }}" @selected(($filters['to'] ?? null) == $airport->id)>{{ $airport->city }} ({{ $airport->code }})</option>
                             @endforeach
                         </select>
                     </div>
                     <div>
-                        <label for="date" class="portal-label">Date</label>
+                        <label for="date" class="portal-label">Tanggal</label>
                         <input id="date" type="date" name="date" value="{{ $filters['date'] ?? '' }}" class="portal-input">
                     </div>
                     <div>
-                        <label for="airline_id" class="portal-label">Airline</label>
+                        <label for="airline_id" class="portal-label">Maskapai</label>
                         <select id="airline_id" name="airline_id" class="portal-select">
-                            <option value="">All airlines</option>
+                            <option value="">Semua maskapai</option>
                             @foreach ($airlines as $airline)
                                 <option value="{{ $airline->id }}" @selected(($filters['airline_id'] ?? null) == $airline->id)>{{ $airline->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div>
-                        <label for="class" class="portal-label">Class</label>
+                        <label for="class" class="portal-label">Kelas</label>
                         <select id="class" name="class" class="portal-select">
-                            <option value="">Any class</option>
-                            <option value="economy" @selected(($filters['class'] ?? '') === 'economy')>Economy</option>
-                            <option value="business" @selected(($filters['class'] ?? '') === 'business')>Business</option>
-                            <option value="first" @selected(($filters['class'] ?? '') === 'first')>First</option>
+                            <option value="">Semua kelas</option>
+                            <option value="economy" @selected(($filters['class'] ?? '') === 'economy')>Ekonomi</option>
+                            <option value="business" @selected(($filters['class'] ?? '') === 'business')>Bisnis</option>
+                            <option value="first" @selected(($filters['class'] ?? '') === 'first')>First Class</option>
                         </select>
                     </div>
                     <div>
-                        <label for="max_price" class="portal-label">Max Price</label>
-                        <input id="max_price" type="number" min="0" name="max_price" value="{{ $filters['max_price'] ?? '' }}" class="portal-input" placeholder="Example: 1500000">
+                        <label for="max_price" class="portal-label">Harga Maksimum</label>
+                        <input id="max_price" type="number" min="0" name="max_price" value="{{ $filters['max_price'] ?? '' }}" class="portal-input" placeholder="Contoh: 1500000">
                     </div>
                     <div>
-                        <label for="time" class="portal-label">Departure Time</label>
+                        <label for="time" class="portal-label">Waktu Berangkat</label>
                         <select id="time" name="time" class="portal-select">
-                            <option value="">Any time</option>
-                            <option value="morning" @selected(($filters['time'] ?? '') === 'morning')>Morning</option>
-                            <option value="afternoon" @selected(($filters['time'] ?? '') === 'afternoon')>Afternoon</option>
-                            <option value="evening" @selected(($filters['time'] ?? '') === 'evening')>Evening</option>
-                            <option value="night" @selected(($filters['time'] ?? '') === 'night')>Night</option>
+                            <option value="">Semua waktu</option>
+                            <option value="morning" @selected(($filters['time'] ?? '') === 'morning')>Pagi</option>
+                            <option value="afternoon" @selected(($filters['time'] ?? '') === 'afternoon')>Siang</option>
+                            <option value="evening" @selected(($filters['time'] ?? '') === 'evening')>Sore</option>
+                            <option value="night" @selected(($filters['time'] ?? '') === 'night')>Malam</option>
                         </select>
                     </div>
                     <div>
-                        <label for="sort" class="portal-label">Sort</label>
+                        <label for="sort" class="portal-label">Urutkan</label>
                         <select id="sort" name="sort" class="portal-select">
-                            <option value="time_asc" @selected(($filters['sort'] ?? 'time_asc') === 'time_asc')>Departure Time Up</option>
-                            <option value="time_desc" @selected(($filters['sort'] ?? '') === 'time_desc')>Departure Time Down</option>
-                            <option value="price_asc" @selected(($filters['sort'] ?? '') === 'price_asc')>Price Up</option>
-                            <option value="price_desc" @selected(($filters['sort'] ?? '') === 'price_desc')>Price Down</option>
+                            <option value="time_asc" @selected(($filters['sort'] ?? 'time_asc') === 'time_asc')>Waktu berangkat terawal</option>
+                            <option value="time_desc" @selected(($filters['sort'] ?? '') === 'time_desc')>Waktu berangkat terbaru</option>
+                            <option value="price_asc" @selected(($filters['sort'] ?? '') === 'price_asc')>Harga termurah</option>
+                            <option value="price_desc" @selected(($filters['sort'] ?? '') === 'price_desc')>Harga termahal</option>
                         </select>
                     </div>
                     <div class="md:col-span-2 2xl:col-span-4 flex flex-wrap gap-3 pt-2">
-                        <button type="submit" class="portal-btn-gold">Apply Filter</button>
-                        <a href="{{ route('flights.index') }}" class="portal-btn-blue">Clear</a>
+                        <button type="submit" class="portal-btn-gold">Terapkan Filter</button>
+                        <a href="{{ route('flights.index') }}" class="portal-btn-blue">Bersihkan</a>
                     </div>
                 </form>
             </article>
 
             <article class="portal-bento-card">
-                <p class="portal-kicker">Active filters</p>
-                <h2 class="mt-2 text-2xl font-bold text-[color:var(--cakrawala-ink-900)]">Quick reading</h2>
+                <p class="portal-kicker">Filter aktif</p>
+                <h2 class="mt-2 text-2xl font-bold text-[color:var(--cakrawala-ink-900)]">Ringkasan cepat</h2>
                 <div class="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
                     <div class="portal-stack-card">
                         <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Route</p>
                         <p class="mt-2 font-semibold text-slate-800">
-                            {{ ($filters['from'] ?? null) ? optional($airports->firstWhere('id', (int) $filters['from']))?->code : 'Any' }}
+                            {{ ($filters['from'] ?? null) ? optional($airports->firstWhere('id', (int) $filters['from']))?->code : 'Semua' }}
                             -
-                            {{ ($filters['to'] ?? null) ? optional($airports->firstWhere('id', (int) $filters['to']))?->code : 'Any' }}
+                            {{ ($filters['to'] ?? null) ? optional($airports->firstWhere('id', (int) $filters['to']))?->code : 'Semua' }}
                         </p>
                     </div>
                     <div class="portal-stack-card">
                         <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Date and time</p>
-                        <p class="mt-2 font-semibold text-slate-800">{{ $filters['date'] ?? 'Any date' }}</p>
-                        <p class="mt-1 text-sm text-slate-500">{{ $filters['time'] ?? 'Any time' }}</p>
+                        <p class="mt-2 font-semibold text-slate-800">{{ $filters['date'] ?? 'Semua tanggal' }}</p>
+                        <p class="mt-1 text-sm text-slate-500">{{ $filters['time'] ?? 'Semua waktu' }}</p>
                     </div>
                     <div class="portal-stack-card">
                         <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Cabin and price</p>
-                        <p class="mt-2 font-semibold text-slate-800">{{ $filters['class'] ? \App\Support\CabinClass::label($filters['class']) : 'Any class' }}</p>
-                        <p class="mt-1 text-sm text-slate-500">{{ $filters['max_price'] ? 'Up to Rp'.number_format((float) $filters['max_price'], 0, ',', '.') : 'Any fare' }}</p>
+                        <p class="mt-2 font-semibold text-slate-800">{{ $filters['class'] ? \App\Support\CabinClass::label($filters['class']) : 'Semua kelas' }}</p>
+                        <p class="mt-1 text-sm text-slate-500">{{ $filters['max_price'] ? 'Hingga Rp'.number_format((float) $filters['max_price'], 0, ',', '.') : 'Semua tarif' }}</p>
                     </div>
                     <div class="portal-stack-card">
                         <p class="text-xs uppercase tracking-[0.22em] text-slate-500">Sort</p>
@@ -164,14 +164,14 @@
                         <div class="space-y-3">
                             <p class="portal-kicker">{{ $flight->airline->name }}</p>
                             <h3 class="text-4xl font-bold tracking-tight text-slate-800">{{ $flight->flight_number }}</h3>
-                            <span class="portal-inline-note">{{ $availableSeats }} seats left</span>
+                            <span class="portal-inline-note">{{ $availableSeats }} kursi tersisa</span>
                         </div>
 
                         <div class="grid gap-3 md:grid-cols-3">
                             <div class="portal-stack-card">
                                 <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Route</p>
                                 <p class="mt-2 text-xl font-bold text-slate-800">{{ $flight->departureAirport->code }} &rarr; {{ $flight->arrivalAirport->code }}</p>
-                                <p class="mt-1 text-sm text-slate-500">{{ $flight->departureAirport->city }} to {{ $flight->arrivalAirport->city }}</p>
+                                <p class="mt-1 text-sm text-slate-500">{{ $flight->departureAirport->city }} ke {{ $flight->arrivalAirport->city }}</p>
                             </div>
                             <div class="portal-stack-card">
                                 <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Departure</p>
@@ -185,15 +185,15 @@
 
                         <div class="portal-surface-muted flex flex-col gap-4">
                             <div>
-                                <p class="text-sm text-slate-500">{{ $selectedCabinClass ? \App\Support\CabinClass::label($selectedCabinClass) : 'Starting fare' }}</p>
-                                <p class="mt-2 text-4xl font-bold text-[#0f3f78]">Rp{{ number_format($displayPrice, 0, ',', '.') }}</p>
+                                <p class="text-sm text-slate-500">{{ $selectedCabinClass ? \App\Support\CabinClass::label($selectedCabinClass) : 'Tarif mulai dari' }}</p>
+                                <p class="mt-2 text-4xl font-bold text-[#c2410c]">Rp{{ number_format($displayPrice, 0, ',', '.') }}</p>
                             </div>
-                            <a href="{{ route('flights.show', ['flight' => $flight, 'class' => $selectedCabinClass]) }}" class="portal-btn-gold w-full justify-center">Select Flight</a>
+                            <a href="{{ route('flights.show', ['flight' => $flight, 'class' => $selectedCabinClass]) }}" class="portal-btn-gold w-full justify-center">Pilih Penerbangan</a>
                         </div>
                     </div>
                 </article>
             @empty
-                <div class="portal-card text-center text-slate-600">No flights match your filters.</div>
+                <div class="portal-card text-center text-slate-600">Tidak ada penerbangan yang cocok dengan filter Anda.</div>
             @endforelse
         </div>
 

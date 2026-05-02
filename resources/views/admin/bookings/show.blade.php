@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Booking Detail | Cakrawala')
-@section('page-title', 'Booking Detail')
+@section('title', 'Detail Booking | Cakrawala')
+@section('page-title', 'Detail Booking')
 
 @section('content')
     @php($latestPayment = $booking->payments->sortByDesc('created_at')->first())
@@ -9,7 +9,7 @@
         <article class="admin-ops-detail-hero space-y-5">
             <div class="admin-section-head">
                 <div class="min-w-0 max-w-3xl">
-                    <p class="admin-section-kicker">Booking Overview</p>
+                    <p class="admin-section-kicker">Ringkasan booking</p>
                     <h2 class="admin-section-title break-all">{{ $booking->booking_code }}</h2>
                     <p class="admin-section-copy">Ringkasan penumpang, jadwal, status pembayaran, check-in, add-on, dan request perubahan ditempatkan di halaman kerja yang lebih tersegmentasi.</p>
                 </div>
@@ -22,12 +22,12 @@
             <div class="grid gap-4 xl:grid-cols-[1.35fr_.95fr]">
                 <div class="admin-ops-inline-grid">
                     <article class="admin-ops-info-card">
-                        <p class="admin-info-label">User</p>
+                        <p class="admin-info-label">Pengguna</p>
                         <p class="admin-info-value break-words">{{ $booking->user?->name ?: '-' }}</p>
                         <p class="mt-2 break-all text-sm text-slate-500">{{ $booking->user?->email ?: 'Email tidak tersedia' }}</p>
                     </article>
                     <article class="admin-ops-info-card">
-                        <p class="admin-info-label">Flight</p>
+                        <p class="admin-info-label">Penerbangan</p>
                         <p class="admin-info-value">{{ $booking->flight?->flight_number ?: '-' }}</p>
                         <p class="mt-2 text-sm text-slate-500">{{ $booking->flight?->airline?->name ?: 'Airline tidak tersedia' }}</p>
                         <p class="mt-1 text-sm text-slate-500">{{ $booking->flight?->airplane?->model ?: 'Pesawat tidak tersedia' }}</p>
@@ -38,17 +38,17 @@
                         <p class="mt-2 text-sm text-slate-500">{{ $booking->flight?->departureAirport?->city }} ke {{ $booking->flight?->arrivalAirport?->city }}</p>
                     </article>
                     <article class="admin-ops-info-card">
-                        <p class="admin-info-label">Schedule</p>
+                        <p class="admin-info-label">Jadwal</p>
                         <p class="admin-info-value">{{ $booking->flight?->departure_time?->format('d M Y H:i') ?: '-' }}</p>
                         <p class="mt-2 text-sm text-slate-500">Tiba {{ $booking->flight?->arrival_time?->format('d M Y H:i') ?: '-' }}</p>
                     </article>
                     <article class="admin-ops-info-card">
-                        <p class="admin-info-label">Total Passenger</p>
+                        <p class="admin-info-label">Total penumpang</p>
                         <p class="admin-info-value">{{ $booking->total_passengers }}</p>
-                        <p class="mt-2 text-sm text-slate-500">Manifest passenger</p>
+                        <p class="mt-2 text-sm text-slate-500">Manifest penumpang</p>
                     </article>
                     <article class="admin-ops-info-card">
-                        <p class="admin-info-label">Total Price</p>
+                        <p class="admin-info-label">Total harga</p>
                         <p class="admin-info-value">Rp{{ number_format((float) $booking->total_price, 0, ',', '.') }}</p>
                         <p class="mt-2 text-sm text-slate-500">Termasuk add-on aktif</p>
                     </article>
@@ -58,7 +58,7 @@
                         <p class="mt-2 text-sm text-slate-500">Selected atau paid addon item</p>
                     </article>
                     <article class="admin-ops-info-card">
-                        <p class="admin-info-label">Change Requests</p>
+                        <p class="admin-info-label">Permintaan perubahan</p>
                         <p class="admin-info-value">{{ $booking->changeRequests->count() }}</p>
                         <p class="mt-2 text-sm text-slate-500">Request perubahan terkait booking ini</p>
                     </article>
@@ -66,26 +66,26 @@
 
                 <aside class="space-y-4">
                     <article class="admin-ops-sidecard">
-                        <p class="admin-section-kicker">Workflow</p>
-                        <h3 class="mt-2 font-heading text-lg font-bold text-slate-800">Operational action</h3>
+                        <p class="admin-section-kicker">Alur kerja</p>
+                        <h3 class="mt-2 font-heading text-lg font-bold text-slate-800">Tindakan operasional</h3>
                         <div class="admin-ops-trail">
                             <div class="admin-ops-trail-item">
                                 <div>
-                                    <p class="text-sm font-semibold text-slate-700">Booking status</p>
+                                    <p class="text-sm font-semibold text-slate-700">Status booking</p>
                                     <p class="text-sm text-slate-500">Status utama transaksi booking.</p>
                                 </div>
                                 <div>@include('admin.partials.status-badge', ['status' => $booking->status])</div>
                             </div>
                             <div class="admin-ops-trail-item">
                                 <div>
-                                    <p class="text-sm font-semibold text-slate-700">Payment status</p>
+                                    <p class="text-sm font-semibold text-slate-700">Status pembayaran</p>
                                     <p class="text-sm text-slate-500">Mengikuti transaksi pembayaran terakhir.</p>
                                 </div>
                                 <div>@include('admin.partials.status-badge', ['status' => $latestPayment?->payment_status])</div>
                             </div>
                             <div class="admin-ops-trail-item">
                                 <div>
-                                    <p class="text-sm font-semibold text-slate-700">Expired at</p>
+                                    <p class="text-sm font-semibold text-slate-700">Batas waktu</p>
                                     <p class="text-sm text-slate-500">Batas waktu sebelum booking hangus.</p>
                                 </div>
                                 <p class="text-sm font-semibold text-slate-700">{{ $booking->expired_at?->format('d M Y H:i') ?: '-' }}</p>
@@ -96,7 +96,7 @@
                     @if (auth()->user()->isAdmin() || auth()->user()->isStaff())
                         <article class="admin-ops-sidecard space-y-4">
                             <div>
-                                <p class="admin-section-kicker">Booking Actions</p>
+                                <p class="admin-section-kicker">Aksi booking</p>
                                 <h3 class="mt-2 font-heading text-lg font-bold text-slate-800">Update transaksi</h3>
                                 <p class="mt-2 text-sm text-slate-600">Perbarui status booking atau batalkan transaksi secara manual jika diperlukan.</p>
                             </div>
@@ -104,18 +104,18 @@
                                 @csrf
                                 @method('PATCH')
                                 <select name="status" class="admin-field">
-                                    <option value="pending" @selected($booking->status === 'pending')>Pending</option>
-                                    <option value="confirmed" @selected($booking->status === 'confirmed')>Confirmed</option>
-                                    <option value="cancelled" @selected($booking->status === 'cancelled')>Cancelled</option>
-                                    <option value="completed" @selected($booking->status === 'completed')>Completed</option>
+                                    <option value="pending" @selected($booking->status === 'pending')>Tertunda</option>
+                                    <option value="confirmed" @selected($booking->status === 'confirmed')>Terkonfirmasi</option>
+                                    <option value="cancelled" @selected($booking->status === 'cancelled')>Dibatalkan</option>
+                                    <option value="completed" @selected($booking->status === 'completed')>Selesai</option>
                                 </select>
-                                <button class="admin-btn-primary w-full" type="submit">Update Status</button>
+                                <button class="admin-btn-primary w-full" type="submit">Perbarui Status</button>
                             </form>
 
                             @if ($booking->status !== 'cancelled')
                                 <form method="POST" action="{{ route('admin.bookings.cancel', $booking) }}" onsubmit="return confirm('Batalkan booking ini?')">
                                     @csrf
-                                    <button class="admin-btn-secondary w-full" type="submit">Cancel Booking</button>
+                                    <button class="admin-btn-secondary w-full" type="submit">Batalkan Booking</button>
                                 </form>
                             @endif
                         </article>
@@ -127,24 +127,24 @@
         <article class="admin-ops-table-card">
             <div class="admin-section-head">
                 <div>
-                    <p class="admin-section-kicker">Passenger Manifest</p>
-                    <h2 class="admin-section-title">Passenger, Seat, and Boarding</h2>
-                    <p class="admin-section-copy">Status boarding diupdate per passenger agar operasional check-in lebih akurat.</p>
+                    <p class="admin-section-kicker">Manifest penumpang</p>
+                    <h2 class="admin-section-title">Penumpang, Kursi, dan Boarding</h2>
+                    <p class="admin-section-copy">Status boarding diperbarui per penumpang agar operasional check-in lebih akurat.</p>
                 </div>
-                <span class="admin-chip">{{ $booking->details->count() }} passenger</span>
+                <span class="admin-chip">{{ $booking->details->count() }} penumpang</span>
             </div>
 
             <div class="admin-table-wrap mt-4">
                 <table class="admin-table">
                     <thead>
                         <tr>
-                            <th>Passenger</th>
-                            <th>Seat</th>
-                            <th>Ticket</th>
-                            <th>Boarding Status</th>
+                            <th>Penumpang</th>
+                            <th>Kursi</th>
+                            <th>Tiket</th>
+                            <th>Status Boarding</th>
                             <th>Check-In Ref</th>
                             <th>Boarding Pass</th>
-                            <th>Action</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">
@@ -154,7 +154,7 @@
                                 <td>{{ $detail->seat?->seat_number }} ({{ ucfirst($detail->seat?->class ?? '-') }})</td>
                                 <td class="whitespace-nowrap">
                                     @if ($detail->ticket)
-                                        <a href="{{ route('admin.tickets.show', $detail->ticket) }}" class="font-semibold text-[#0f3f78]">{{ $detail->ticket_number }}</a>
+                                        <a href="{{ route('admin.tickets.show', $detail->ticket) }}" class="font-semibold text-[#c2410c]">{{ $detail->ticket_number }}</a>
                                     @else
                                         -
                                     @endif
@@ -177,11 +177,11 @@
                                             @csrf
                                             @method('PATCH')
                                             <select name="boarding_status" class="admin-field min-w-[150px]">
-                                                <option value="not_checked_in" @selected($detail->boarding_status === 'not_checked_in')>Not Checked In</option>
-                                                <option value="checked_in" @selected($detail->boarding_status === 'checked_in')>Checked In</option>
-                                                <option value="boarded" @selected($detail->boarding_status === 'boarded')>Boarded</option>
+                                                <option value="not_checked_in" @selected($detail->boarding_status === 'not_checked_in')>Belum Check-In</option>
+                                                <option value="checked_in" @selected($detail->boarding_status === 'checked_in')>Sudah Check-In</option>
+                                                <option value="boarded" @selected($detail->boarding_status === 'boarded')>Sudah Boarding</option>
                                             </select>
-                                            <button type="submit" class="admin-btn-secondary">Update</button>
+                                            <button type="submit" class="admin-btn-secondary">Perbarui</button>
                                         </form>
                                     @else
                                         -
@@ -200,10 +200,10 @@
             <article class="admin-ops-table-card">
                 <div class="admin-section-head">
                     <div>
-                        <p class="admin-section-kicker">Ancillary</p>
-                        <h2 class="admin-section-title">Booking Add-Ons</h2>
+                        <p class="admin-section-kicker">Layanan tambahan</p>
+                        <h2 class="admin-section-title">Add-On Booking</h2>
                     </div>
-                    <a href="{{ route('admin.addons.index') }}" class="admin-btn-secondary">Open Add-Ons</a>
+                    <a href="{{ route('admin.addons.index') }}" class="admin-btn-secondary">Buka Add-On</a>
                 </div>
 
                 <div class="admin-table-wrap mt-4">
@@ -237,10 +237,10 @@
             <article class="admin-ops-table-card">
                 <div class="admin-section-head">
                     <div>
-                        <p class="admin-section-kicker">Service Desk</p>
-                        <h2 class="admin-section-title">Change Requests</h2>
-                    </div>
-                    <a href="{{ route('admin.change-requests.index') }}" class="admin-btn-secondary">Open Queue</a>
+                    <p class="admin-section-kicker">Permintaan layanan</p>
+                    <h2 class="admin-section-title">Permintaan Perubahan</h2>
+                </div>
+                    <a href="{{ route('admin.change-requests.index') }}" class="admin-btn-secondary">Buka Antrean</a>
                 </div>
 
                 <div class="admin-table-wrap mt-4">
@@ -248,10 +248,10 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Type</th>
+                                <th>Jenis</th>
                                 <th>Status</th>
-                                <th>Processed By</th>
-                                <th>Action</th>
+                                <th>Diproses Oleh</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100">
@@ -275,8 +275,8 @@
         <article class="admin-ops-table-card">
             <div class="admin-section-head">
                 <div>
-                    <p class="admin-section-kicker">Payment Ledger</p>
-                    <h2 class="admin-section-title">Payment List</h2>
+                    <p class="admin-section-kicker">Riwayat pembayaran</p>
+                    <h2 class="admin-section-title">Daftar Pembayaran</h2>
                     <p class="admin-section-copy">Riwayat pembayaran, metode yang dipilih, dan status validasinya.</p>
                 </div>
                 <span class="admin-chip">{{ $booking->payments->count() }} transaksi</span>
@@ -287,11 +287,11 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Method</th>
-                            <th>Amount</th>
+                            <th>Metode</th>
+                            <th>Nominal</th>
                             <th>Status</th>
-                            <th>Proof</th>
-                            <th>Action</th>
+                            <th>Bukti</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">
@@ -305,7 +305,7 @@
                                 <td class="whitespace-nowrap"><a href="{{ route('admin.payments.show', $payment) }}" class="admin-btn-secondary">Detail</a></td>
                             </tr>
                         @empty
-                            <tr><td colspan="6" class="text-center text-slate-500">Belum ada payment.</td></tr>
+                            <tr><td colspan="6" class="text-center text-slate-500">Belum ada pembayaran.</td></tr>
                         @endforelse
                     </tbody>
                 </table>

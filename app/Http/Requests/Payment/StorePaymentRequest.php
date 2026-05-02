@@ -27,12 +27,13 @@ class StorePaymentRequest extends FormRequest
         $method = (string) $this->input('payment_method');
         $type = PaymentMethodCatalog::type($method);
         $requiresProof = PaymentMethodCatalog::requiresProof($method);
+        $isGateway = $type === 'gateway';
 
         return [
             'booking_id' => ['required', 'exists:bookings,id'],
-            'payment_method' => ['required', 'string', 'max:50', Rule::in(array_keys(PaymentMethodCatalog::all()))],
-            'payer_name' => [$type === 'qris' ? 'nullable' : 'required', 'string', 'max:120'],
-            'payer_phone' => [in_array($type, ['e_wallet', 'card'], true) ? 'required' : 'nullable', 'string', 'max:30'],
+            'payment_method' => ['required', 'string', 'max:50', Rule::in(array_keys(PaymentMethodCatalog::checkoutOptions()))],
+            'payer_name' => [in_array($type, ['qris', 'gateway'], true) ? 'nullable' : 'required', 'string', 'max:120'],
+            'payer_phone' => [in_array($type, ['e_wallet', 'card'], true) && ! $isGateway ? 'required' : 'nullable', 'string', 'max:30'],
             'payer_bank_name' => [in_array($type, ['bank_transfer', 'virtual_account'], true) ? 'required' : 'nullable', 'string', 'max:120'],
             'payer_bank_account_number' => [in_array($type, ['bank_transfer', 'virtual_account'], true) ? 'required' : 'nullable', 'string', 'max:60'],
             'payment_notes' => [$type === 'card' ? 'required' : 'nullable', 'string', 'max:1000'],

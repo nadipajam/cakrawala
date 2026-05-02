@@ -10,6 +10,18 @@ final class PaymentMethodCatalog
     public static function all(): array
     {
         return [
+            'midtrans_snap' => [
+                'label' => 'Midtrans Snap',
+                'description' => 'Bayar online melalui Midtrans (VA, e-wallet, QRIS, kartu) dengan status sinkron otomatis.',
+                'icon' => 'MT',
+                'type' => 'gateway',
+                'instant' => false,
+                'requires_proof' => false,
+                'destination' => [
+                    'account_name' => 'Midtrans Gateway',
+                    'account_number' => 'Snap Redirect',
+                ],
+            ],
             'qris' => [
                 'label' => 'QRIS',
                 'description' => 'Scan QRIS dalam 5 menit untuk mengunci booking dan menerbitkan tiket setelah pembayaran sukses.',
@@ -143,6 +155,16 @@ final class PaymentMethodCatalog
                     'account_number' => '7777 1100 2200',
                 ],
             ],
+        ];
+    }
+
+    /**
+     * @return array<string, array<string, mixed>>
+     */
+    public static function checkoutOptions(): array
+    {
+        return [
+            'midtrans_snap' => self::all()['midtrans_snap'],
         ];
     }
 

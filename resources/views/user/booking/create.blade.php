@@ -23,10 +23,10 @@
             <article class="booking-composer-shell">
                 <div class="grid gap-6 xl:grid-cols-[1.15fr_.85fr]">
                     <div>
-                        <p class="booking-shell-kicker">Booking composer</p>
-                        <h1 class="booking-shell-title">Susun booking untuk {{ $flight->flight_number }} dengan flow yang lebih terarah.</h1>
+                        <p class="booking-shell-kicker">Pembuatan booking</p>
+                        <h1 class="booking-shell-title">Susun booking untuk {{ $flight->flight_number }} dengan alur yang jelas.</h1>
                         <p class="booking-shell-copy">
-                            {{ $flight->departureAirport->city }} ({{ $flight->departureAirport->code }}) to
+                            {{ $flight->departureAirport->city }} ({{ $flight->departureAirport->code }}) ke
                             {{ $flight->arrivalAirport->city }} ({{ $flight->arrivalAirport->code }}) |
                             {{ $flight->departure_time->format('d M Y H:i') }} - {{ $flight->arrival_time->format('d M Y H:i') }}
                         </p>
@@ -34,15 +34,15 @@
 
                     <div class="booking-shell-summary">
                         <div class="booking-shell-summary-card">
-                            <span>Base fare</span>
+                            <span>Tarif dasar</span>
                             <strong>Rp{{ number_format((float) $flight->price, 0, ',', '.') }}</strong>
                         </div>
                         <div class="booking-shell-summary-card">
-                            <span>Selected class</span>
+                            <span>Kelas terpilih</span>
                             <strong x-text="classLabel(selectedClass)"></strong>
                         </div>
                         <div class="booking-shell-summary-card">
-                            <span>Estimated total</span>
+                            <span>Estimasi total</span>
                             <strong x-text="formattedTotal()"></strong>
                         </div>
                     </div>
@@ -54,22 +54,22 @@
                     <div class="booking-step-card" :class="step === 1 ? 'booking-step-card-active' : ''">
                         <span class="booking-step-index">01</span>
                         <div>
-                            <p class="booking-step-title">Passenger manifest</p>
-                            <p class="booking-step-copy">Pilih siapa yang akan masuk ke booking ini.</p>
+                            <p class="booking-step-title">Data penumpang</p>
+                            <p class="booking-step-copy">Pilih penumpang yang akan masuk ke booking ini.</p>
                         </div>
                     </div>
                     <div class="booking-step-card" :class="step === 2 ? 'booking-step-card-active' : ''">
                         <span class="booking-step-index">02</span>
                         <div>
-                            <p class="booking-step-title">Cabin and seat</p>
-                            <p class="booking-step-copy">Tetapkan class dan seat untuk setiap traveler.</p>
+                            <p class="booking-step-title">Kabin dan kursi</p>
+                            <p class="booking-step-copy">Tetapkan kelas dan kursi untuk setiap penumpang.</p>
                         </div>
                     </div>
                     <div class="booking-step-card" :class="step === 3 ? 'booking-step-card-active' : ''">
                         <span class="booking-step-index">03</span>
                         <div>
-                            <p class="booking-step-title">Review and confirm</p>
-                            <p class="booking-step-copy">Periksa mapping passenger, seat, dan total harga.</p>
+                            <p class="booking-step-title">Tinjau dan konfirmasi</p>
+                            <p class="booking-step-copy">Periksa pasangan penumpang, kursi, dan total harga.</p>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                         <div class="portal-section-head">
                             <div>
                                 <p class="portal-kicker">Step 1</p>
-                                <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Passenger manifest</h2>
+                                <h2 class="mt-2 font-heading text-3xl font-bold text-[#c2410c]">Data penumpang</h2>
                                 <p class="portal-section-copy">Centang penumpang yang akan dimasukkan ke booking ini. Jumlah pilihan akan menentukan jumlah seat yang harus dipilih.</p>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                                             <span class="block font-semibold text-slate-800">{{ $passenger->full_name }}</span>
                                             <span class="mt-1 block text-sm text-slate-500">{{ optional($passenger->birth_date)->format('d M Y') }}</span>
                                         </span>
-                                        <input type="checkbox" class="h-4 w-4 rounded border-slate-300 text-[#0f3f78]" :value="{{ $passenger->id }}" x-model="selectedPassengers">
+                                        <input type="checkbox" class="h-4 w-4 rounded border-slate-300 text-[#c2410c]" :value="{{ $passenger->id }}" x-model="selectedPassengers">
                                     </label>
                                 @endforeach
                             </div>
@@ -114,8 +114,8 @@
                     <div x-show="step === 2" x-cloak class="space-y-5">
                         <div>
                             <p class="portal-kicker">Step 2</p>
-                            <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Cabin selection and seat map</h2>
-                            <p class="portal-section-copy">Seat yang dipilih harus sama dengan jumlah passenger. Saat ganti cabin class, pilihan seat akan di-reset agar mapping tetap valid.</p>
+                            <h2 class="mt-2 font-heading text-3xl font-bold text-[#c2410c]">Pilihan kabin dan peta kursi</h2>
+                            <p class="portal-section-copy">Jumlah kursi yang dipilih harus sama dengan jumlah penumpang. Saat ganti kelas kabin, pilihan kursi akan direset agar tetap valid.</p>
                         </div>
 
                         <div class="grid gap-3 lg:grid-cols-3">
@@ -133,7 +133,7 @@
                                         </div>
                                         <span class="portal-status-default">{{ $availableSeatCounts[$classKey] ?? 0 }}</span>
                                     </div>
-                                    <p class="mt-4 text-2xl font-bold text-[#0f3f78]">Rp{{ number_format((float) ($classPrices[$classKey] ?? 0), 0, ',', '.') }}</p>
+                                    <p class="mt-4 text-2xl font-bold text-[#c2410c]">Rp{{ number_format((float) ($classPrices[$classKey] ?? 0), 0, ',', '.') }}</p>
                                 </button>
                             @endforeach
                         </div>
@@ -147,8 +147,8 @@
                                             <h3 class="mt-2 text-2xl font-bold text-slate-800">{{ $seatClass['label'] }}</h3>
                                         </div>
                                         <div class="grid gap-1 text-sm text-slate-600 sm:text-right">
-                                            <span>{{ $seatClass['available_count'] }} seat tersedia</span>
-                                            <span>Harga per penumpang <strong class="text-[#0f3f78]">Rp{{ number_format((float) ($classPrices[$classKey] ?? 0), 0, ',', '.') }}</strong></span>
+                                            <span>{{ $seatClass['available_count'] }} kursi tersedia</span>
+                                            <span>Harga per penumpang <strong class="text-[#c2410c]">Rp{{ number_format((float) ($classPrices[$classKey] ?? 0), 0, ',', '.') }}</strong></span>
                                         </div>
                                     </div>
 
@@ -159,11 +159,11 @@
 
                         <div class="booking-seat-selection">
                             <p class="text-sm text-slate-600">
-                                Terpilih <strong x-text="selectedSeats.length"></strong> seat dari <strong x-text="selectedPassengers.length"></strong> passenger
+                                Terpilih <strong x-text="selectedSeats.length"></strong> kursi dari <strong x-text="selectedPassengers.length"></strong> penumpang
                             </p>
                             <div class="mt-3 flex flex-wrap gap-2" x-show="selectedSeats.length > 0" x-cloak>
                                 <template x-for="seatLabel in selectedSeatLabels()" :key="seatLabel">
-                                    <span class="rounded-full border border-[#0f3f78]/20 bg-[#0f3f78] px-3 py-1 text-xs font-semibold text-white" x-text="seatLabel"></span>
+                                    <span class="rounded-full border border-[#c2410c]/20 bg-[#c2410c] px-3 py-1 text-xs font-semibold text-white" x-text="seatLabel"></span>
                                 </template>
                             </div>
                         </div>
@@ -171,18 +171,18 @@
 
                     <div x-show="step === 3" x-cloak>
                         <p class="portal-kicker">Step 3</p>
-                        <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Review booking summary</h2>
-                        <p class="portal-section-copy">Pastikan setiap traveler sudah dipasangkan dengan seat yang benar sebelum booking dikirim.</p>
+                        <h2 class="mt-2 font-heading text-3xl font-bold text-[#c2410c]">Tinjau ringkasan booking</h2>
+                        <p class="portal-section-copy">Pastikan setiap penumpang sudah dipasangkan dengan kursi yang benar sebelum booking dikirim.</p>
                         <div class="mt-4 space-y-3">
                             <template x-for="(item, index) in summaryItems()" :key="index">
                                 <div class="booking-review-card">
                                     <div>
                                         <p class="font-semibold text-slate-800" x-text="item.passenger_name"></p>
                                         <p class="text-sm text-slate-500">
-                                            Seat <span x-text="item.seat_number"></span> | <span x-text="item.class_label"></span>
+                                            Kursi <span x-text="item.seat_number"></span> | <span x-text="item.class_label"></span>
                                         </p>
                                     </div>
-                                    <p class="font-semibold text-[#0f3f78]" x-text="item.formatted_price"></p>
+                                    <p class="font-semibold text-[#c2410c]" x-text="item.formatted_price"></p>
                                 </div>
                             </template>
                         </div>
@@ -199,10 +199,10 @@
                     @enderror
 
                     <div class="mt-6 flex flex-wrap items-center justify-between gap-3">
-                        <button type="button" class="portal-btn-blue" @click="prevStep()" x-show="step > 1">Back</button>
+                        <button type="button" class="portal-btn-blue" @click="prevStep()" x-show="step > 1">Kembali</button>
                         <div class="flex items-center gap-3">
-                            <button type="button" class="portal-btn-blue" @click="nextStep()" x-show="step < 3">Next</button>
-                            <button type="submit" class="portal-btn-gold" x-show="step === 3">Confirm Booking</button>
+                            <button type="button" class="portal-btn-blue" @click="nextStep()" x-show="step < 3">Lanjut</button>
+                            <button type="submit" class="portal-btn-gold" x-show="step === 3">Konfirmasi Booking</button>
                         </div>
                     </div>
                 </form>
@@ -210,24 +210,24 @@
         </div>
 
         <aside class="portal-side-panel booking-live-panel">
-            <p class="portal-kicker">Live panel</p>
-            <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Current build</h2>
+            <p class="portal-kicker">Ringkasan langsung</p>
+            <h2 class="mt-2 font-heading text-3xl font-bold text-[#c2410c]">Susunan saat ini</h2>
             <div class="mt-5 space-y-3">
                 <div class="portal-card-soft">
-                    <p class="text-sm text-slate-500">Selected class</p>
+                    <p class="text-sm text-slate-500">Kelas terpilih</p>
                     <p class="text-xl font-semibold text-slate-800" x-text="classLabel(selectedClass)"></p>
                 </div>
                 <div class="portal-card-soft">
-                    <p class="text-sm text-slate-500">Passenger count</p>
+                    <p class="text-sm text-slate-500">Jumlah penumpang</p>
                     <p class="text-xl font-semibold text-slate-800" x-text="selectedPassengers.length"></p>
                 </div>
                 <div class="portal-card-soft">
-                    <p class="text-sm text-slate-500">Seat count</p>
+                    <p class="text-sm text-slate-500">Jumlah kursi</p>
                     <p class="text-xl font-semibold text-slate-800" x-text="selectedSeats.length"></p>
                 </div>
                 <div class="portal-card-soft">
-                    <p class="text-sm text-slate-500">Estimated total</p>
-                    <p class="text-3xl font-bold text-[#0f3f78]" x-text="formattedTotal()"></p>
+                    <p class="text-sm text-slate-500">Estimasi total</p>
+                    <p class="text-3xl font-bold text-[#c2410c]" x-text="formattedTotal()"></p>
                 </div>
             </div>
         </aside>
@@ -262,7 +262,7 @@
                     }
 
                     if (this.selectedSeats.includes(seatId)) {
-                        return 'border-[#0f3f78] bg-[#0f3f78] text-white ring-2 ring-[#0f3f78]/35 shadow-[0_8px_18px_rgba(15,63,120,.35)] scale-[1.03]';
+                        return 'border-[#c2410c] bg-[#c2410c] text-white ring-2 ring-[#c2410c]/35 shadow-[0_8px_18px_rgba(154,52,18,.35)] scale-[1.03]';
                     }
 
                     return 'border-emerald-300 bg-emerald-100 text-emerald-700 hover:bg-emerald-200';
@@ -279,7 +279,7 @@
                     }
 
                     if (this.selectedSeats.length >= this.selectedPassengers.length) {
-                        alert('Jumlah seat harus sama dengan jumlah passenger.');
+                        alert('Jumlah kursi harus sama dengan jumlah penumpang.');
                         return;
                     }
 
@@ -309,12 +309,12 @@
 
                 nextStep() {
                     if (this.step === 1 && this.selectedPassengers.length === 0) {
-                        alert('Pilih minimal satu passenger.');
+                        alert('Pilih minimal satu penumpang.');
                         return;
                     }
 
                     if (this.step === 2 && this.selectedSeats.length !== this.selectedPassengers.length) {
-                        alert('Jumlah seat harus sama dengan jumlah passenger.');
+                        alert('Jumlah kursi harus sama dengan jumlah penumpang.');
                         return;
                     }
 
@@ -356,7 +356,7 @@
 
                 submitForm(event) {
                     if (this.selectedSeats.length !== this.selectedPassengers.length) {
-                        alert('Jumlah seat harus sama dengan jumlah passenger.');
+                        alert('Jumlah kursi harus sama dengan jumlah penumpang.');
                         return;
                     }
 

@@ -62,6 +62,11 @@ class User extends Authenticatable
         return $this->hasMany(ContactMessage::class);
     }
 
+    public function loginOtpCodes(): HasMany
+    {
+        return $this->hasMany(LoginOtpCode::class);
+    }
+
     public function changeRequests(): HasMany
     {
         return $this->hasMany(BookingChangeRequest::class);

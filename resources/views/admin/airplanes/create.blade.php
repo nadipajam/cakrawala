@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Create Airplane | Cakrawala')
-@section('page-title', 'Create Airplane')
+@section('title', 'Tambah Pesawat | Cakrawala')
+@section('page-title', 'Tambah Pesawat')
 
 @section('content')
     <section class="admin-form-shell">

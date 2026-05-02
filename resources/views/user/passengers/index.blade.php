@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', 'Cakrawala | Passengers')
+@section('title', 'Cakrawala | Penumpang')
 @section('active', 'passengers')
 
 @section('content')
@@ -9,17 +9,17 @@
             <article class="support-hero-panel">
                 <div class="grid gap-6 xl:grid-cols-[1.15fr_.85fr]">
                     <div>
-                        <p class="booking-shell-kicker">Passenger vault</p>
-                        <h1 class="booking-shell-title">Simpan data traveler sebagai katalog siap pakai untuk booking berikutnya.</h1>
+                        <p class="booking-shell-kicker">Data penumpang</p>
+                        <h1 class="booking-shell-title">Simpan data penumpang untuk mempercepat proses booking berikutnya.</h1>
                         <p class="booking-shell-copy">Halaman ini tidak lagi terasa seperti daftar form biasa. Fokusnya sekarang ke penyimpanan identitas traveler yang rapi, cepat dibaca, dan mudah diedit saat dibutuhkan.</p>
                     </div>
                     <div class="support-summary-grid">
                         <div class="support-summary-card">
-                            <span>Total profiles</span>
+                            <span>Total profil</span>
                             <strong>{{ $passengers->count() }}</strong>
                         </div>
                         <div class="support-summary-card">
-                            <span>Ready for booking</span>
+                            <span>Siap digunakan</span>
                             <strong>{{ $passengers->count() }}</strong>
                         </div>
                     </div>
@@ -37,66 +37,66 @@
                             <form method="POST" action="{{ route('passengers.destroy', $passenger) }}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="portal-btn-blue px-4 py-2">Delete</button>
+                                <button type="submit" class="portal-btn-blue px-4 py-2">Hapus</button>
                             </form>
                         </div>
 
                         <div class="mt-4 grid gap-3 md:grid-cols-3">
                             <div class="portal-card-soft">
-                                <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Identity</p>
+                                <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Identitas</p>
                                 <p class="mt-2 font-semibold text-slate-800">{{ $passenger->identity_number ?: '-' }}</p>
                             </div>
                             <div class="portal-card-soft">
-                                <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Passport</p>
+                                <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Paspor</p>
                                 <p class="mt-2 font-semibold text-slate-800">{{ $passenger->passport_number ?: '-' }}</p>
                             </div>
                             <div class="portal-card-soft">
-                                <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Nationality</p>
+                                <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Kewarganegaraan</p>
                                 <p class="mt-2 font-semibold text-slate-800">{{ $passenger->nationality ?: '-' }}</p>
                             </div>
                         </div>
 
                         <details class="mt-4 passenger-vault-edit">
-                            <summary class="cursor-pointer text-sm font-semibold text-[#0f3f78]">Edit Passenger</summary>
+                            <summary class="cursor-pointer text-sm font-semibold text-[#c2410c]">Ubah Data Penumpang</summary>
                             <form method="POST" action="{{ route('passengers.update', $passenger) }}" class="mt-4 grid gap-3 sm:grid-cols-2">
                                 @csrf
                                 @method('PUT')
                                 <div class="sm:col-span-2">
-                                    <label class="portal-label">Full Name</label>
+                                    <label class="portal-label">Nama Lengkap</label>
                                     <input type="text" name="full_name" value="{{ $passenger->full_name }}" class="portal-input" required>
                                 </div>
                                 <div>
-                                    <label class="portal-label">Gender</label>
+                                    <label class="portal-label">Jenis Kelamin</label>
                                     <select name="gender" class="portal-select" required>
-                                        <option value="male" @selected($passenger->gender === 'male')>Male</option>
-                                        <option value="female" @selected($passenger->gender === 'female')>Female</option>
+                                        <option value="male" @selected($passenger->gender === 'male')>Laki-laki</option>
+                                        <option value="female" @selected($passenger->gender === 'female')>Perempuan</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="portal-label">Birth Date</label>
+                                    <label class="portal-label">Tanggal Lahir</label>
                                     <input type="date" name="birth_date" value="{{ optional($passenger->birth_date)->toDateString() }}" class="portal-input" required>
                                 </div>
                                 <div>
-                                    <label class="portal-label">Identity Number</label>
+                                    <label class="portal-label">Nomor Identitas</label>
                                     <input type="text" name="identity_number" value="{{ $passenger->identity_number }}" class="portal-input">
                                 </div>
                                 <div>
-                                    <label class="portal-label">Passport Number</label>
+                                    <label class="portal-label">Nomor Paspor</label>
                                     <input type="text" name="passport_number" value="{{ $passenger->passport_number }}" class="portal-input">
                                 </div>
                                 <div class="sm:col-span-2">
-                                    <label class="portal-label">Nationality</label>
+                                    <label class="portal-label">Kewarganegaraan</label>
                                     <input type="text" name="nationality" value="{{ $passenger->nationality }}" class="portal-input">
                                 </div>
                                 <div class="sm:col-span-2">
-                                    <button type="submit" class="portal-btn-gold">Save Changes</button>
+                                    <button type="submit" class="portal-btn-gold">Simpan Perubahan</button>
                                 </div>
                             </form>
                         </details>
                     </article>
                 @empty
                     <div class="portal-card text-center text-slate-600">
-                        No passenger yet.
+                        Belum ada data penumpang.
                     </div>
                 @endforelse
             </div>
@@ -104,8 +104,8 @@
 
         <aside class="support-rail">
             <div class="support-rail-card">
-                <p class="portal-kicker">New entry</p>
-                <h2 class="font-heading text-2xl font-bold text-[#0f3f78]">Add passenger</h2>
+                <p class="portal-kicker">Data baru</p>
+                <h2 class="font-heading text-2xl font-bold text-[#c2410c]">Tambah Penumpang</h2>
                 @if ($errors->any())
                     <div class="mt-3 rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
                         {{ $errors->first() }}
@@ -114,51 +114,51 @@
                 <form method="POST" action="{{ route('passengers.store') }}" class="mt-4 space-y-3">
                     @csrf
                     <div>
-                        <label class="portal-label">Full Name</label>
+                        <label class="portal-label">Nama Lengkap</label>
                         <input type="text" name="full_name" value="{{ old('full_name') }}" class="portal-input" required>
                         @error('full_name')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                     <div>
-                        <label class="portal-label">Gender</label>
+                        <label class="portal-label">Jenis Kelamin</label>
                         <select name="gender" class="portal-select" required>
-                            <option value="male" @selected(old('gender') === 'male')>Male</option>
-                            <option value="female" @selected(old('gender') === 'female')>Female</option>
+                            <option value="male" @selected(old('gender') === 'male')>Laki-laki</option>
+                            <option value="female" @selected(old('gender') === 'female')>Perempuan</option>
                         </select>
                         @error('gender')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                     <div>
-                        <label class="portal-label">Birth Date</label>
+                        <label class="portal-label">Tanggal Lahir</label>
                         <input type="date" name="birth_date" value="{{ old('birth_date') }}" class="portal-input" required>
                         @error('birth_date')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                     <div>
-                        <label class="portal-label">Identity Number</label>
+                        <label class="portal-label">Nomor Identitas</label>
                         <input type="text" name="identity_number" value="{{ old('identity_number') }}" class="portal-input">
                         @error('identity_number')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                     <div>
-                        <label class="portal-label">Passport Number</label>
+                        <label class="portal-label">Nomor Paspor</label>
                         <input type="text" name="passport_number" value="{{ old('passport_number') }}" class="portal-input">
                         @error('passport_number')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                     <div>
-                        <label class="portal-label">Nationality</label>
+                        <label class="portal-label">Kewarganegaraan</label>
                         <input type="text" name="nationality" value="{{ old('nationality') }}" class="portal-input">
                         @error('nationality')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
-                    <button type="submit" class="portal-btn-gold">Add Passenger</button>
+                    <button type="submit" class="portal-btn-gold">Tambah Penumpang</button>
                 </form>
             </div>
         </aside>

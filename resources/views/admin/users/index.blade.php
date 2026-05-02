@@ -1,34 +1,34 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin Users | Cakrawala')
-@section('page-title', 'Users')
+@section('title', 'Admin Pengguna | Cakrawala')
+@section('page-title', 'Pengguna')
 
 @section('content')
     <section class="space-y-5">
-        <div class="grid gap-5 xl:grid-cols-[320px_1fr]">
+        <div class="grid gap-5 xl:grid-cols-[320px_minmax(0,1fr)]">
             <form method="GET" class="admin-ops-filter space-y-5">
                 <div>
-                    <p class="admin-section-kicker">User Directory</p>
+                    <p class="admin-section-kicker">Direktori pengguna</p>
                     <h2 class="admin-section-title">Filter akun dan backoffice</h2>
-                    <p class="admin-section-copy">Cari user berdasarkan identitas dasar, role, dan departemen agar monitoring customer dan tim internal tetap rapi.</p>
+                    <p class="admin-section-copy">Cari pengguna berdasarkan identitas dasar, peran, dan departemen agar monitoring pelanggan serta tim internal tetap rapi.</p>
                 </div>
 
                 <div class="space-y-4">
                     <div>
-                        <label class="admin-label" for="search">Search Name / Email</label>
+                        <label class="admin-label" for="search">Cari nama / email</label>
                         <input id="search" name="search" value="{{ $search }}" class="admin-field" placeholder="Cari nama, email, telepon, atau employee ID">
                     </div>
                     <div>
-                        <label class="admin-label" for="role">Role</label>
+                        <label class="admin-label" for="role">Peran</label>
                         <select id="role" name="role" class="admin-field">
-                            <option value="">Semua role</option>
+                            <option value="">Semua peran</option>
                             @foreach ($roleOptions as $roleKey => $roleOption)
                                 <option value="{{ $roleKey }}" @selected($role === $roleKey)>{{ $roleOption['label'] }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div>
-                        <label class="admin-label" for="department">Department</label>
+                        <label class="admin-label" for="department">Departemen</label>
                         <input id="department" name="department" value="{{ $department }}" class="admin-field" placeholder="Ops, Finance, Revenue">
                     </div>
                 </div>
@@ -37,9 +37,9 @@
                     <p class="text-sm text-slate-500">Pisahkan user customer dan backoffice dengan role atau departemen agar list tetap mudah dipindai.</p>
                     <div class="flex flex-wrap items-center gap-2">
                         <button class="admin-btn-primary" type="submit">Filter</button>
-                        <a href="{{ route('admin.users.index') }}" class="admin-btn-secondary">Reset</a>
+                        <a href="{{ route('admin.users.index') }}" class="admin-btn-secondary">Atur Ulang</a>
                         @if (auth()->user()->canManageUsers())
-                            <a href="{{ route('admin.users.create') }}" class="admin-btn-secondary">Tambah User</a>
+                        <a href="{{ route('admin.users.create') }}" class="admin-btn-secondary">Tambah Pengguna</a>
                         @endif
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                 <article class="admin-ops-hero">
                     <div class="admin-section-head">
                         <div>
-                            <p class="admin-section-kicker">User Ledger</p>
+                            <p class="admin-section-kicker">Ringkasan pengguna</p>
                             <h2 class="admin-section-title">Daftar akun terdaftar</h2>
                             <p class="admin-section-copy">Tampilkan akun customer maupun backoffice lengkap dengan statistik passenger dan booking langsung dari satu kanvas.</p>
                         </div>
@@ -58,17 +58,17 @@
 
                     <div class="admin-ops-summary-grid">
                         <article class="admin-ops-summary-card">
-                            <p class="label">Visible accounts</p>
+                            <p class="label">Akun terlihat</p>
                             <p class="value">{{ $users->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Jumlah akun pada halaman aktif.</p>
                         </article>
                         <article class="admin-ops-summary-card">
-                            <p class="label">Backoffice roles</p>
-                            <p class="value text-[#0f3f78]">{{ $users->filter(fn ($user) => method_exists($user, 'isCustomer') ? ! $user->isCustomer() : true)->count() }}</p>
+                            <p class="label">Akun backoffice</p>
+                            <p class="value text-[#c2410c]">{{ $users->filter(fn ($user) => method_exists($user, 'isCustomer') ? ! $user->isCustomer() : true)->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Akun non-customer pada halaman ini.</p>
                         </article>
                         <article class="admin-ops-summary-card">
-                            <p class="label">Customers</p>
+                            <p class="label">Pelanggan</p>
                             <p class="value text-emerald-700">{{ $users->filter(fn ($user) => method_exists($user, 'isCustomer') ? $user->isCustomer() : false)->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Akun customer pada halaman ini.</p>
                         </article>
@@ -81,15 +81,15 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Name</th>
+                                    <th>Nama</th>
                                     <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Role</th>
-                                    <th>Department</th>
-                                    <th>Passengers</th>
+                                    <th>Telepon</th>
+                                    <th>Peran</th>
+                                    <th>Departemen</th>
+                                    <th>Penumpang</th>
                                     <th>Bookings</th>
-                                    <th>Registered</th>
-                                    <th>Action</th>
+                                    <th>Terdaftar</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">

@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', 'Cakrawala | My Bookings')
+@section('title', 'Cakrawala | Booking Saya')
 @section('active', 'bookings')
 
 @section('content')
@@ -17,9 +17,9 @@
         <article class="booking-board-hero">
             <div class="grid gap-6 xl:grid-cols-[1.18fr_.82fr]">
                 <div>
-                    <p class="booking-shell-kicker">Booking board</p>
-                    <h1 class="booking-shell-title">Seluruh booking Anda diposisikan seperti antrean kerja yang siap ditindaklanjuti.</h1>
-                    <p class="booking-shell-copy">Pending payment, trip confirmed, sampai booking yang selesai disatukan dalam board yang lebih mudah dipindai daripada daftar lama.</p>
+                    <p class="booking-shell-kicker">Daftar booking</p>
+                    <h1 class="booking-shell-title">Seluruh booking Anda disusun agar mudah dipantau dan ditindaklanjuti.</h1>
+                    <p class="booking-shell-copy">Booking menunggu pembayaran, perjalanan terkonfirmasi, hingga riwayat selesai ditampilkan dalam satu tampilan ringkas.</p>
                 </div>
 
                 <div class="booking-board-hero-side">
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="mt-5">
-                <a href="{{ route('flights.index') }}" class="portal-btn-gold">Search New Flight</a>
+                <a href="{{ route('flights.index') }}" class="portal-btn-gold">Cari Penerbangan Baru</a>
             </div>
         </article>
 
@@ -77,24 +77,24 @@
                                     <p class="text-sm text-slate-500">{{ $booking->flight->arrivalAirport->city }} ({{ $booking->flight->arrivalAirport->code }})</p>
                                 </div>
                                 <div class="portal-card-soft">
-                                    <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Travelers</p>
-                                    <p class="mt-2 font-semibold text-slate-800">{{ $booking->details->count() }} traveler{{ $booking->details->count() > 1 ? 's' : '' }}</p>
-                                    <p class="text-sm text-slate-500">Cabin mix tersimpan di detail booking.</p>
+                                    <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Penumpang</p>
+                                    <p class="mt-2 font-semibold text-slate-800">{{ $booking->details->count() }} penumpang</p>
+                                    <p class="text-sm text-slate-500">Pilihan kabin tersimpan di detail booking.</p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="booking-board-timeline">
                             <div class="booking-board-timeline-item">
-                                <span>Booking created</span>
+                                <span>Booking dibuat</span>
                                 <strong>{{ $booking->created_at?->format('d M Y H:i') ?: '-' }}</strong>
                             </div>
                             <div class="booking-board-timeline-item">
-                                <span>Departure</span>
+                                <span>Keberangkatan</span>
                                 <strong>{{ $booking->flight->departure_time->format('d M Y H:i') }}</strong>
                             </div>
                             <div class="booking-board-timeline-item">
-                                <span>Payment deadline</span>
+                                <span>Batas pembayaran</span>
                                 <strong>{{ $booking->expired_at?->format('d M Y H:i:s') ?: '-' }}</strong>
                             </div>
                         </div>
@@ -102,16 +102,16 @@
                         <div class="booking-board-actions">
                             <div>
                                 <p class="text-sm text-slate-500">Total</p>
-                                <p class="mt-2 text-3xl font-bold text-[#0f3f78]">Rp{{ number_format((float) $booking->total_price, 0, ',', '.') }}</p>
+                                <p class="mt-2 text-3xl font-bold text-[#c2410c]">Rp{{ number_format((float) $booking->total_price, 0, ',', '.') }}</p>
                                 @if ($booking->status === 'pending')
                                     <p class="mt-2 text-xs font-medium text-amber-700">Bayar sebelum {{ $booking->expired_at?->format('d M Y H:i:s') ?: '-' }}</p>
                                 @endif
                             </div>
                             <div class="flex flex-col gap-2">
-                                <a href="{{ route('my-bookings.show', $booking) }}" class="portal-btn-blue w-full justify-center">Open Detail</a>
+                                <a href="{{ route('my-bookings.show', $booking) }}" class="portal-btn-blue w-full justify-center">Lihat Detail</a>
                                 @if ($booking->status === 'pending')
                                     <a href="{{ route('payments.create', ['booking' => $booking->id]) }}" class="portal-btn-gold w-full justify-center">
-                                        {{ $booking->payments->sortByDesc('created_at')->first()?->submitted_at ? 'Update Payment' : 'Pay Now' }}
+                                        {{ $booking->payments->sortByDesc('created_at')->first()?->submitted_at ? 'Perbarui Pembayaran' : 'Bayar Sekarang' }}
                                     </a>
                                 @endif
                             </div>
@@ -119,7 +119,7 @@
                     </div>
                 </article>
             @empty
-                <div class="portal-card text-center text-slate-600">No booking yet.</div>
+                <div class="portal-card text-center text-slate-600">Belum ada booking.</div>
             @endforelse
         </div>
 

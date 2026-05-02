@@ -33,11 +33,13 @@ class AuthenticatedSessionController extends Controller
             'last_login_at' => now(),
         ])->save();
 
-        $defaultRoute = in_array(UserRole::normalize($request->user()->role), UserRole::backofficeValues(), true)
-            ? route('admin.dashboard', absolute: false)
-            : route('home', absolute: false);
+        if (in_array(UserRole::normalize($request->user()->role), UserRole::backofficeValues(), true)) {
+            // Backoffice users should always land on the admin dashboard,
+            // regardless of any stale intended URL in session.
+            return redirect()->route('admin.dashboard');
+        }
 
-        return redirect()->intended($defaultRoute);
+        return redirect()->intended(route('home', absolute: false));
     }
 
     /**

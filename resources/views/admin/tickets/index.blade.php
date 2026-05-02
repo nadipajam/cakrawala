@@ -1,26 +1,26 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin Tickets | Cakrawala')
-@section('page-title', 'Tickets')
+@section('title', 'Admin Tiket | Cakrawala')
+@section('page-title', 'Tiket')
 
 @section('content')
     <section class="space-y-5">
-        <div class="grid gap-5 xl:grid-cols-[320px_1fr]">
+        <div class="grid gap-5 xl:grid-cols-[320px_minmax(0,1fr)]">
             <form method="GET" class="admin-ops-filter space-y-5">
                 <div>
-                    <p class="admin-section-kicker">Ticketing Desk</p>
+                    <p class="admin-section-kicker">Pengelolaan tiket</p>
                     <h2 class="admin-section-title">Filter ticket terbit</h2>
-                    <p class="admin-section-copy">Cari ticket berdasarkan booking, passenger, flight, atau nomor ticket untuk kebutuhan audit dan reissue.</p>
+                    <p class="admin-section-copy">Cari tiket berdasarkan booking, penumpang, penerbangan, atau nomor tiket untuk kebutuhan audit dan penerbitan ulang.</p>
                 </div>
                 <div>
-                    <label class="admin-label" for="search">Search Booking/Passenger/Flight/Ticket</label>
-                    <input id="search" name="search" value="{{ $search }}" class="admin-field" placeholder="Ticket number, booking, passenger, flight">
+                    <label class="admin-label" for="search">Cari Booking/Penumpang/Penerbangan/Tiket</label>
+                    <input id="search" name="search" value="{{ $search }}" class="admin-field" placeholder="Nomor tiket, booking, penumpang, penerbangan">
                 </div>
                 <div class="admin-divider space-y-3">
-                    <p class="text-sm text-slate-500">Panel ini memisahkan pencarian dari tabel agar daftar ticket lebih mudah dipindai di layar sempit.</p>
+                    <p class="text-sm text-slate-500">Panel ini memisahkan pencarian dari tabel agar daftar tiket lebih mudah dipindai di layar sempit.</p>
                     <div class="flex flex-wrap items-center gap-2">
                         <button class="admin-btn-primary" type="submit">Filter</button>
-                        <a href="{{ route('admin.tickets.index') }}" class="admin-btn-secondary">Reset</a>
+                        <a href="{{ route('admin.tickets.index') }}" class="admin-btn-secondary">Atur Ulang</a>
                     </div>
                 </div>
             </form>
@@ -29,27 +29,27 @@
                 <article class="admin-ops-hero">
                     <div class="admin-section-head">
                         <div>
-                            <p class="admin-section-kicker">Ticket Ledger</p>
-                            <h2 class="admin-section-title">Daftar ticket aktif</h2>
+                            <p class="admin-section-kicker">Daftar tiket</p>
+                            <h2 class="admin-section-title">Tiket aktif</h2>
                             <p class="admin-section-copy">Nomor ticket, pemilik kursi, dan flight terkait ditampilkan dalam kanvas yang lebih ringkas dan terstruktur.</p>
                         </div>
-                        <span class="admin-chip">{{ $tickets->total() }} ticket</span>
+                        <span class="admin-chip">{{ $tickets->total() }} tiket</span>
                     </div>
                     <div class="admin-ops-summary-grid">
                         <article class="admin-ops-summary-card">
-                            <p class="label">Visible tickets</p>
+                            <p class="label">Tiket terlihat</p>
                             <p class="value">{{ $tickets->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Row yang tampil pada halaman aktif.</p>
                         </article>
                         <article class="admin-ops-summary-card">
-                            <p class="label">Issued today</p>
-                            <p class="value text-[#0f3f78]">{{ $tickets->filter(fn ($ticket) => optional($ticket->issued_at)?->isToday())->count() }}</p>
-                            <p class="mt-2 text-sm text-slate-500">Ticket yang diterbitkan hari ini.</p>
+                            <p class="label">Terbit hari ini</p>
+                            <p class="value text-[#c2410c]">{{ $tickets->filter(fn ($ticket) => optional($ticket->issued_at)?->isToday())->count() }}</p>
+                            <p class="mt-2 text-sm text-slate-500">Tiket yang diterbitkan hari ini.</p>
                         </article>
                         <article class="admin-ops-summary-card">
-                            <p class="label">Linked bookings</p>
+                            <p class="label">Booking terhubung</p>
                             <p class="value text-emerald-700">{{ $tickets->filter(fn ($ticket) => filled($ticket->bookingDetail?->booking_id))->count() }}</p>
-                            <p class="mt-2 text-sm text-slate-500">Ticket yang terhubung ke booking detail.</p>
+                            <p class="mt-2 text-sm text-slate-500">Tiket yang terhubung ke detail booking.</p>
                         </article>
                     </div>
                 </article>
@@ -59,13 +59,13 @@
                         <table class="admin-table">
                             <thead>
                                 <tr>
-                                    <th>Ticket Number</th>
-                                    <th>Passenger</th>
+                                    <th>Nomor Tiket</th>
+                                    <th>Penumpang</th>
                                     <th>Booking</th>
-                                    <th>Flight</th>
-                                    <th>Seat</th>
-                                    <th>Issued At</th>
-                                    <th>Actions</th>
+                                    <th>Penerbangan</th>
+                                    <th>Kursi</th>
+                                    <th>Terbit Pada</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">

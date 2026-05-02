@@ -3,11 +3,11 @@
         <div class="flex min-w-0 items-center gap-3">
             <a href="{{ route('dashboard') }}" class="portal-brand">
                 <span class="portal-brand-mark" aria-hidden="true">
-                    <x-application-logo class="h-5 w-5 fill-current text-white" />
+                    <x-application-logo class="h-5 w-5 shrink-0 rounded object-contain" />
                 </span>
                 <span>
                     <strong class="portal-brand-title">{{ strtoupper(config('app.name', 'Cakrawala')) }}</strong>
-                    <small class="portal-brand-subtitle">Personal workspace</small>
+                    <small class="portal-brand-subtitle">Area pribadi</small>
                 </span>
             </a>
 
@@ -16,7 +16,7 @@
                     {{ __('Dashboard') }}
                 </x-nav-link>
                 <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')" class="app-nav-link">
-                    {{ __('Profile') }}
+                    {{ __('Profil') }}
                 </x-nav-link>
             </div>
         </div>
@@ -38,7 +38,7 @@
 
                 <x-slot name="content">
                     <x-dropdown-link :href="route('profile.edit')">
-                        {{ __('Profile') }}
+                        {{ __('Profil') }}
                     </x-dropdown-link>
 
                     <form method="POST" action="{{ route('logout') }}">
@@ -75,7 +75,7 @@
                 </x-responsive-nav-link>
 
                 <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')" class="portal-mobile-link">
-                    {{ __('Profile') }}
+                    {{ __('Profil') }}
                 </x-responsive-nav-link>
 
                 <form method="POST" action="{{ route('logout') }}">

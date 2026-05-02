@@ -70,13 +70,27 @@ class AdminBookingController extends Controller
             'status' => ['required', 'in:pending,confirmed,cancelled,completed'],
         ]);
 
+        if ($booking->status === $data['status']) {
+            return back()
+                ->with('status', 'Status booking sudah sama, tidak ada perubahan.')
+                ->with('status_type', 'warning');
+        }
+
         $booking->update(['status' => $data['status']]);
 
-        return back()->with('status', 'Status booking berhasil diperbarui.');
+        return back()
+            ->with('status', 'Status booking berhasil diperbarui.')
+            ->with('status_type', 'success');
     }
 
     public function cancel(Booking $booking)
     {
+        if ($booking->status === 'cancelled') {
+            return back()
+                ->with('status', 'Booking ini sudah dibatalkan sebelumnya.')
+                ->with('status_type', 'warning');
+        }
+
         $booking->update([
             'status' => 'cancelled',
             'expired_at' => now(),
@@ -90,16 +104,27 @@ class AdminBookingController extends Controller
             ->whereIn('status', ['selected', 'paid'])
             ->update(['status' => 'cancelled']);
 
-        return back()->with('status', 'Booking berhasil dibatalkan.');
+        return back()
+            ->with('status', 'Booking berhasil dibatalkan.')
+            ->with('status_type', 'success');
     }
 
     public function updateBoardingStatus(UpdateBoardingStatusRequest $request, Booking $booking, BookingDetail $detail)
     {
         abort_unless($detail->booking_id === $booking->id, 404);
 
-        $this->boardingPassService->updateBoardingStatus($detail, $request->validated('boarding_status'));
+        $targetStatus = $request->validated('boarding_status');
+        if ($detail->boarding_status === $targetStatus) {
+            return back()
+                ->with('status', 'Status boarding sudah sama, tidak ada perubahan.')
+                ->with('status_type', 'warning');
+        }
 
-        return back()->with('status', 'Status boarding passenger berhasil diperbarui.');
+        $this->boardingPassService->updateBoardingStatus($detail, $targetStatus);
+
+        return back()
+            ->with('status', 'Status boarding passenger berhasil diperbarui.')
+            ->with('status_type', 'success');
     }
 
     public function downloadBoardingPassPdf(Booking $booking, BookingDetail $detail): BinaryFileResponse

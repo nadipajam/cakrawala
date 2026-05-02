@@ -47,9 +47,17 @@ class BookingCheckInWebController extends Controller
         abort_unless($booking->user_id === $request->user()->id, 403);
         abort_unless($detail->booking_id === $booking->id, 404);
 
+        if (in_array($detail->boarding_status, ['checked_in', 'boarded'], true)) {
+            return back()
+                ->with('status', 'Passenger ini sudah check-in sebelumnya.')
+                ->with('status_type', 'warning');
+        }
+
         $this->boardingPassService->checkIn($detail);
 
-        return back()->with('status', 'Check-in passenger berhasil. Boarding pass sudah tersedia.');
+        return back()
+            ->with('status', 'Check-in passenger berhasil. Boarding pass sudah tersedia.')
+            ->with('status_type', 'success');
     }
 
     public function downloadPdf(Request $request, Booking $booking, BookingDetail $detail): BinaryFileResponse

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Login - Cakrawala</title>
+        <title>Masuk - Cakrawala</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
 
@@ -13,13 +13,13 @@
             <section class="portal-auth-split">
                 <div class="auth-card">
                     <div class="mb-6 flex items-center justify-between gap-3">
-                        <a href="{{ route('home') }}" class="text-sm font-semibold text-blue-700">Kembali ke home</a>
-                        <a href="{{ route('register') }}" class="text-sm font-semibold text-slate-600 hover:text-blue-700">Register</a>
+                        <a href="{{ route('home') }}" class="text-sm font-semibold text-orange-700">Kembali ke home</a>
+                        <a href="{{ route('register') }}" class="text-sm font-semibold text-slate-600 hover:text-orange-700">Daftar</a>
                     </div>
 
                     <div class="mb-8 text-center">
-                        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-700/80">Login</p>
-                        <h1 class="mt-3 font-heading text-5xl font-extrabold tracking-tight text-slate-900">Welcome back</h1>
+                        <p class="text-xs font-semibold uppercase tracking-[0.3em] text-orange-700/80">Masuk</p>
+                        <h1 class="mt-3 font-heading text-5xl font-extrabold tracking-tight text-slate-900">Selamat datang kembali</h1>
                         <p class="mt-3 text-base leading-7 text-slate-600">Masuk untuk membuka dashboard perjalanan dan booking Anda.</p>
                     </div>
 
@@ -50,7 +50,7 @@
                                     <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current"><path d="M17 9h-1V7a4 4 0 1 0-8 0v2H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2zm-6 7.73V18h2v-1.27a2 2 0 1 0-2 0zM10 9V7a2 2 0 1 1 4 0v2h-4z"/></svg>
                                 </span>
                                 <input id="password" name="password" :type="showPassword ? 'text' : 'password'" required autocomplete="current-password" placeholder="Password" class="auth-input">
-                                <button type="button" @click="showPassword = !showPassword" class="text-slate-500 transition hover:text-blue-700" :aria-label="showPassword ? 'Hide password' : 'Show password'">
+                                <button type="button" @click="showPassword = !showPassword" class="text-slate-500 transition hover:text-orange-700" :aria-label="showPassword ? 'Hide password' : 'Show password'">
                                     <svg x-show="!showPassword" viewBox="0 0 24 24" class="h-5 w-5 fill-current">
                                         <path d="M12 5c4.8 0 8.9 2.7 11 7-2.1 4.3-6.2 7-11 7s-8.9-2.7-11-7c2.1-4.3 6.2-7 11-7zm0 2C8.5 7 5.4 8.8 3.7 12 5.4 15.2 8.5 17 12 17s6.6-1.8 8.3-5C18.6 8.8 15.5 7 12 7zm0 2.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z"/>
                                     </svg>
@@ -64,16 +64,16 @@
 
                         <div class="flex items-center justify-between gap-3 text-sm">
                             <label for="remember_me" class="inline-flex items-center gap-2 text-slate-600">
-                                <input id="remember_me" name="remember" type="checkbox" @checked(old('remember')) class="rounded border-slate-300 text-blue-600 focus:ring-blue-500">
-                                <span>Remember Me</span>
+                                <input id="remember_me" name="remember" type="checkbox" @checked(old('remember')) class="rounded border-slate-300 text-orange-600 focus:ring-orange-500">
+                                <span>Ingat Saya</span>
                             </label>
                             @if (Route::has('password.request'))
-                                <a href="{{ route('password.request') }}" class="font-semibold text-blue-700 hover:text-blue-800">Forgot Password?</a>
+                                <a href="{{ route('password.request') }}" class="font-semibold text-orange-700 hover:text-orange-800">Lupa Password?</a>
                             @endif
                         </div>
 
                         <button type="submit" class="auth-gold-btn text-2xl">
-                            Login
+                            Masuk
                         </button>
                     </form>
                 </div>

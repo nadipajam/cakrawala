@@ -22,7 +22,7 @@
                 <div class="admin-ops-info-card"><p class="admin-info-label">Identity Number</p><p class="admin-info-value">{{ $passenger->identity_number ?: '-' }}</p></div>
                 <div class="admin-ops-info-card"><p class="admin-info-label">Passport Number</p><p class="admin-info-value">{{ $passenger->passport_number ?: '-' }}</p></div>
                 <div class="admin-ops-info-card"><p class="admin-info-label">Nationality</p><p class="admin-info-value">{{ $passenger->nationality ?: '-' }}</p></div>
-                <div class="admin-ops-info-card"><p class="admin-info-label">Created At</p><p class="admin-info-value">{{ $passenger->created_at?->format('d M Y H:i') }}</p></div>
+                <div class="admin-ops-info-card"><p class="admin-info-label">Dibuat Pada</p><p class="admin-info-value">{{ $passenger->created_at?->format('d M Y H:i') }}</p></div>
             </div>
         </article>
 
@@ -43,7 +43,7 @@
                             <th>Flight</th>
                             <th>Seat</th>
                             <th>Ticket</th>
-                            <th>Action</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">

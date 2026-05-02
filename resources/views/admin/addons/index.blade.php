@@ -5,7 +5,7 @@
 
 @section('content')
     <section class="space-y-5">
-        <div class="grid gap-5 xl:grid-cols-[320px_1fr]">
+        <div class="grid gap-5 xl:grid-cols-[320px_minmax(0,1fr)]">
             <form method="GET" class="admin-ops-filter space-y-5">
                 <div>
                     <p class="admin-section-kicker">Ancillary Services</p>
@@ -15,7 +15,7 @@
 
                 <div class="space-y-4">
                     <div>
-                        <label class="admin-label" for="search">Search</label>
+                        <label class="admin-label" for="search">Cari</label>
                         <input id="search" name="search" value="{{ $search }}" class="admin-field" placeholder="Booking, user, passenger">
                     </div>
                     <div>
@@ -43,7 +43,7 @@
                     <p class="text-sm text-slate-500">Gunakan filter ini untuk memisahkan layanan yang sudah dibayar dari yang masih dipilih atau dibatalkan.</p>
                     <div class="flex flex-wrap items-center gap-2">
                         <button type="submit" class="admin-btn-primary">Filter</button>
-                        <a href="{{ route('admin.addons.index') }}" class="admin-btn-secondary">Reset</a>
+                        <a href="{{ route('admin.addons.index') }}" class="admin-btn-secondary">Atur Ulang</a>
                     </div>
                 </div>
             </form>
@@ -91,14 +91,14 @@
                                     <th>Qty</th>
                                     <th>Total</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">
                                 @forelse ($addons as $addon)
                                     <tr>
                                         <td class="whitespace-nowrap">
-                                            <a href="{{ route('admin.bookings.show', $addon->booking) }}" class="font-semibold text-[#0f3f78]">
+                                            <a href="{{ route('admin.bookings.show', $addon->booking) }}" class="font-semibold text-[#c2410c]">
                                                 {{ $addon->booking?->booking_code }}
                                             </a>
                                         </td>
@@ -118,7 +118,7 @@
                                                     <option value="paid" @selected($addon->status === 'paid')>Paid</option>
                                                     <option value="cancelled" @selected($addon->status === 'cancelled')>Cancelled</option>
                                                 </select>
-                                                <button type="submit" class="admin-btn-secondary">Update</button>
+                                                <button type="submit" class="admin-btn-secondary">Perbarui</button>
                                             </form>
                                         </td>
                                     </tr>

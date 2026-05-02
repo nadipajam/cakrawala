@@ -5,7 +5,7 @@
 
 @section('content')
     <section class="space-y-5">
-        <div class="grid gap-5 xl:grid-cols-[320px_1fr]">
+        <div class="grid gap-5 xl:grid-cols-[320px_minmax(0,1fr)]">
             <form method="GET" class="admin-ops-filter space-y-5">
                 <div>
                     <p class="admin-section-kicker">Payment Queue</p>
@@ -14,7 +14,7 @@
                 </div>
                 <div class="space-y-4">
                     <div>
-                        <label class="admin-label" for="search">Search Booking/User/Method/Transaction</label>
+                        <label class="admin-label" for="search">Cari booking/pengguna/metode/transaksi</label>
                         <input id="search" name="search" value="{{ $search }}" class="admin-field" placeholder="Booking code, user, method">
                     </div>
                     <div>
@@ -32,7 +32,7 @@
                     <p class="text-sm text-slate-500">Gunakan kombinasi pencarian dan status untuk mempercepat verifikasi, penolakan, atau audit manual.</p>
                     <div class="flex flex-wrap items-center gap-2">
                         <button class="admin-btn-primary" type="submit">Filter</button>
-                        <a href="{{ route('admin.payments.index') }}" class="admin-btn-secondary">Reset</a>
+                        <a href="{{ route('admin.payments.index') }}" class="admin-btn-secondary">Atur Ulang</a>
                     </div>
                 </div>
             </form>
@@ -80,7 +80,7 @@
                                     <th>Amount</th>
                                     <th>Status</th>
                                     <th>Proof</th>
-                                    <th>Actions</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">

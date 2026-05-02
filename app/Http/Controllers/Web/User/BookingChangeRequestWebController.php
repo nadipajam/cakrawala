@@ -66,6 +66,8 @@ class BookingChangeRequestWebController extends Controller
 
         $this->changeRequestService->submit($request->user(), $booking, $request->validated());
 
-        return back()->with('status', 'Permintaan perubahan berhasil dikirim.');
+        return back()
+            ->with('status', 'Permintaan perubahan berhasil dikirim.')
+            ->with('status_type', 'success');
     }
 }

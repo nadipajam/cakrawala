@@ -11,39 +11,39 @@
         @php
             $backofficeUser = auth()->user();
             $menuGroups = [
-                'Workspace' => [
+                'Ringkasan' => [
                     ['label' => 'Dashboard', 'route' => 'admin.dashboard', 'active' => 'admin.dashboard'],
-                    ['label' => 'Support Inbox', 'route' => 'admin.contact-messages.index', 'active' => 'admin.contact-messages'],
+                    ['label' => 'Kotak Masuk Bantuan', 'route' => 'admin.contact-messages.index', 'active' => 'admin.contact-messages'],
                 ],
-                'Operations' => [
-                    ['label' => 'Passengers', 'route' => 'admin.passengers.index', 'active' => 'admin.passengers'],
-                    ['label' => 'Bookings', 'route' => 'admin.bookings.index', 'active' => 'admin.bookings'],
+                'Operasional' => [
+                    ['label' => 'Penumpang', 'route' => 'admin.passengers.index', 'active' => 'admin.passengers'],
+                    ['label' => 'Booking', 'route' => 'admin.bookings.index', 'active' => 'admin.bookings'],
                     ['label' => 'Add-Ons', 'route' => 'admin.addons.index', 'active' => 'admin.addons'],
-                    ['label' => 'Change Requests', 'route' => 'admin.change-requests.index', 'active' => 'admin.change-requests'],
-                    ['label' => 'Payments', 'route' => 'admin.payments.index', 'active' => 'admin.payments'],
-                    ['label' => 'Tickets', 'route' => 'admin.tickets.index', 'active' => 'admin.tickets'],
-                    ['label' => 'Flights', 'route' => 'admin.flights.index', 'active' => 'admin.flights'],
+                    ['label' => 'Permintaan Perubahan', 'route' => 'admin.change-requests.index', 'active' => 'admin.change-requests'],
+                    ['label' => 'Pembayaran', 'route' => 'admin.payments.index', 'active' => 'admin.payments'],
+                    ['label' => 'Tiket', 'route' => 'admin.tickets.index', 'active' => 'admin.tickets'],
+                    ['label' => 'Penerbangan', 'route' => 'admin.flights.index', 'active' => 'admin.flights'],
                 ],
             ];
 
             if ($backofficeUser->canViewUsers()) {
-                $menuGroups['Management'] = [
-                    ['label' => 'Users', 'route' => 'admin.users.index', 'active' => 'admin.users'],
+                $menuGroups['Manajemen'] = [
+                    ['label' => 'Pengguna', 'route' => 'admin.users.index', 'active' => 'admin.users'],
                 ];
             }
 
             if ($backofficeUser->canViewReports()) {
                 $menuGroups['Monitoring'] = [
-                    ['label' => 'Reports', 'route' => 'admin.reports.index', 'active' => 'admin.reports'],
+                    ['label' => 'Laporan', 'route' => 'admin.reports.index', 'active' => 'admin.reports'],
                 ];
             }
 
             if ($backofficeUser->canManageMasterData()) {
-                $menuGroups['Master Data'] = [
-                    ['label' => 'Airports', 'route' => 'admin.airports.index', 'active' => 'admin.airports'],
-                    ['label' => 'Airlines', 'route' => 'admin.airlines.index', 'active' => 'admin.airlines'],
-                    ['label' => 'Airplanes', 'route' => 'admin.airplanes.index', 'active' => 'admin.airplanes'],
-                    ['label' => 'Seats', 'route' => 'admin.seats.index', 'active' => 'admin.seats'],
+                $menuGroups['Data Master'] = [
+                    ['label' => 'Bandara', 'route' => 'admin.airports.index', 'active' => 'admin.airports'],
+                    ['label' => 'Maskapai', 'route' => 'admin.airlines.index', 'active' => 'admin.airlines'],
+                    ['label' => 'Pesawat', 'route' => 'admin.airplanes.index', 'active' => 'admin.airplanes'],
+                    ['label' => 'Kursi', 'route' => 'admin.seats.index', 'active' => 'admin.seats'],
                 ];
             }
 
@@ -52,8 +52,8 @@
 
         <div class="portal-container relative z-10 py-4 lg:py-6" x-data="{ sidebarOpen: false }">
             <div
-                class="fixed inset-0 z-40 bg-slate-900/45 lg:hidden"
-                x-show="sidebarOpen"
+                class="fixed inset-0 z-40 bg-slate-900/45 opacity-0 pointer-events-none transition-opacity lg:hidden"
+                :class="sidebarOpen ? 'pointer-events-auto opacity-100' : ''"
                 x-cloak
                 @click="sidebarOpen = false"
             ></div>
@@ -63,10 +63,7 @@
                     <div class="admin-sidebar-brand">
                         <a href="{{ route('admin.dashboard') }}" class="portal-brand">
                             <span class="portal-brand-mark" aria-hidden="true">
-                                <svg viewBox="0 0 72 72" class="h-5 w-5 shrink-0" fill="none">
-                                    <path d="M6 42c11-8 22-12 37-13-5 4-8 8-13 14 13-4 23-11 33-24-6 2-11 3-19 5 4-6 7-10 13-16-12 3-21 8-30 16-8-1-13-1-21-2 5 7 8 12 10 20z" fill="currentColor"/>
-                                    <path d="M26 46c16-8 27-19 38-36-3 12-6 21-12 31 6-1 10-2 16-4-7 9-14 14-24 18-6-3-11-5-18-9z" fill="#fff8f2"/>
-                                </svg>
+                                <x-application-logo class="h-5 w-5 shrink-0 rounded object-contain" />
                             </span>
                             <span>
                                 <strong class="portal-brand-title">CAKRAWALA</strong>
@@ -75,14 +72,14 @@
                         </a>
 
                         <div class="admin-sidebar-user">
-                            <p class="admin-sidebar-user-label">Signed in</p>
+                            <p class="admin-sidebar-user-label">Masuk sebagai</p>
                             <p class="admin-sidebar-user-name">{{ $backofficeUser->name }}</p>
-                            <p class="admin-sidebar-user-role">{{ $backofficeUser->roleLabel() }} command access</p>
+                            <p class="admin-sidebar-user-role">{{ $backofficeUser->roleLabel() }} access</p>
                         </div>
                     </div>
 
                     <div class="admin-sidebar-intro">
-                        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300/80">Workspace</p>
+                        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-orange-300/80">Area Kerja</p>
                         <p class="mt-2 text-sm leading-6 text-slate-300">Panel ini dipakai untuk operasi harian, monitoring, dan manajemen data inti.</p>
                     </div>
 
@@ -94,7 +91,6 @@
                                     @foreach ($menus as $menu)
                                         <a
                                             href="{{ route($menu['route']) }}"
-                                            @click="sidebarOpen = false"
                                             @class([
                                                 'admin-sidebar-link',
                                                 'admin-sidebar-link-active' => $currentRoute && str_starts_with($currentRoute, $menu['active']),
@@ -109,8 +105,8 @@
                     </nav>
 
                     <div class="mt-4 space-y-2 border-t border-slate-200 pt-4">
-                        <a href="{{ route('admin.profile.index') }}" @click="sidebarOpen = false" @class(['admin-sidebar-link', 'admin-sidebar-link-active' => str_starts_with((string) $currentRoute, 'admin.profile')])>
-                            Profile
+                        <a href="{{ route('admin.profile.index') }}" @class(['admin-sidebar-link', 'admin-sidebar-link-active' => str_starts_with((string) $currentRoute, 'admin.profile')])>
+                            Profil
                         </a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -122,7 +118,7 @@
                 <div class="admin-content">
                     <header class="admin-topbar">
                         <div>
-                            <p class="text-xs uppercase tracking-[0.2em] text-cyan-700">{{ $backofficeUser->roleLabel() }} Control</p>
+                            <p class="text-xs uppercase tracking-[0.2em] text-orange-700">{{ $backofficeUser->roleLabel() }} Control</p>
                             <h1 class="font-heading text-2xl font-bold text-slate-800">@yield('page-title', 'Dashboard')</h1>
                         </div>
                         <div class="flex min-w-0 items-center gap-2">
@@ -136,7 +132,16 @@
                     </header>
 
                     @if (session('status'))
-                        <div class="mt-4 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+                        @php
+                            $statusType = session('status_type', 'success');
+                            $statusStyles = match ($statusType) {
+                                'error' => 'border-red-300 bg-red-50 text-red-700',
+                                'warning' => 'border-amber-300 bg-amber-50 text-amber-700',
+                                'info' => 'border-sky-300 bg-sky-50 text-sky-700',
+                                default => 'border-emerald-300 bg-emerald-50 text-emerald-700',
+                            };
+                        @endphp
+                        <div class="mt-4 rounded-xl border px-4 py-3 text-sm {{ $statusStyles }}">
                             {{ session('status') }}
                         </div>
                     @endif
@@ -158,24 +163,5 @@
                 </div>
             </div>
         </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                document.querySelectorAll('.admin-table-wrap, .portal-table-wrap').forEach(function (wrap) {
-                    wrap.style.display = 'block';
-                    wrap.style.width = '100%';
-                    wrap.style.maxWidth = '100%';
-                    wrap.style.overflowX = 'auto';
-                    wrap.style.overflowY = 'hidden';
-                    wrap.style.webkitOverflowScrolling = 'touch';
-                    wrap.style.touchAction = 'pan-x';
-                });
-
-                document.querySelectorAll('.admin-table, .portal-table').forEach(function (table) {
-                    table.style.width = 'max-content';
-                    table.style.minWidth = '860px';
-                    table.style.tableLayout = 'auto';
-                });
-            });
-        </script>
     </body>
 </html>

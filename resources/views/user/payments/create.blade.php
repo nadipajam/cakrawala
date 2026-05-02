@@ -1,10 +1,10 @@
 @extends('layouts.portal')
 
-@section('title', 'Cakrawala | Payment')
+@section('title', 'Cakrawala | Pembayaran')
 @section('active', 'bookings')
 
 @section('content')
-    @php($initialMethod = old('payment_method', 'qris'))
+    @php($initialMethod = old('payment_method', 'midtrans_snap'))
 
     <section
         x-data="paymentForm({{ \Illuminate\Support\Js::from($paymentMethods) }}, '{{ $initialMethod }}')"
@@ -14,9 +14,9 @@
             <article class="payment-hero-panel">
                 <div class="grid gap-6 xl:grid-cols-[1.1fr_.9fr]">
                     <div>
-                        <p class="booking-shell-kicker">Payment desk</p>
+                        <p class="booking-shell-kicker">Pembayaran</p>
                         <h1 class="booking-shell-title">Kirim pembayaran booking dengan kanal yang paling sesuai.</h1>
-                        <p class="booking-shell-copy">Booking {{ $booking->booking_code }} ditahan sementara. Lengkapi submission sebelum waktu habis agar kursi tidak dilepas kembali.</p>
+                        <p class="booking-shell-copy">Semua transaksi online diproses melalui Midtrans Snap dan status pembayaran diperbarui otomatis.</p>
                     </div>
 
                     <div class="payment-hero-meta">
@@ -25,8 +25,8 @@
                             <strong>{{ ucfirst($booking->status) }}</strong>
                         </div>
                         <div class="payment-hero-meta-card">
-                            <span>Deadline</span>
-                            <strong>{{ $booking->expired_at?->format('d M Y H:i:s') ?: '-' }}</strong>
+                            <span>Status pembayaran</span>
+                            <strong>Diproses via Midtrans</strong>
                         </div>
                     </div>
                 </div>
@@ -35,15 +35,15 @@
             <article class="portal-card">
                 <div class="grid gap-4 md:grid-cols-2">
                     <div class="portal-metric-card">
-                        <p class="portal-kicker">Payment deadline</p>
-                        <p class="mt-3 text-lg font-semibold text-slate-800">{{ $booking->expired_at?->format('d M Y H:i:s') ?: '-' }}</p>
+                        <p class="portal-kicker">Ketentuan waktu</p>
+                        <p class="mt-3 text-lg font-semibold text-slate-800">Ikuti instruksi pembayaran di halaman Midtrans sampai transaksi selesai.</p>
                         @if ($booking->expired_at)
                             <p class="mt-2 text-sm font-semibold text-amber-600" x-text="countdown"></p>
                         @endif
                     </div>
                     <div class="portal-metric-card">
                         <p class="portal-kicker">Route</p>
-                        <p class="mt-3 text-lg font-semibold text-slate-800">{{ $booking->flight->departureAirport->code }} to {{ $booking->flight->arrivalAirport->code }}</p>
+                        <p class="mt-3 text-lg font-semibold text-slate-800">{{ $booking->flight->departureAirport->code }} ke {{ $booking->flight->arrivalAirport->code }}</p>
                     </div>
                 </div>
 
@@ -54,16 +54,16 @@
                     <div>
                         <div class="portal-section-head">
                             <div>
-                                <p class="portal-kicker">Method</p>
-                                <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Choose payment channel</h2>
-                                <p class="portal-section-copy">Pilih channel, lalu isi informasi pengirim yang diminta sistem. Instruksi akan berubah mengikuti metode yang dipilih.</p>
+                                <p class="portal-kicker">Metode</p>
+                                <h2 class="mt-2 font-heading text-3xl font-bold text-[#c2410c]">Pilih kanal pembayaran</h2>
+                                <p class="portal-section-copy">Pilih metode pembayaran, lalu isi data pengirim sesuai kebutuhan. Petunjuk akan menyesuaikan metode yang dipilih.</p>
                             </div>
                         </div>
 
                         <div class="mt-4 grid gap-3 md:grid-cols-2">
                             @foreach ($paymentMethods as $value => $method)
                                 <label class="payment-channel-card" :class="method === '{{ $value }}' ? 'payment-channel-card-active' : ''">
-                                    <input type="radio" name="payment_method" value="{{ $value }}" class="mt-1 h-4 w-4 border-slate-300 text-[#0f3f78]" x-model="method">
+                                    <input type="radio" name="payment_method" value="{{ $value }}" class="mt-1 h-4 w-4 border-slate-300 text-[#c2410c]" x-model="method">
                                     <span class="min-w-0">
                                         <span class="flex items-center gap-3">
                                             <span class="portal-brand-mark h-10 w-10 text-xs">{{ $method['icon'] }}</span>
@@ -80,7 +80,7 @@
                     </div>
 
                     <div class="payment-instruction-panel" x-show="selectedMethod" x-cloak>
-                        <p class="portal-kicker">Instructions</p>
+                        <p class="portal-kicker">Petunjuk</p>
                         <template x-if="selectedMethod">
                             <div class="mt-3 space-y-2 text-sm leading-7 text-slate-600">
                                 <p class="font-semibold text-slate-800" x-text="selectedMethod.label"></p>
@@ -108,7 +108,7 @@
                     </div>
 
                     <div class="grid gap-4 md:grid-cols-2">
-                        <div x-show="method !== 'qris'" x-cloak>
+                        <div x-show="selectedType !== 'qris' && selectedType !== 'gateway'" x-cloak>
                             <label for="payer_name" class="portal-label">Nama Pengirim / Pemilik Akun</label>
                             <input id="payer_name" name="payer_name" value="{{ old('payer_name') }}" class="portal-input" placeholder="Nama pengirim">
                             @error('payer_name')
@@ -159,8 +159,8 @@
                     </div>
 
                     <div class="flex flex-wrap items-center gap-3">
-                        <button type="submit" class="portal-btn-gold">Kirim Pembayaran</button>
-                        <a href="{{ route('my-bookings.show', $booking) }}" class="portal-btn-blue">Back to Booking</a>
+                        <button type="submit" class="portal-btn-gold">Lanjut ke Midtrans</button>
+                        <a href="{{ route('my-bookings.show', $booking) }}" class="portal-btn-blue">Kembali ke Booking</a>
                     </div>
                 </form>
             </article>
@@ -168,8 +168,8 @@
 
         <aside class="payment-summary-rail">
             <div class="payment-summary-rail-card">
-                <p class="portal-kicker">Booking snapshot</p>
-                <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Payment context</h2>
+                <p class="portal-kicker">Ringkasan booking</p>
+                <h2 class="mt-2 font-heading text-3xl font-bold text-[#c2410c]">Konteks Pembayaran</h2>
                 <div class="mt-5 space-y-3">
                     <div class="portal-card-soft">
                         <p class="text-sm text-slate-500">Booking code</p>
@@ -177,14 +177,14 @@
                     </div>
                     <div class="portal-card-soft">
                         <p class="text-sm text-slate-500">Route</p>
-                        <p class="font-semibold text-slate-800">{{ $booking->flight->departureAirport->code }} to {{ $booking->flight->arrivalAirport->code }}</p>
+                        <p class="font-semibold text-slate-800">{{ $booking->flight->departureAirport->code }} ke {{ $booking->flight->arrivalAirport->code }}</p>
                     </div>
                     <div class="portal-card-soft">
                         <p class="text-sm text-slate-500">Total</p>
-                        <p class="text-3xl font-bold text-[#0f3f78]">Rp{{ number_format((float) $booking->total_price, 0, ',', '.') }}</p>
+                        <p class="text-3xl font-bold text-[#c2410c]">Rp{{ number_format((float) $booking->total_price, 0, ',', '.') }}</p>
                     </div>
                     <div class="portal-card-soft">
-                        <p class="text-sm text-slate-500">Latest submission</p>
+                        <p class="text-sm text-slate-500">Pengajuan terakhir</p>
                         <p class="font-semibold text-slate-800">{{ ucfirst($latestPayment?->payment_status ?? 'pending') }}</p>
                         @if ($latestPayment?->submitted_at)
                             <p class="mt-1 text-sm text-slate-500">{{ $latestPayment->submitted_at->format('d M Y H:i:s') }}</p>

@@ -53,6 +53,12 @@ class AdminAddonController extends Controller
             'status' => ['required', Rule::in(['selected', 'paid', 'cancelled'])],
         ]);
 
+        if ($addon->status === $data['status']) {
+            return back()
+                ->with('status', 'Status add-on sudah sama, tidak ada perubahan.')
+                ->with('status_type', 'warning');
+        }
+
         $addon->update([
             'status' => $data['status'],
         ]);
@@ -62,6 +68,8 @@ class AdminAddonController extends Controller
             $this->bookingAddonService->syncPendingPayment($booking);
         }
 
-        return back()->with('status', 'Status add-on berhasil diperbarui.');
+        return back()
+            ->with('status', 'Status add-on berhasil diperbarui.')
+            ->with('status_type', 'success');
     }
 }

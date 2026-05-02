@@ -53,7 +53,7 @@
                                         <span
                                             x-show="selectedSeats.includes({{ $seat['id'] }})"
                                             x-cloak
-                                            class="absolute -right-1 -top-1 grid h-3.5 w-3.5 place-content-center rounded-full bg-white text-[9px] font-bold text-[#0f3f78] shadow"
+                                            class="absolute -right-1 -top-1 grid h-3.5 w-3.5 place-content-center rounded-full bg-white text-[9px] font-bold text-[#c2410c] shadow"
                                         >
                                             &#10003;
                                         </span>
@@ -90,7 +90,7 @@
                                         <span
                                             x-show="selectedSeats.includes({{ $seat['id'] }})"
                                             x-cloak
-                                            class="absolute -right-1 -top-1 grid h-3.5 w-3.5 place-content-center rounded-full bg-white text-[9px] font-bold text-[#0f3f78] shadow"
+                                            class="absolute -right-1 -top-1 grid h-3.5 w-3.5 place-content-center rounded-full bg-white text-[9px] font-bold text-[#c2410c] shadow"
                                         >
                                             &#10003;
                                         </span>

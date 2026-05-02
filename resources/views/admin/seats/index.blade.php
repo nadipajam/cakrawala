@@ -5,7 +5,7 @@
 
 @section('content')
     <section class="space-y-5">
-        <div class="grid gap-5 xl:grid-cols-[320px_1fr]">
+        <div class="grid gap-5 xl:grid-cols-[320px_minmax(0,1fr)]">
             <form method="GET" class="admin-ops-filter space-y-5">
                 <div>
                     <p class="admin-section-kicker">Seat Directory</p>
@@ -40,7 +40,7 @@
                     <p class="text-sm text-slate-500">Panel ini membantu memisahkan kursi per armada dan class agar audit konfigurasi tetap rapi.</p>
                     <div class="flex flex-wrap items-center gap-2">
                         <button class="admin-btn-primary" type="submit">Filter</button>
-                        <a class="admin-btn-secondary" href="{{ route('admin.seats.index') }}">Reset</a>
+                        <a class="admin-btn-secondary" href="{{ route('admin.seats.index') }}">Atur Ulang</a>
                         <a href="{{ route('admin.seats.create') }}" class="admin-btn-secondary">Tambah Seat</a>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                         </article>
                         <article class="admin-ops-summary-card">
                             <p class="label">Premium mix</p>
-                            <p class="value text-[#0f3f78]">{{ $seats->whereIn('class', ['business', 'first'])->count() }}</p>
+                            <p class="value text-[#c2410c]">{{ $seats->whereIn('class', ['business', 'first'])->count() }}</p>
                             <p class="mt-2 text-sm text-slate-500">Seat business dan first pada halaman ini.</p>
                         </article>
                     </div>
@@ -85,8 +85,8 @@
                                     <th>Airline</th>
                                     <th>Seat Number</th>
                                     <th>Class</th>
-                                    <th>Created</th>
-                                    <th>Actions</th>
+                                    <th>Dibuat</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">
@@ -103,7 +103,7 @@
                                             <form action="{{ route('admin.seats.destroy', $seat) }}" method="POST" class="inline" onsubmit="return confirm('Hapus seat ini?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="admin-btn-secondary" type="submit">Delete</button>
+                                                <button class="admin-btn-secondary" type="submit">Hapus</button>
                                             </form>
                                         </td>
                                     </tr>

@@ -75,6 +75,18 @@ class AdminContactMessageController extends Controller
             }
         }
 
+        $assignedTo = $data['assigned_to'] ?? null;
+        $internalNotes = $data['internal_notes'] ?? null;
+        if (
+            $contactMessage->status === $data['status']
+            && (int) ($contactMessage->assigned_to ?? 0) === (int) ($assignedTo ?? 0)
+            && (string) ($contactMessage->internal_notes ?? '') === (string) ($internalNotes ?? '')
+        ) {
+            return back()
+                ->with('status', 'Tidak ada perubahan pada pesan bantuan.')
+                ->with('status_type', 'warning');
+        }
+
         $contactMessage->fill($data);
         $contactMessage->resolved_at = in_array($data['status'], ['resolved', 'closed'], true) ? now() : null;
         $contactMessage->save();
@@ -83,6 +95,8 @@ class AdminContactMessageController extends Controller
             $this->notificationService->contactMessageUpdated($contactMessage->fresh('user'));
         }
 
-        return back()->with('status', 'Status pesan bantuan berhasil diperbarui.');
+        return back()
+            ->with('status', 'Status pesan bantuan berhasil diperbarui.')
+            ->with('status_type', 'success');
     }
 }

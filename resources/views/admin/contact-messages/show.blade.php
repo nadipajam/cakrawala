@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
-@section('title', 'Support Message Detail | Cakrawala')
-@section('page-title', 'Support Message')
+@section('title', 'Detail Pesan Bantuan | Cakrawala')
+@section('page-title', 'Pesan Bantuan')
 
 @section('content')
     <section class="space-y-6">
         <article class="admin-ops-detail-hero">
             <div class="admin-section-head">
                 <div>
-                    <p class="admin-section-kicker">Support Request</p>
+                    <p class="admin-section-kicker">Permintaan Bantuan</p>
                     <h2 class="admin-section-title">{{ $contactMessage->subject }}</h2>
-                    <p class="admin-section-copy">Pesan masuk dari halaman contact yang dapat diassign dan ditangani oleh tim backoffice.</p>
+                    <p class="admin-section-copy">Pesan masuk dari halaman kontak yang dapat ditugaskan dan ditangani oleh tim backoffice.</p>
                 </div>
                 <div class="flex flex-wrap items-center gap-2">
                     @include('admin.partials.status-badge', ['status' => $contactMessage->status])
@@ -20,7 +20,7 @@
 
             <div class="admin-ops-inline-grid">
                 <article class="admin-ops-info-card">
-                    <p class="admin-info-label">Name</p>
+                    <p class="admin-info-label">Nama</p>
                     <p class="admin-info-value">{{ $contactMessage->name }}</p>
                 </article>
                 <article class="admin-ops-info-card">
@@ -28,17 +28,21 @@
                     <p class="admin-info-value break-all">{{ $contactMessage->email }}</p>
                 </article>
                 <article class="admin-ops-info-card">
-                    <p class="admin-info-label">Phone</p>
+                    <p class="admin-info-label">Telepon</p>
                     <p class="admin-info-value">{{ $contactMessage->phone ?: '-' }}</p>
                 </article>
                 <article class="admin-ops-info-card">
-                    <p class="admin-info-label">Customer Link</p>
-                    <p class="admin-info-value">{{ $contactMessage->user?->name ?: 'Guest / public form' }}</p>
+                    <p class="admin-info-label">Akun Pelanggan</p>
+                    <p class="admin-info-value">{{ $contactMessage->user?->name ?: 'Tamu / formulir publik' }}</p>
+                </article>
+                <article class="admin-ops-info-card">
+                    <p class="admin-info-label">Sumber</p>
+                    <p class="admin-info-value">{{ $contactMessage->source === 'payment_escalation' ? 'Escalation Payment' : ucfirst(str_replace('_', ' ', $contactMessage->source)) }}</p>
                 </article>
             </div>
 
             <div class="mt-5 rounded-2xl border border-slate-200 bg-white/75 p-5">
-                <p class="admin-info-label">Customer Message</p>
+                <p class="admin-info-label">Pesan Pelanggan</p>
                 <div class="mt-3 whitespace-pre-wrap text-slate-700">{{ $contactMessage->message }}</div>
             </div>
         </article>
@@ -46,9 +50,9 @@
         <article class="admin-ops-table-card">
             <div class="admin-section-head">
                 <div>
-                    <p class="admin-section-kicker">Case Handling</p>
+                    <p class="admin-section-kicker">Penanganan Kasus</p>
                     <h2 class="admin-section-title">Assign dan update status</h2>
-                    <p class="admin-section-copy">Tentukan PIC, progres penanganan, dan catatan internal untuk case support ini.</p>
+                    <p class="admin-section-copy">Tentukan PIC, progres penanganan, dan catatan internal untuk kasus bantuan ini.</p>
                 </div>
             </div>
 
@@ -60,35 +64,35 @@
                     <div>
                         <label class="admin-label" for="status">Status</label>
                         <select id="status" name="status" class="admin-field">
-                            <option value="open" @selected($contactMessage->status === 'open')>Open</option>
-                            <option value="in_progress" @selected($contactMessage->status === 'in_progress')>In Progress</option>
-                            <option value="resolved" @selected($contactMessage->status === 'resolved')>Resolved</option>
-                            <option value="closed" @selected($contactMessage->status === 'closed')>Closed</option>
+                            <option value="open" @selected($contactMessage->status === 'open')>Terbuka</option>
+                            <option value="in_progress" @selected($contactMessage->status === 'in_progress')>Diproses</option>
+                            <option value="resolved" @selected($contactMessage->status === 'resolved')>Selesai</option>
+                            <option value="closed" @selected($contactMessage->status === 'closed')>Ditutup</option>
                         </select>
                     </div>
                     <div>
-                        <label class="admin-label" for="assigned_to">Assigned To</label>
+                        <label class="admin-label" for="assigned_to">Ditugaskan ke</label>
                         <select id="assigned_to" name="assigned_to" class="admin-field">
-                            <option value="">Unassigned</option>
+                            <option value="">Belum ditugaskan</option>
                             @foreach ($backofficeUsers as $backofficeUser)
-                                <option value="{{ $backofficeUser->id }}" @selected((int) old('assigned_to', $contactMessage->assigned_to) === (int) $backofficeUser->id)>{{ $backofficeUser->name }} · {{ $backofficeUser->roleLabel() }}</option>
+                                <option value="{{ $backofficeUser->id }}" @selected((int) old('assigned_to', $contactMessage->assigned_to) === (int) $backofficeUser->id)>{{ $backofficeUser->name }} | {{ $backofficeUser->roleLabel() }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div>
-                        <label class="admin-label">Resolved At</label>
+                        <label class="admin-label">Waktu penyelesaian</label>
                         <div class="admin-field bg-slate-50">{{ $contactMessage->resolved_at?->format('d M Y H:i') ?: '-' }}</div>
                     </div>
                 </div>
 
                 <div>
-                    <label class="admin-label" for="internal_notes">Internal Notes</label>
+                    <label class="admin-label" for="internal_notes">Catatan Internal</label>
                     <textarea id="internal_notes" name="internal_notes" rows="6" class="admin-field">{{ old('internal_notes', $contactMessage->internal_notes) }}</textarea>
                 </div>
 
                 <div class="flex flex-wrap items-center gap-2">
-                    <button class="admin-btn-primary" type="submit">Save Case Update</button>
-                    <a href="{{ route('admin.contact-messages.index') }}" class="admin-btn-secondary">Back to Inbox</a>
+                    <button class="admin-btn-primary" type="submit">Simpan Pembaruan Kasus</button>
+                    <a href="{{ route('admin.contact-messages.index') }}" class="admin-btn-secondary">Kembali ke Inbox</a>
                 </div>
             </form>
         </article>

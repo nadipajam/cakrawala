@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Create Flight | Cakrawala')
-@section('page-title', 'Create Flight')
+@section('title', 'Tambah Penerbangan | Cakrawala')
+@section('page-title', 'Tambah Penerbangan')
 
 @section('content')
     <section class="admin-card">

@@ -1,17 +1,17 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.portal')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
-                </div>
+@section('title', 'Cakrawala | Dashboard')
+
+@section('content')
+    <section class="space-y-6">
+        <article class="support-hero-panel">
+            <p class="booking-shell-kicker">Akun pelanggan</p>
+            <h1 class="booking-shell-title">Dashboard Anda siap digunakan.</h1>
+            <p class="booking-shell-copy">Anda sudah login dan bisa melanjutkan ke booking, pembayaran, atau tiket dari menu navigasi.</p>
+            <div class="mt-6 flex flex-wrap gap-3">
+                <a href="{{ route('my-bookings.index') }}" class="portal-btn-gold">Buka Booking Saya</a>
+                <a href="{{ route('flights.index') }}" class="portal-btn-blue">Cari Penerbangan</a>
             </div>
-        </div>
-    </div>
-</x-app-layout>
+        </article>
+    </section>
+@endsection

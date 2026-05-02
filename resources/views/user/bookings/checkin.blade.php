@@ -10,17 +10,17 @@
                 <div>
                     <span class="journey-chip">
                         <span class="journey-dot"></span>
-                        Check-In Desk
+                        Layanan Check-In
                     </span>
                     <h1 class="journey-title">{{ $booking->booking_code }}</h1>
                     <p class="journey-copy">
-                        Kelola check-in setiap passenger untuk {{ $booking->flight->airline->name }} dari
+                        Kelola check-in setiap penumpang untuk {{ $booking->flight->airline->name }} dari
                         {{ $booking->flight->departureAirport->code }} ke {{ $booking->flight->arrivalAirport->code }}.
-                        Boarding pass dan QR tetap diterbitkan per passenger.
+                        Boarding pass dan QR tetap diterbitkan per penumpang.
                     </p>
                     <div class="journey-action-row mt-5">
-                        <a href="{{ route('my-bookings.show', $booking) }}" class="portal-btn-blue">Back to Booking</a>
-                        <a href="{{ route('my-bookings.tickets', $booking) }}" class="portal-btn-gold">Open Tickets</a>
+                        <a href="{{ route('my-bookings.show', $booking) }}" class="portal-btn-blue">Kembali ke Booking</a>
+                        <a href="{{ route('my-bookings.tickets', $booking) }}" class="portal-btn-gold">Buka Tiket</a>
                     </div>
                 </div>
                 <div class="journey-meta-grid">
@@ -38,7 +38,7 @@
 
         @if (! in_array($booking->status, ['confirmed', 'completed'], true))
             <article class="journey-rail-card border-amber-200 bg-amber-50 text-amber-800 shadow-none">
-                Check-in belum tersedia. Booking harus berstatus confirmed terlebih dahulu.
+                Check-in belum tersedia. Booking harus berstatus terkonfirmasi terlebih dahulu.
             </article>
         @endif
 
@@ -49,7 +49,7 @@
                     <article class="journey-manifest-card">
                         <div class="flex flex-wrap items-start justify-between gap-4">
                             <div class="min-w-0">
-                                <p class="text-xs font-semibold uppercase tracking-[0.22em] text-blue-700">Passenger Manifest</p>
+                                <p class="text-xs font-semibold uppercase tracking-[0.22em] text-orange-700">Data Penumpang</p>
                                 <h2 class="mt-2 text-2xl font-bold text-slate-900">{{ $detail->passenger?->full_name }}</h2>
                                 <p class="mt-2 text-sm text-slate-600">
                                     Seat {{ $detail->seat?->seat_number }} | {{ ucfirst($detail->seat?->class ?? '-') }} | Ticket {{ $detail->ticket_number ?: '-' }}
@@ -63,13 +63,13 @@
                                     </form>
                                 @elseif ($detail->boarding_status === 'not_checked_in')
                                     <button type="button" class="cursor-not-allowed rounded-xl border border-slate-200 bg-slate-100 px-4 py-2.5 text-sm font-semibold text-slate-400" disabled>
-                                        Check-In Unavailable
+                                        Check-In Belum Tersedia
                                     </button>
                                 @endif
 
                                 @if (in_array($detail->boarding_status, ['checked_in', 'boarded'], true))
                                     <a href="{{ route('my-bookings.checkin.pdf', [$booking, $detail]) }}" class="portal-btn-blue">Boarding Pass PDF</a>
-                                    <a href="{{ route('my-bookings.checkin.qr', [$booking, $detail]) }}" target="_blank" class="portal-btn-blue">Open QR</a>
+                                    <a href="{{ route('my-bookings.checkin.qr', [$booking, $detail]) }}" target="_blank" class="portal-btn-blue">Buka QR</a>
                                 @endif
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                         </div>
 
                         @if ($detail->checked_in_at)
-                            <p class="mt-4 text-xs text-slate-500">Checked in at {{ $detail->checked_in_at->format('d M Y H:i') }}</p>
+                            <p class="mt-4 text-xs text-slate-500">Check-in pada {{ $detail->checked_in_at->format('d M Y H:i') }}</p>
                         @endif
 
                         @if (! $availability['can_check_in'] && $detail->boarding_status === 'not_checked_in' && $availability['reason'])
@@ -104,7 +104,7 @@
                         @endif
 
                         @if (in_array($detail->boarding_status, ['checked_in', 'boarded'], true))
-                            <div class="mt-5 grid gap-4 lg:grid-cols-[220px_1fr]">
+                            <div class="mt-5 grid gap-4 lg:grid-cols-[220px_minmax(0,1fr)]">
                                 <div class="portal-surface-muted text-center">
                                     <img
                                         src="{{ route('my-bookings.checkin.qr', [$booking, $detail]) }}"
@@ -135,15 +135,15 @@
                     </article>
                 @empty
                     <article class="journey-rail-card text-slate-500">
-                        Tidak ada detail passenger pada booking ini.
+                        Tidak ada detail penumpang pada booking ini.
                     </article>
                 @endforelse
             </div>
 
             <aside class="journey-rail">
                 <article class="journey-rail-card journey-rail-card-dark">
-                    <p class="portal-kicker">Desk Rules</p>
-                    <h2 class="mt-2 text-2xl font-bold">Check-in Flow</h2>
+                    <p class="portal-kicker">Panduan layanan</p>
+                    <h2 class="mt-2 text-2xl font-bold">Alur Check-In</h2>
                     <div class="mt-4 space-y-3">
                         <div class="portal-card-soft">
                             <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Step 1</p>
@@ -151,7 +151,7 @@
                         </div>
                         <div class="portal-card-soft">
                             <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Step 2</p>
-                            <p class="mt-1 font-semibold text-slate-800">Lakukan check-in satu passenger per satu passenger.</p>
+                            <p class="mt-1 font-semibold text-slate-800">Lakukan check-in satu penumpang per satu penumpang.</p>
                         </div>
                         <div class="portal-card-soft">
                             <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Step 3</p>

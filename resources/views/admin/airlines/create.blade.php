@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Create Airline | Cakrawala')
-@section('page-title', 'Create Airline')
+@section('title', 'Tambah Maskapai | Cakrawala')
+@section('page-title', 'Tambah Maskapai')
 
 @section('content')
     <section class="admin-form-shell">
@@ -28,7 +28,7 @@
             </div>
 
             <div class="flex items-center gap-2">
-                <button class="admin-btn-primary" type="submit">Save Airline</button>
+                <button class="admin-btn-primary" type="submit">Simpan Maskapai</button>
                 <a href="{{ route('admin.airlines.index') }}" class="admin-btn-secondary">Cancel</a>
             </div>
         </form>

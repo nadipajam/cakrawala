@@ -41,6 +41,7 @@ Route::post('/contact', [PageController::class, 'submitContact'])->name('contact
 Route::get('/payments/{payment}/qris/scan', [PaymentWebController::class, 'scanQris'])
     ->middleware('signed')
     ->name('payments.qris.scan');
+Route::get('/payments/midtrans/finish', [PaymentWebController::class, 'midtransFinish'])->name('payments.midtrans.finish');
 
 Route::get('/dashboard', function () {
     return auth()->user()->isBackoffice()
@@ -71,7 +72,10 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/payment', [PaymentWebController::class, 'create'])->name('payments.create');
         Route::post('/payment', [PaymentWebController::class, 'store'])->name('payments.store');
+        Route::get('/payments/{payment}/proof', [PaymentWebController::class, 'proof'])->name('payments.proof');
         Route::get('/payments/{payment}', [PaymentWebController::class, 'show'])->name('payments.show');
+        Route::post('/payments/{payment}/midtrans/refresh', [PaymentWebController::class, 'refreshMidtransStatus'])->name('payments.midtrans.refresh');
+        Route::post('/payments/{payment}/midtrans/simulate', [PaymentWebController::class, 'simulateMidtransStatus'])->name('payments.midtrans.simulate');
         Route::get('/payments/{payment}/qris', [PaymentWebController::class, 'showQris'])->name('payments.qris.show');
 
         Route::get('/passengers', [PassengerWebController::class, 'index'])->name('passengers.index');
@@ -95,12 +99,15 @@ Route::middleware('auth')->group(function () {
 
         Route::middleware('role:admin,manager')->group(function () {
             Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
+            Route::get('/users/{user}', [AdminUserController::class, 'show'])->whereNumber('user')->name('users.show');
+            Route::get('/reports', [AdminReportController::class, 'index'])->name('reports.index');
+        });
+
+        Route::middleware('role:admin')->group(function () {
             Route::get('/users/create', [AdminUserController::class, 'create'])->name('users.create');
             Route::post('/users', [AdminUserController::class, 'store'])->name('users.store');
-            Route::get('/users/{user}', [AdminUserController::class, 'show'])->name('users.show');
-            Route::get('/users/{user}/edit', [AdminUserController::class, 'edit'])->name('users.edit');
-            Route::put('/users/{user}', [AdminUserController::class, 'update'])->name('users.update');
-            Route::get('/reports', [AdminReportController::class, 'index'])->name('reports.index');
+            Route::get('/users/{user}/edit', [AdminUserController::class, 'edit'])->whereNumber('user')->name('users.edit');
+            Route::put('/users/{user}', [AdminUserController::class, 'update'])->whereNumber('user')->name('users.update');
         });
 
         Route::get('/passengers', [AdminPassengerWebController::class, 'index'])->name('passengers.index');
@@ -130,6 +137,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/bookings/{booking}/details/{detail}/boarding-pass/qr', [AdminBookingController::class, 'boardingPassQr'])->name('bookings.boarding-pass.qr');
 
         Route::get('/payments', [AdminPaymentController::class, 'index'])->name('payments.index');
+        Route::get('/payments/{payment}/proof', [AdminPaymentController::class, 'proof'])->name('payments.proof');
         Route::get('/payments/{payment}', [AdminPaymentController::class, 'show'])->name('payments.show');
 
         Route::get('/tickets', [AdminTicketController::class, 'index'])->name('tickets.index');

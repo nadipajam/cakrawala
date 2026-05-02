@@ -130,9 +130,17 @@ class AdminFlightController extends Controller
             'status' => ['required', 'in:scheduled,delayed,cancelled,completed'],
         ]);
 
+        if ($flight->status === $data['status']) {
+            return back()
+                ->with('status', 'Status flight sudah sama, tidak ada perubahan.')
+                ->with('status_type', 'warning');
+        }
+
         $flight->update(['status' => $data['status']]);
 
-        return back()->with('status', 'Status flight berhasil diperbarui.');
+        return back()
+            ->with('status', 'Status flight berhasil diperbarui.')
+            ->with('status_type', 'success');
     }
 
     protected function validateFlight(Request $request, ?Flight $flight = null): array

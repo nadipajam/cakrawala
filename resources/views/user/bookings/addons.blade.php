@@ -10,7 +10,7 @@
                 <div>
                     <span class="journey-chip">
                         <span class="journey-dot"></span>
-                        Add-On Desk
+                        Layanan Add-On
                     </span>
                     <h1 class="journey-title">{{ $booking->booking_code }}</h1>
                     <p class="journey-copy">
@@ -18,9 +18,9 @@
                         Semua item tetap masuk ke alur invoice booking yang sama.
                     </p>
                     <div class="journey-action-row mt-5">
-                        <a href="{{ route('my-bookings.show', $booking) }}" class="portal-btn-blue">Back to Booking</a>
+                        <a href="{{ route('my-bookings.show', $booking) }}" class="portal-btn-blue">Kembali ke Booking</a>
                         @if ($latestPayment?->payment_status === 'pending')
-                            <a href="{{ route('payments.create', ['booking' => $booking->id]) }}" class="portal-btn-gold">Pay Pending Invoice</a>
+                            <a href="{{ route('payments.create', ['booking' => $booking->id]) }}" class="portal-btn-gold">Bayar Tagihan Tertunda</a>
                         @endif
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                         <span class="journey-code-value">{{ $booking->flight->departureAirport->code }} -> {{ $booking->flight->arrivalAirport->code }}</span>
                     </div>
                     <div class="journey-code">
-                        <span class="journey-code-label">Current Payment</span>
+                        <span class="journey-code-label">Pembayaran saat ini</span>
                         <span class="journey-code-value">{{ ucfirst($latestPayment?->payment_status ?? 'pending') }}</span>
                     </div>
                 </div>
@@ -40,14 +40,14 @@
         <div class="journey-grid">
             <div class="space-y-6">
                 <article class="portal-card">
-                    <p class="portal-kicker">Add-On Composer</p>
+                    <p class="portal-kicker">Tambah layanan</p>
                     <h2 class="portal-section-title">Tambah Add-On</h2>
                     <p class="portal-section-copy">Pilih layanan per passenger atau untuk seluruh booking tanpa mengubah alur pembayaran yang sudah ada.</p>
 
                     <form method="POST" action="{{ route('my-bookings.addons.store', $booking) }}" class="mt-6 space-y-4">
                         @csrf
                         <div>
-                            <label class="portal-label" for="addon_code">Addon</label>
+                        <label class="portal-label" for="addon_code">Add-On</label>
                             <select id="addon_code" name="addon_code" class="portal-select" x-model="selectedCode">
                                 @foreach ($catalog as $code => $item)
                                     <option value="{{ $code }}">{{ $item['name'] }} - Rp{{ number_format((float) $item['unit_price'], 0, ',', '.') }}</option>
@@ -93,7 +93,7 @@
 
                         <div class="portal-surface-muted">
                             <p class="text-sm text-slate-500" x-text="currentAddon()?.description || '-'"></p>
-                            <p class="mt-2 text-lg font-semibold text-[#0f3f78]" x-text="formattedUnitPrice()"></p>
+                            <p class="mt-2 text-lg font-semibold text-[#c2410c]" x-text="formattedUnitPrice()"></p>
                         </div>
 
                         <button type="submit" class="portal-btn-gold">Tambah Add-On</button>
@@ -101,8 +101,8 @@
                 </article>
 
                 <article class="portal-card">
-                    <p class="portal-kicker">Selected Services</p>
-                    <h2 class="portal-section-title">Daftar Add-On</h2>
+                    <p class="portal-kicker">Layanan terpilih</p>
+                    <h2 class="portal-section-title">Daftar Layanan Tambahan</h2>
                     <div class="mt-5 space-y-3">
                         @forelse ($addons as $addon)
                             <div class="journey-manifest-card">
@@ -120,7 +120,7 @@
                                         @endif
                                     </div>
                                     <div class="text-right">
-                                        <p class="font-semibold text-[#0f3f78]">Rp{{ number_format((float) $addon->total_price, 0, ',', '.') }}</p>
+                                        <p class="font-semibold text-[#c2410c]">Rp{{ number_format((float) $addon->total_price, 0, ',', '.') }}</p>
                                         <div class="mt-2">@include('admin.partials.status-badge', ['status' => $addon->status])</div>
                                         @if ($addon->status === 'selected')
                                             <form method="POST" action="{{ route('my-bookings.addons.destroy', [$booking, $addon]) }}" class="mt-3">
@@ -141,19 +141,19 @@
 
             <aside class="journey-rail">
                 <article class="journey-rail-card journey-rail-card-dark">
-                    <p class="portal-kicker">Invoice Panel</p>
-                    <h2 class="mt-2 text-2xl font-bold">Current Invoice</h2>
+                    <p class="portal-kicker">Panel tagihan</p>
+                    <h2 class="mt-2 text-2xl font-bold">Tagihan Saat Ini</h2>
                     <div class="mt-5 space-y-3">
                         <div class="portal-card-soft">
-                            <p class="text-sm text-slate-500">Booking Total</p>
+                            <p class="text-sm text-slate-500">Total booking</p>
                             <p class="text-2xl font-bold text-slate-800">Rp{{ number_format((float) $booking->total_price, 0, ',', '.') }}</p>
                         </div>
                         <div class="portal-card-soft">
-                            <p class="text-sm text-slate-500">Current Payment Status</p>
+                            <p class="text-sm text-slate-500">Status pembayaran saat ini</p>
                             <p class="font-semibold text-slate-800">{{ ucfirst($latestPayment?->payment_status ?? 'pending') }}</p>
                         </div>
                         <div class="portal-card-soft">
-                            <p class="text-sm text-slate-500">Pending Amount</p>
+                            <p class="text-sm text-slate-500">Nominal tertunda</p>
                             <p class="font-semibold text-slate-800">
                                 @if ($latestPayment?->payment_status === 'pending')
                                     Rp{{ number_format((float) $latestPayment->amount, 0, ',', '.') }}
@@ -184,10 +184,10 @@
                 },
                 scopeDescription() {
                     if (this.currentScope() === 'booking') {
-                        return 'Addon ini berlaku untuk seluruh booking, tidak perlu pilih passenger.';
+                        return 'Add-on ini berlaku untuk seluruh booking, tidak perlu memilih penumpang.';
                     }
 
-                    return 'Addon ini bersifat per-passenger. Pilih passenger tujuan add-on.';
+                    return 'Add-on ini bersifat per penumpang. Pilih penumpang tujuan add-on.';
                 },
                 formattedUnitPrice() {
                     const price = Number(this.currentAddon()?.unit_price || 0);

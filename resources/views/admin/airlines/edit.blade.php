@@ -32,7 +32,7 @@
             </div>
 
             <div class="flex items-center gap-2">
-                <button class="admin-btn-primary" type="submit">Update Airline</button>
+                <button class="admin-btn-primary" type="submit">Perbarui Maskapai</button>
                 <a href="{{ route('admin.airlines.index') }}" class="admin-btn-secondary">Cancel</a>
             </div>
         </form>

@@ -6,7 +6,7 @@
 @section('content')
     @php($hasFilters = filled($search) || filled($status) || filled($date) || filled($user) || filled($flight) || filled($paymentStatus))
     <section class="space-y-5">
-        <div class="grid gap-5 xl:grid-cols-[320px_1fr]">
+        <div class="grid gap-5 xl:grid-cols-[320px_minmax(0,1fr)]">
             <form method="GET" class="admin-ops-filter space-y-5">
                 <div class="space-y-3">
                     <p class="admin-section-kicker">Booking Console</p>
@@ -57,7 +57,7 @@
                     <p class="text-sm text-slate-500">Hasil tabel tetap menyimpan parameter filter saat pagination agar workflow admin tidak terputus.</p>
                     <div class="flex flex-wrap items-center gap-2">
                         <button class="admin-btn-primary" type="submit">Filter</button>
-                        <a href="{{ route('admin.bookings.index') }}" class="admin-btn-secondary">Reset</a>
+                        <a href="{{ route('admin.bookings.index') }}" class="admin-btn-secondary">Atur Ulang</a>
                     </div>
                 </div>
             </form>
@@ -118,7 +118,7 @@
                                     <th>Total Price</th>
                                     <th>Status</th>
                                     <th>Expired At</th>
-                                    <th>Actions</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">

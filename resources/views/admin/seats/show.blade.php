@@ -48,7 +48,7 @@
                             <tr>
                                 <td>
                                     @if ($detail->booking)
-                                        <a href="{{ route('admin.bookings.show', $detail->booking) }}" class="font-semibold text-[#0f3f78]">{{ $detail->booking->booking_code }}</a>
+                                        <a href="{{ route('admin.bookings.show', $detail->booking) }}" class="font-semibold text-[#c2410c]">{{ $detail->booking->booking_code }}</a>
                                     @else
                                         -
                                     @endif

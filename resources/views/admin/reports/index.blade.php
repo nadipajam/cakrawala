@@ -6,7 +6,7 @@
 @section('content')
     @php($activeFilterCount = collect($filters)->filter(fn ($value) => $value !== null && $value !== '' && $value !== 0)->count())
     <section class="space-y-6">
-        <div class="grid gap-6 xl:grid-cols-[340px_1fr]">
+        <div class="grid gap-6 xl:grid-cols-[340px_minmax(0,1fr)]">
             <form method="GET" class="admin-ops-filter space-y-5">
                 <div>
                     <p class="admin-section-kicker">Report Builder</p>

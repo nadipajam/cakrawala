@@ -4,14 +4,14 @@
 
 @layer base {
     :root {
-        --cakrawala-orange-50: #eff6ff;
-        --cakrawala-orange-100: #dbeafe;
-        --cakrawala-orange-200: #bfdbfe;
-        --cakrawala-orange-300: #93c5fd;
-        --cakrawala-orange-400: #60a5fa;
-        --cakrawala-orange-500: #3b82f6;
-        --cakrawala-orange-600: #2563eb;
-        --cakrawala-orange-700: #1d4ed8;
+        --cakrawala-orange-50: #fff7ed;
+        --cakrawala-orange-100: #ffedd5;
+        --cakrawala-orange-200: #fed7aa;
+        --cakrawala-orange-300: #fdba74;
+        --cakrawala-orange-400: #fb923c;
+        --cakrawala-orange-500: #f97316;
+        --cakrawala-orange-600: #ea580c;
+        --cakrawala-orange-700: #c2410c;
         --cakrawala-ink-900: #0f172a;
         --cakrawala-ink-800: #1e293b;
         --cakrawala-sand: #f8fafc;
@@ -25,6 +25,11 @@
         max-width: 100%;
         height: auto;
     }
+
+    a,
+    button {
+        touch-action: manipulation;
+    }
 }
 
 @layer components {
@@ -32,7 +37,7 @@
         @apply relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-8;
         background:
             radial-gradient(circle at 18% 16%, rgba(255,255,255,.35) 0 2px, transparent 2px 100%),
-            linear-gradient(180deg, #f8fafc 0%, #eff6ff 100%);
+            linear-gradient(180deg, #f8fafc 0%, #fff7ed 100%);
         background-size: 320px 320px, cover;
     }
 
@@ -41,11 +46,11 @@
         @apply pointer-events-none absolute inset-0;
         background:
             radial-gradient(ellipse at 18% 90%, rgba(255,255,255,.88) 0%, rgba(255,255,255,.16) 34%, transparent 56%),
-            radial-gradient(ellipse at 80% 88%, rgba(219,234,254,.7) 0%, rgba(255,255,255,.14) 32%, transparent 58%);
+            radial-gradient(ellipse at 80% 88%, rgba(255,237,213,.7) 0%, rgba(255,255,255,.14) 32%, transparent 58%);
     }
 
     .auth-cloud {
-        @apply absolute rounded-full bg-gradient-to-b from-white/75 to-white/30 shadow-[0_18px_50px_rgba(9,49,104,.2)] blur-[1px] animate-cloud-drift;
+        @apply absolute rounded-full bg-gradient-to-b from-white/75 to-white/30 shadow-[0_18px_50px_rgba(124,45,18,.2)] blur-[1px] animate-cloud-drift;
     }
 
     .auth-card {
@@ -57,12 +62,12 @@
     }
 
     .auth-field:focus-within {
-        @apply -translate-y-[1px] border-blue-500/45 shadow-[0_10px_24px_rgba(37,99,235,.14)];
+        @apply -translate-y-[1px] border-orange-500/45 shadow-[0_10px_24px_rgba(234,88,12,.14)];
     }
 
     .auth-field-icon {
         @apply grid h-8 w-8 place-content-center rounded-md text-white;
-        background: linear-gradient(135deg, #60a5fa, #2563eb);
+        background: linear-gradient(135deg, #fb923c, #ea580c);
     }
 
     .auth-input {
@@ -75,8 +80,8 @@
 
     .auth-gold-btn {
         @apply relative mt-2 w-full overflow-hidden rounded-2xl py-3 text-[2rem] font-bold text-white transition duration-200 hover:brightness-105 focus:outline-none focus:ring-4 focus:ring-orange-300/40;
-        background: linear-gradient(110deg, #3b82f6, #1d4ed8);
-        box-shadow: 0 14px 32px rgba(37, 99, 235, .24);
+        background: linear-gradient(110deg, #f97316, #c2410c);
+        box-shadow: 0 14px 32px rgba(234, 88, 12, .24);
     }
 
     .auth-gold-btn::after {
@@ -105,7 +110,7 @@
     }
 
     .auth-plane-image {
-        @apply w-[350px] drop-shadow-[0_24px_30px_rgba(7,34,79,.36)] animate-plane-float xl:w-[410px];
+        @apply w-[350px] drop-shadow-[0_24px_30px_rgba(124,45,18,.36)] animate-plane-float xl:w-[410px];
     }
 
     .landing-shell {
@@ -114,7 +119,7 @@
             radial-gradient(circle at 18% 14%, rgba(255,255,255,.28) 0 2px, transparent 2px 100%),
             radial-gradient(circle at 62% 12%, rgba(255,255,255,.18) 0 1.5px, transparent 1.5px 100%),
             radial-gradient(circle at 82% 26%, rgba(255,255,255,.22) 0 2px, transparent 2px 100%),
-            linear-gradient(180deg, #eff6ff 0%, #dbeafe 42%, #60a5fa 100%);
+            linear-gradient(180deg, #fff7ed 0%, #ffedd5 42%, #fb923c 100%);
         background-size: 340px 340px, 280px 280px, 400px 400px, cover;
     }
 
@@ -135,17 +140,17 @@
     }
 
     .landing-input {
-        @apply mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-base text-slate-700 placeholder:text-slate-400 focus:border-blue-500/45 focus:outline-none focus:ring-2 focus:ring-blue-200/50;
+        @apply mt-2 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-base text-slate-700 placeholder:text-slate-400 focus:border-orange-500/45 focus:outline-none focus:ring-2 focus:ring-orange-200/50;
     }
 
     .landing-select {
-        @apply mt-2 w-full appearance-none rounded-2xl border border-slate-200 bg-white px-4 py-3 pr-11 text-[1.1rem] text-slate-700 focus:border-blue-500/45 focus:outline-none focus:ring-2 focus:ring-blue-200/50;
+        @apply mt-2 w-full appearance-none rounded-2xl border border-slate-200 bg-white px-4 py-3 pr-11 text-[1.1rem] text-slate-700 focus:border-orange-500/45 focus:outline-none focus:ring-2 focus:ring-orange-200/50;
     }
 
     .landing-gold-btn {
         @apply relative mt-1 w-full overflow-hidden rounded-2xl px-4 py-3 text-xl font-semibold text-white transition duration-200 hover:brightness-105 focus:outline-none focus:ring-4 focus:ring-orange-300/40;
-        background: linear-gradient(110deg, #3b82f6, #1d4ed8);
-        box-shadow: 0 14px 30px rgba(37, 99, 235, .22);
+        background: linear-gradient(110deg, #f97316, #c2410c);
+        box-shadow: 0 14px 30px rgba(234, 88, 12, .22);
     }
 
     .landing-gold-btn::after {
@@ -158,12 +163,15 @@
     }
 
     .landing-nav-outline {
-        @apply rounded-full border border-white/50 bg-white/10 px-6 py-2.5 font-semibold text-white shadow-md shadow-slate-900/10 backdrop-blur-sm transition hover:bg-white/20;
+        @apply rounded-full border border-slate-200 bg-white px-6 py-2.5 font-semibold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900;
+        color: #334155;
+        border-color: #cbd5e1;
+        background-color: rgba(255, 255, 255, 0.96);
     }
 
     .landing-nav-solid {
-        @apply rounded-full border border-blue-300/40 px-6 py-2.5 font-semibold text-white shadow-md shadow-slate-900/10 backdrop-blur-sm transition hover:brightness-105;
-        background: linear-gradient(110deg, rgba(96, 165, 250, .92), rgba(29, 78, 216, .88));
+        @apply rounded-full border border-orange-300/40 px-6 py-2.5 font-semibold text-white shadow-md shadow-slate-900/10 backdrop-blur-sm transition hover:brightness-105;
+        background: linear-gradient(110deg, rgba(251, 146, 60, .92), rgba(194, 65, 12, .88));
     }
 
     .portal-shell {
@@ -180,9 +188,9 @@
         content: "";
         @apply pointer-events-none absolute inset-0;
         background:
-            radial-gradient(circle at 8% 12%, rgba(191, 219, 254, .42) 0%, transparent 22%),
-            radial-gradient(circle at 88% 8%, rgba(219, 234, 254, .56) 0%, transparent 18%),
-            radial-gradient(circle at 82% 82%, rgba(37, 99, 235, .08) 0%, transparent 24%);
+            radial-gradient(circle at 8% 12%, rgba(254, 215, 170, .42) 0%, transparent 22%),
+            radial-gradient(circle at 88% 8%, rgba(255, 237, 213, .56) 0%, transparent 18%),
+            radial-gradient(circle at 82% 82%, rgba(234, 88, 12, .08) 0%, transparent 24%);
     }
 
     .portal-shell::after {
@@ -207,7 +215,7 @@
     }
 
     .portal-brand-mark {
-        @apply grid h-10 w-10 shrink-0 place-items-center rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-400 to-blue-700 text-white shadow-[0_10px_22px_rgba(37,99,235,.2)];
+        @apply grid h-10 w-10 shrink-0 place-items-center rounded-2xl border border-orange-200 bg-gradient-to-br from-orange-400 to-orange-700 text-white shadow-[0_10px_22px_rgba(234,88,12,.2)];
     }
 
     .portal-brand-title {
@@ -223,15 +231,15 @@
     }
 
     .portal-nav-link {
-        @apply rounded-full px-3 py-2 text-sm font-semibold text-slate-600 transition duration-200 hover:bg-slate-100 hover:text-blue-700;
+        @apply rounded-full px-3 py-2 text-sm font-semibold text-slate-600 transition duration-200 hover:bg-slate-100 hover:text-orange-700;
     }
 
     .portal-nav-link-active {
-        @apply bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-[0_10px_20px_rgba(37,99,235,.18)];
+        @apply bg-gradient-to-r from-orange-500 to-orange-700 text-white shadow-[0_10px_20px_rgba(234,88,12,.18)];
     }
 
     .portal-action-btn {
-        @apply inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:bg-slate-50;
+        @apply inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-orange-200 hover:bg-slate-50;
     }
 
     .portal-action-btn-ghost {
@@ -239,7 +247,7 @@
     }
 
     .portal-mobile-toggle {
-        @apply inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200 bg-white text-blue-700 shadow-sm transition duration-200 hover:bg-slate-50 sm:h-11 sm:w-11;
+        @apply inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200 bg-white text-orange-700 shadow-sm transition duration-200 hover:bg-slate-50 sm:h-11 sm:w-11;
     }
 
     .portal-mobile-panel {
@@ -247,19 +255,19 @@
     }
 
     .portal-mobile-link {
-        @apply rounded-2xl px-4 py-3 text-sm font-semibold text-slate-600 transition duration-200 hover:bg-slate-100 hover:text-blue-700;
+        @apply rounded-2xl px-4 py-3 text-sm font-semibold text-slate-600 transition duration-200 hover:bg-slate-100 hover:text-orange-700;
     }
 
     .portal-mobile-link-active {
-        @apply bg-slate-100 text-blue-700;
+        @apply bg-slate-100 text-orange-700;
     }
 
     .quick-link-card {
-        @apply flex items-center gap-3 rounded-[20px] border border-slate-200 bg-white p-3.5 shadow-[0_10px_24px_rgba(15,23,42,.06)] transition duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:bg-white sm:p-4;
+        @apply flex items-center gap-3 rounded-[20px] border border-slate-200 bg-white p-3.5 shadow-[0_10px_24px_rgba(15,23,42,.06)] transition duration-200 hover:-translate-y-0.5 hover:border-orange-200 hover:bg-white sm:p-4;
     }
 
     .quick-link-icon {
-        @apply grid h-10 w-10 shrink-0 place-content-center rounded-2xl border border-blue-200 bg-blue-50 text-blue-700;
+        @apply grid h-10 w-10 shrink-0 place-content-center rounded-2xl border border-orange-200 bg-orange-50 text-orange-700;
     }
 
     .quick-link-title {
@@ -277,11 +285,11 @@
     }
 
     .portal-input {
-        @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-slate-700 placeholder:text-slate-400 focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-200/50;
+        @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-slate-700 placeholder:text-slate-400 focus:border-orange-500/50 focus:outline-none focus:ring-2 focus:ring-orange-200/50;
     }
 
     .portal-select {
-        @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-slate-700 focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-200/50;
+        @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-slate-700 focus:border-orange-500/50 focus:outline-none focus:ring-2 focus:ring-orange-200/50;
     }
 
     .portal-label {
@@ -290,12 +298,12 @@
 
     .portal-btn-gold {
         @apply inline-flex items-center justify-center rounded-full px-4 py-2.5 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:brightness-105 focus:outline-none focus:ring-4 focus:ring-orange-300/40 sm:px-5 sm:text-base;
-        background: linear-gradient(110deg, #3b82f6, #2563eb 56%, #1e40af);
-        box-shadow: 0 16px 30px rgba(37, 99, 235, .2);
+        background: linear-gradient(110deg, #f97316, #ea580c 56%, #9a3412);
+        box-shadow: 0 16px 30px rgba(234, 88, 12, .2);
     }
 
     .portal-btn-blue {
-        @apply inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-blue-700 transition hover:-translate-y-0.5 hover:border-blue-200 hover:bg-slate-50 sm:px-5 sm:text-base;
+        @apply inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-orange-700 transition hover:-translate-y-0.5 hover:border-orange-200 hover:bg-slate-50 sm:px-5 sm:text-base;
     }
 
     .portal-status-pending {
@@ -316,6 +324,8 @@
 
     .admin-shell {
         @apply grid min-h-[calc(100vh-4rem)] items-start gap-5 lg:grid-cols-[300px_minmax(0,1fr)];
+        width: 100%;
+        min-width: 0;
     }
 
     .admin-sidebar {
@@ -329,19 +339,34 @@
     }
 
     .admin-sidebar-group {
-        @apply text-xs font-semibold uppercase tracking-[0.2em] text-blue-700/70;
+        @apply text-xs font-semibold uppercase tracking-[0.2em] text-orange-700/70;
     }
 
     .admin-sidebar-link {
-        @apply rounded-2xl px-4 py-3 text-sm font-semibold text-slate-600 transition duration-200 hover:bg-slate-100 hover:text-blue-700;
+        @apply rounded-2xl px-4 py-3 text-sm font-semibold text-slate-600 transition duration-200 hover:bg-slate-100 hover:text-orange-700;
     }
 
     .admin-sidebar-link-active {
-        @apply bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow-[0_10px_24px_rgba(37,99,235,.18)];
+        @apply bg-gradient-to-r from-orange-500 to-orange-700 text-white shadow-[0_10px_24px_rgba(234,88,12,.18)];
     }
 
     .admin-content {
         @apply min-w-0 lg:pl-2;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .admin-content > main,
+    .admin-content section,
+    .admin-content article,
+    .admin-content form,
+    .admin-content .grid {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .admin-content .grid > * {
+        min-width: 0;
     }
 
     .admin-topbar {
@@ -349,7 +374,7 @@
     }
 
     .admin-mobile-toggle {
-        @apply inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-blue-700 shadow-sm;
+        @apply inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-orange-700 shadow-sm;
     }
 
     .admin-card {
@@ -372,7 +397,7 @@
         -webkit-overflow-scrolling: touch;
         overscroll-behavior-x: contain;
         scrollbar-width: thin;
-        scrollbar-color: rgba(59, 130, 246, 0.45) rgba(148, 163, 184, 0.18);
+        scrollbar-color: rgba(249, 115, 22, 0.45) rgba(148, 163, 184, 0.18);
     }
 
     .admin-table-wrap::-webkit-scrollbar,
@@ -388,13 +413,13 @@
 
     .admin-table-wrap::-webkit-scrollbar-thumb,
     .portal-table-wrap::-webkit-scrollbar-thumb {
-        background: rgba(59, 130, 246, 0.45);
+        background: rgba(249, 115, 22, 0.45);
         border-radius: 9999px;
     }
 
     .admin-table-wrap::-webkit-scrollbar-thumb:hover,
     .portal-table-wrap::-webkit-scrollbar-thumb:hover {
-        background: rgba(59, 130, 246, 0.62);
+        background: rgba(249, 115, 22, 0.62);
     }
 
     .admin-table,
@@ -403,6 +428,7 @@
         width: max-content;
         min-width: max(100%, 860px);
         table-layout: auto;
+        max-width: none;
     }
 
     .admin-table thead {
@@ -418,7 +444,7 @@
     }
 
     .admin-field {
-        @apply w-full rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700 focus:border-blue-500/45 focus:outline-none focus:ring-2 focus:ring-blue-200/50;
+        @apply w-full rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-700 focus:border-orange-500/45 focus:outline-none focus:ring-2 focus:ring-orange-200/50;
     }
 
     .admin-field[type='date'],
@@ -432,12 +458,12 @@
 
     .admin-btn-primary {
         @apply inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:brightness-105 focus:outline-none focus:ring-4 focus:ring-orange-300/40;
-        background: linear-gradient(110deg, #3b82f6, #1d4ed8);
-        box-shadow: 0 12px 24px rgba(37, 99, 235, .2);
+        background: linear-gradient(110deg, #f97316, #c2410c);
+        box-shadow: 0 12px 24px rgba(234, 88, 12, .2);
     }
 
     .admin-btn-secondary {
-        @apply inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-blue-700 transition hover:-translate-y-0.5 hover:bg-slate-50;
+        @apply inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-orange-700 transition hover:-translate-y-0.5 hover:bg-slate-50;
     }
 
     .admin-badge {
@@ -465,7 +491,7 @@
     }
 
     .admin-section-kicker {
-        color: #1d4ed8;
+        color: #c2410c;
     }
 
     .admin-section-title {
@@ -504,7 +530,7 @@
         @apply relative overflow-hidden rounded-[24px] border border-slate-200 p-6 shadow-[0_18px_40px_rgba(15,23,42,.06)] sm:p-7;
         background:
             radial-gradient(circle at top right, rgba(255,255,255,.78) 0%, transparent 24%),
-            linear-gradient(140deg, rgba(255,255,255,.98) 0%, rgba(239,246,255,.98) 45%, rgba(219,234,254,.96) 100%);
+            linear-gradient(140deg, rgba(255,255,255,.98) 0%, rgba(255,247,237,.98) 45%, rgba(255,237,213,.96) 100%);
     }
 
     .admin-hero-card::after {
@@ -545,7 +571,7 @@
         @apply relative overflow-hidden rounded-[24px] border border-slate-200 px-6 py-7 text-[color:var(--cakrawala-ink-900)] shadow-[0_18px_44px_rgba(15,23,42,.06)] sm:px-8 sm:py-9;
         background:
             radial-gradient(circle at top right, rgba(255,255,255,.75) 0%, transparent 22%),
-            linear-gradient(135deg, rgba(255,255,255,.98) 0%, rgba(239,246,255,.98) 40%, rgba(219,234,254,.96) 100%);
+            linear-gradient(135deg, rgba(255,255,255,.98) 0%, rgba(255,247,237,.98) 40%, rgba(255,237,213,.96) 100%);
         backdrop-filter: blur(18px);
     }
 
@@ -560,7 +586,7 @@
     }
 
     .portal-pill {
-        @apply inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.28em] text-blue-700;
+        @apply inline-flex items-center rounded-full border border-orange-200 bg-orange-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.28em] text-orange-700;
     }
 
     .portal-route-card {
@@ -570,7 +596,7 @@
     .portal-route-card::before {
         content: "";
         @apply absolute inset-x-0 top-0 h-1.5;
-        background: linear-gradient(90deg, #93c5fd, #3b82f6, #1d4ed8);
+        background: linear-gradient(90deg, #fdba74, #f97316, #c2410c);
     }
 
     .portal-feature-panel {
@@ -583,7 +609,7 @@
     }
 
     .portal-kicker {
-        @apply text-xs font-semibold uppercase tracking-[0.28em] text-blue-700/80;
+        @apply text-xs font-semibold uppercase tracking-[0.28em] text-orange-700/80;
     }
 
     .portal-section-title {
@@ -619,7 +645,7 @@
     }
 
     .portal-process-step-active {
-        @apply border-blue-200 bg-blue-50 text-blue-700;
+        @apply border-orange-200 bg-orange-50 text-orange-700;
     }
 
     .portal-ticket-shell {
@@ -631,20 +657,20 @@
     }
 
     .portal-anchor-link {
-        @apply font-semibold text-blue-700 underline decoration-blue-300 underline-offset-4 transition hover:text-blue-800;
+        @apply font-semibold text-orange-700 underline decoration-orange-300 underline-offset-4 transition hover:text-orange-800;
     }
 
     .portal-editorial-panel {
         @apply relative overflow-hidden rounded-[24px] border border-slate-200 p-6 shadow-[0_16px_38px_rgba(15,23,42,.06)] sm:p-8;
         background:
             radial-gradient(circle at top right, rgba(255,255,255,.78) 0%, transparent 24%),
-            linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(248,250,252,.98) 42%, rgba(239,246,255,.98) 100%);
+            linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(248,250,252,.98) 42%, rgba(255,247,237,.98) 100%);
     }
 
     .portal-editorial-panel::after {
         content: "";
         @apply pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full;
-        background: radial-gradient(circle, rgba(96,165,250,.18) 0%, rgba(255,255,255,0) 72%);
+        background: radial-gradient(circle, rgba(251,146,60,.18) 0%, rgba(255,255,255,0) 72%);
     }
 
     .portal-bento-card {
@@ -684,11 +710,11 @@
     }
 
     .app-nav-link {
-        @apply rounded-full px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-white hover:text-blue-700;
+        @apply rounded-full px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-white hover:text-orange-700;
     }
 
     .app-nav-link-active {
-        @apply bg-white text-blue-700 shadow-sm;
+        @apply bg-white text-orange-700 shadow-sm;
     }
 
     .app-user-chip {
@@ -706,8 +732,8 @@
     .guest-shell {
         @apply relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-8 sm:px-6;
         background:
-            radial-gradient(circle at 12% 18%, rgba(191,219,254,.28) 0%, transparent 22%),
-            radial-gradient(circle at 88% 14%, rgba(219,234,254,.5) 0%, transparent 18%),
+            radial-gradient(circle at 12% 18%, rgba(254,215,170,.28) 0%, transparent 22%),
+            radial-gradient(circle at 88% 14%, rgba(255,237,213,.5) 0%, transparent 18%),
             linear-gradient(180deg, rgba(248,250,252,1) 0%, rgba(241,245,249,1) 100%);
     }
 
@@ -727,7 +753,7 @@
 
 .customer-shell {
     background:
-        radial-gradient(circle at top left, rgba(37,99,235,.16) 0%, transparent 28%),
+        radial-gradient(circle at top left, rgba(234,88,12,.16) 0%, transparent 28%),
         radial-gradient(circle at 85% 12%, rgba(56,189,248,.12) 0%, transparent 24%),
         linear-gradient(180deg, #eef4ff 0%, #f8fafc 22%, #f4f7fb 100%);
 }
@@ -736,7 +762,7 @@
     background:
         linear-gradient(90deg, rgba(15,23,42,.04) 1px, transparent 1px),
         linear-gradient(rgba(15,23,42,.04) 1px, transparent 1px),
-        radial-gradient(circle at 8% 12%, rgba(96,165,250,.18) 0%, transparent 20%);
+        radial-gradient(circle at 8% 12%, rgba(251,146,60,.18) 0%, transparent 20%);
     background-size: 28px 28px, 28px 28px, auto;
 }
 
@@ -755,8 +781,8 @@
 .customer-shell .portal-nav-link-active,
 .customer-shell .portal-btn-gold,
 .customer-shell .admin-btn-primary {
-    background: linear-gradient(135deg, #0f172a, #1d4ed8);
-    box-shadow: 0 16px 28px rgba(29, 78, 216, .2);
+    background: linear-gradient(135deg, #0f172a, #c2410c);
+    box-shadow: 0 16px 28px rgba(194, 65, 12, .2);
 }
 
 .customer-shell .portal-btn-blue {
@@ -816,19 +842,19 @@
 }
 
 .customer-shell .portal-kicker {
-    color: #2563eb;
+    color: #ea580c;
 }
 
 .customer-shell .portal-inline-note,
 .customer-shell .portal-pill {
-    background: #eff6ff;
-    color: #1d4ed8;
-    border-color: #bfdbfe;
+    background: #fff7ed;
+    color: #c2410c;
+    border-color: #fed7aa;
 }
 
 .customer-shell .portal-anchor-link {
-    color: #1d4ed8;
-    text-decoration-color: #93c5fd;
+    color: #c2410c;
+    text-decoration-color: #fdba74;
 }
 
 .customer-shell .portal-table-wrap,
@@ -852,7 +878,7 @@
     border-radius: 32px;
     background:
         radial-gradient(circle at top right, rgba(125,211,252,.18) 0%, transparent 24%),
-        linear-gradient(135deg, rgba(15,23,42,.96), rgba(29,78,216,.92));
+        linear-gradient(135deg, rgba(15,23,42,.96), rgba(194,65,12,.92));
     color: #f8fafc;
     box-shadow: 0 26px 52px rgba(15, 23, 42, .12);
 }
@@ -891,13 +917,13 @@
 
 .customer-menu-link:hover {
     transform: translateY(-1px);
-    border-color: rgba(29,78,216,.18);
+    border-color: rgba(194,65,12,.18);
     box-shadow: 0 16px 32px rgba(15,23,42,.07);
 }
 
 .customer-menu-link-active {
-    border-color: rgba(29,78,216,.22);
-    background: linear-gradient(135deg, rgba(15,23,42,.96), rgba(29,78,216,.94));
+    border-color: rgba(194,65,12,.22);
+    background: linear-gradient(135deg, rgba(15,23,42,.96), rgba(194,65,12,.94));
 }
 
 .customer-menu-link-active .customer-menu-label,
@@ -928,7 +954,7 @@
     font-weight: 800;
     letter-spacing: .24em;
     text-transform: uppercase;
-    color: #2563eb;
+    color: #ea580c;
 }
 
 .customer-rail-note-list {
@@ -956,7 +982,7 @@
     font-weight: 700;
     letter-spacing: .24em;
     text-transform: uppercase;
-    color: rgba(191,219,254,.9);
+    color: rgba(254,215,170,.9);
 }
 
 .customer-hero-title {
@@ -1000,7 +1026,7 @@
     width: .55rem;
     height: .55rem;
     border-radius: 999px;
-    background: #38bdf8;
+    background: #fdba74;
     box-shadow: 0 0 0 6px rgba(56,189,248,.16);
 }
 
@@ -1025,7 +1051,7 @@
     border-radius: 32px;
     background:
         radial-gradient(circle at top right, rgba(125,211,252,.18) 0%, transparent 24%),
-        linear-gradient(135deg, rgba(15,23,42,.96), rgba(29,78,216,.92));
+        linear-gradient(135deg, rgba(15,23,42,.96), rgba(194,65,12,.92));
     color: #f8fafc;
     box-shadow: 0 26px 52px rgba(15, 23, 42, .12);
 }
@@ -1068,7 +1094,7 @@
     width: .55rem;
     height: .55rem;
     border-radius: 999px;
-    background: #38bdf8;
+    background: #fdba74;
     box-shadow: 0 0 0 6px rgba(56,189,248,.16);
 }
 
@@ -1103,7 +1129,7 @@
     font-weight: 700;
     letter-spacing: .22em;
     text-transform: uppercase;
-    color: rgba(191,219,254,.9);
+    color: rgba(254,215,170,.9);
 }
 
 .journey-code-value {
@@ -1156,6 +1182,24 @@
     color: #f8fafc !important;
 }
 
+/* Keep inner soft cards readable when used inside dark rail cards. */
+.journey-rail-card-dark .portal-card-soft {
+    background: linear-gradient(180deg, #ffffff, #f8fafc);
+    border-color: rgba(15, 23, 42, 0.1);
+}
+
+.journey-rail-card-dark .portal-card-soft .text-slate-500,
+.journey-rail-card-dark .portal-card-soft .text-slate-600,
+.journey-rail-card-dark .portal-card-soft .text-slate-700 {
+    color: #64748b !important;
+}
+
+.journey-rail-card-dark .portal-card-soft .text-slate-800,
+.journey-rail-card-dark .portal-card-soft .font-semibold,
+.journey-rail-card-dark .portal-card-soft .font-bold {
+    color: #0f172a !important;
+}
+
 .journey-manifest {
     display: grid;
     gap: 1rem;
@@ -1176,7 +1220,7 @@
     position: absolute;
     inset: 0 auto 0 0;
     width: 5px;
-    background: linear-gradient(180deg, #1d4ed8, #38bdf8);
+    background: linear-gradient(180deg, #c2410c, #fdba74);
 }
 
 .journey-stat-grid {
@@ -1221,13 +1265,13 @@
 
 .ticket-lounge-link:hover {
     transform: translateY(-1px);
-    border-color: rgba(29,78,216,.18);
+    border-color: rgba(194,65,12,.18);
     box-shadow: 0 14px 30px rgba(15,23,42,.06);
 }
 
 .ticket-lounge-link-active {
-    border-color: rgba(29,78,216,.22);
-    background: linear-gradient(135deg, rgba(15,23,42,.96), rgba(29,78,216,.94));
+    border-color: rgba(194,65,12,.22);
+    background: linear-gradient(135deg, rgba(15,23,42,.96), rgba(194,65,12,.94));
 }
 
 .ticket-lounge-link-active .ticket-lounge-link-title,
@@ -1303,9 +1347,9 @@
     overflow-wrap: anywhere;
 }
 
-.portal-shell .text-\[\#0f3f78\],
-.auth-page-shell .text-\[\#0f3f78\],
-.landing-shell .text-\[\#0f3f78\] {
+.portal-shell .text-\[\#c2410c\],
+.auth-page-shell .text-\[\#c2410c\],
+.landing-shell .text-\[\#c2410c\] {
     color: var(--cakrawala-orange-700) !important;
 }
 
@@ -1315,20 +1359,20 @@
     color: #bc5e21 !important;
 }
 
-.portal-shell .bg-\[\#0f3f78\],
-.auth-page-shell .bg-\[\#0f3f78\],
-.landing-shell .bg-\[\#0f3f78\] {
+.portal-shell .bg-\[\#c2410c\],
+.auth-page-shell .bg-\[\#c2410c\],
+.landing-shell .bg-\[\#c2410c\] {
     background-color: var(--cakrawala-orange-700) !important;
 }
 
-.portal-shell .border-\[\#0f3f78\],
-.portal-shell .ring-\[\#0f3f78\] {
+.portal-shell .border-\[\#c2410c\],
+.portal-shell .ring-\[\#c2410c\] {
     border-color: var(--cakrawala-orange-700) !important;
     --tw-ring-color: rgba(163, 71, 24, .45) !important;
 }
 
-.portal-shell .text-\[\#0f3f78\]\/90,
-.auth-page-shell .text-\[\#0f3f78\]\/90 {
+.portal-shell .text-\[\#c2410c\]\/90,
+.auth-page-shell .text-\[\#c2410c\]\/90 {
     color: rgba(163, 71, 24, .9) !important;
 }
 
@@ -1415,7 +1459,7 @@
     .portal-topbar-v2 {
         @apply flex-col items-stretch gap-4;
         background:
-            radial-gradient(circle at top left, rgba(191,219,254,.28) 0%, transparent 24%),
+            radial-gradient(circle at top left, rgba(254,215,170,.28) 0%, transparent 24%),
             linear-gradient(135deg, rgba(255,255,255,.98), rgba(248,250,252,.94));
     }
 
@@ -1441,10 +1485,20 @@
     }
 
     .admin-command-shell {
+        overflow-x: auto;
         background:
-            radial-gradient(circle at 12% 14%, rgba(34,211,238,.1) 0%, transparent 20%),
-            radial-gradient(circle at 86% 12%, rgba(59,130,246,.12) 0%, transparent 22%),
+            radial-gradient(circle at 12% 14%, rgba(249,115,22,.1) 0%, transparent 20%),
+            radial-gradient(circle at 86% 12%, rgba(249,115,22,.12) 0%, transparent 22%),
             linear-gradient(180deg, #e2e8f0 0%, #f8fafc 22%, #edf2f7 100%);
+    }
+
+    .admin-command-shell .portal-brand-title {
+        color: #e2e8f0;
+        letter-spacing: 0.24em;
+    }
+
+    .admin-command-shell .portal-brand-subtitle {
+        color: #94a3b8;
     }
 
     .admin-sidebar-brand {
@@ -1456,7 +1510,7 @@
     }
 
     .admin-sidebar-user-label {
-        @apply text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-300/80;
+        @apply text-[11px] font-semibold uppercase tracking-[0.24em] text-orange-300/80;
     }
 
     .admin-sidebar-user-name {
@@ -1474,7 +1528,7 @@
     .admin-command-shell .admin-sidebar {
         border-color: rgba(15,23,42,.08);
         background:
-            radial-gradient(circle at top right, rgba(34,211,238,.14) 0%, transparent 24%),
+            radial-gradient(circle at top right, rgba(249,115,22,.14) 0%, transparent 24%),
             linear-gradient(180deg, rgba(2,6,23,.98), rgba(15,23,42,.96));
         box-shadow: 0 26px 52px rgba(2,6,23,.18);
     }
@@ -1494,8 +1548,8 @@
     }
 
     .admin-command-shell .admin-sidebar-link-active {
-        border-color: rgba(34,211,238,.32);
-        background: linear-gradient(135deg, rgba(34,211,238,.18), rgba(37,99,235,.4));
+        border-color: rgba(249,115,22,.32);
+        background: linear-gradient(135deg, rgba(249,115,22,.18), rgba(234,88,12,.4));
         color: #f8fafc;
         box-shadow: none;
     }
@@ -1518,19 +1572,19 @@
         @apply relative overflow-hidden rounded-[32px] border border-slate-200 p-6 sm:p-7;
         background:
             radial-gradient(circle at 88% 12%, rgba(56,189,248,.18) 0%, transparent 22%),
-            radial-gradient(circle at 14% 18%, rgba(191,219,254,.32) 0%, transparent 20%),
-            linear-gradient(135deg, rgba(255,255,255,.98), rgba(239,246,255,.98) 44%, rgba(219,234,254,.96));
+            radial-gradient(circle at 14% 18%, rgba(254,215,170,.32) 0%, transparent 20%),
+            linear-gradient(135deg, rgba(255,255,255,.98), rgba(255,247,237,.98) 44%, rgba(255,237,213,.96));
         box-shadow: 0 28px 56px rgba(15,23,42,.08);
     }
 
     .customer-command-panel::after {
         content: "";
         @apply pointer-events-none absolute right-0 top-0 h-36 w-36 rounded-full;
-        background: radial-gradient(circle, rgba(37,99,235,.12) 0%, transparent 70%);
+        background: radial-gradient(circle, rgba(234,88,12,.12) 0%, transparent 70%);
     }
 
     .customer-section-kicker {
-        @apply text-xs font-semibold uppercase tracking-[0.28em] text-blue-700/80;
+        @apply text-xs font-semibold uppercase tracking-[0.28em] text-orange-700/80;
     }
 
     .customer-section-title {
@@ -1580,16 +1634,16 @@
     }
 
     .customer-queue-value {
-        @apply text-3xl font-bold leading-none text-cyan-300;
+        @apply text-3xl font-bold leading-none text-orange-300;
     }
 
     .customer-queue-link {
-        @apply mt-3 inline-flex text-sm font-semibold text-white/90 underline decoration-cyan-400 underline-offset-4;
+        @apply mt-3 inline-flex text-sm font-semibold text-white/90 underline decoration-orange-400 underline-offset-4;
     }
 
     .admin-hero-card-command {
         background:
-            radial-gradient(circle at 88% 12%, rgba(34,211,238,.22) 0%, transparent 24%),
+            radial-gradient(circle at 88% 12%, rgba(249,115,22,.22) 0%, transparent 24%),
             linear-gradient(135deg, rgba(255,255,255,.98) 0%, rgba(240,249,255,.98) 44%, rgba(224,242,254,.96) 100%);
     }
 
@@ -1619,7 +1673,7 @@
     }
 
     .admin-command-stat strong {
-        @apply text-lg font-bold text-cyan-300;
+        @apply text-lg font-bold text-orange-300;
     }
 
     .admin-shift-board {
@@ -1655,8 +1709,8 @@
         @apply relative overflow-hidden rounded-[32px] border border-slate-200 p-6 sm:p-7;
         background:
             radial-gradient(circle at 88% 14%, rgba(56,189,248,.18) 0%, transparent 22%),
-            radial-gradient(circle at 10% 20%, rgba(191,219,254,.24) 0%, transparent 18%),
-            linear-gradient(135deg, rgba(255,255,255,.98), rgba(248,250,252,.98) 42%, rgba(239,246,255,.96));
+            radial-gradient(circle at 10% 20%, rgba(254,215,170,.24) 0%, transparent 18%),
+            linear-gradient(135deg, rgba(255,255,255,.98), rgba(248,250,252,.98) 42%, rgba(255,247,237,.96));
         box-shadow: 0 28px 56px rgba(15,23,42,.08);
     }
 
@@ -1668,11 +1722,11 @@
     .payment-success-panel::after {
         content: "";
         @apply pointer-events-none absolute -right-8 -top-8 h-36 w-36 rounded-full;
-        background: radial-gradient(circle, rgba(37,99,235,.14) 0%, transparent 72%);
+        background: radial-gradient(circle, rgba(234,88,12,.14) 0%, transparent 72%);
     }
 
     .booking-shell-kicker {
-        @apply text-xs font-semibold uppercase tracking-[0.28em] text-blue-700/80;
+        @apply text-xs font-semibold uppercase tracking-[0.28em] text-orange-700/80;
     }
 
     .booking-shell-title {
@@ -1716,7 +1770,7 @@
     }
 
     .booking-step-card-active {
-        @apply border-blue-200 bg-blue-50 shadow-[0_16px_28px_rgba(37,99,235,.08)];
+        @apply border-orange-200 bg-orange-50 shadow-[0_16px_28px_rgba(234,88,12,.08)];
     }
 
     .booking-step-index {
@@ -1732,15 +1786,15 @@
     }
 
     .booking-passenger-card {
-        @apply flex cursor-pointer items-center justify-between gap-3 rounded-[22px] border border-slate-200 bg-white p-4 shadow-[0_10px_24px_rgba(15,23,42,.04)] transition duration-200 hover:-translate-y-0.5 hover:border-blue-200;
+        @apply flex cursor-pointer items-center justify-between gap-3 rounded-[22px] border border-slate-200 bg-white p-4 shadow-[0_10px_24px_rgba(15,23,42,.04)] transition duration-200 hover:-translate-y-0.5 hover:border-orange-200;
     }
 
     .booking-class-card {
-        @apply rounded-[24px] border border-slate-200 bg-white p-4 text-left shadow-[0_12px_28px_rgba(15,23,42,.04)] transition duration-200 hover:-translate-y-0.5 hover:border-blue-200;
+        @apply rounded-[24px] border border-slate-200 bg-white p-4 text-left shadow-[0_12px_28px_rgba(15,23,42,.04)] transition duration-200 hover:-translate-y-0.5 hover:border-orange-200;
     }
 
     .booking-class-card-active {
-        @apply border-blue-300 bg-blue-50 ring-2 ring-blue-200;
+        @apply border-orange-300 bg-orange-50 ring-2 ring-orange-200;
     }
 
     .booking-seat-stage {
@@ -1765,7 +1819,7 @@
     .booking-board-card {
         @apply p-6;
         background:
-            radial-gradient(circle at top right, rgba(191,219,254,.18) 0%, transparent 18%),
+            radial-gradient(circle at top right, rgba(254,215,170,.18) 0%, transparent 18%),
             linear-gradient(180deg, rgba(255,255,255,1), rgba(248,250,252,.96));
     }
 
@@ -1809,11 +1863,11 @@
     }
 
     .payment-channel-card {
-        @apply flex cursor-pointer items-start gap-3 rounded-[22px] border border-slate-200 bg-white p-4 shadow-[0_10px_24px_rgba(15,23,42,.04)] transition duration-200 hover:-translate-y-0.5 hover:border-blue-200;
+        @apply flex cursor-pointer items-start gap-3 rounded-[22px] border border-slate-200 bg-white p-4 shadow-[0_10px_24px_rgba(15,23,42,.04)] transition duration-200 hover:-translate-y-0.5 hover:border-orange-200;
     }
 
     .payment-channel-card-active {
-        @apply border-blue-300 bg-blue-50 ring-2 ring-blue-200;
+        @apply border-orange-300 bg-orange-50 ring-2 ring-orange-200;
     }
 
     .payment-instruction-panel {
@@ -1848,7 +1902,7 @@
     .support-hero-panel::after {
         content: "";
         @apply pointer-events-none absolute -right-8 -top-8 h-36 w-36 rounded-full;
-        background: radial-gradient(circle, rgba(59,130,246,.14) 0%, transparent 72%);
+        background: radial-gradient(circle, rgba(249,115,22,.14) 0%, transparent 72%);
     }
 
     .support-summary-grid {
@@ -1883,7 +1937,7 @@
 
     .passenger-vault-card {
         background:
-            radial-gradient(circle at top right, rgba(191,219,254,.16) 0%, transparent 16%),
+            radial-gradient(circle at top right, rgba(254,215,170,.16) 0%, transparent 16%),
             linear-gradient(180deg, rgba(255,255,255,1), rgba(248,250,252,.96));
     }
 
@@ -1902,8 +1956,8 @@
     .admin-support-hero {
         @apply relative overflow-hidden rounded-[30px] border border-slate-200 p-6 sm:p-7;
         background:
-            radial-gradient(circle at 88% 14%, rgba(34,211,238,.16) 0%, transparent 22%),
-            radial-gradient(circle at 10% 18%, rgba(59,130,246,.14) 0%, transparent 18%),
+            radial-gradient(circle at 88% 14%, rgba(249,115,22,.16) 0%, transparent 22%),
+            radial-gradient(circle at 10% 18%, rgba(249,115,22,.14) 0%, transparent 18%),
             linear-gradient(135deg, rgba(255,255,255,.99), rgba(248,250,252,.98) 42%, rgba(240,249,255,.96));
         box-shadow: 0 24px 50px rgba(15,23,42,.08);
     }

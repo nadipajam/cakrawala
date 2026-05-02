@@ -63,8 +63,18 @@ class AdminChangeRequestController extends Controller
 
     public function update(ProcessBookingChangeRequest $request, BookingChangeRequest $changeRequest): RedirectResponse
     {
-        $this->changeRequestService->process($request->user(), $changeRequest, $request->validated());
+        $data = $request->validated();
 
-        return back()->with('status', 'Request booking berhasil diproses.');
+        if ($changeRequest->status === $data['status']) {
+            return back()
+                ->with('status', 'Request ini sudah berada di status tersebut.')
+                ->with('status_type', 'warning');
+        }
+
+        $this->changeRequestService->process($request->user(), $changeRequest, $data);
+
+        return back()
+            ->with('status', 'Request booking berhasil diproses.')
+            ->with('status_type', 'success');
     }
 }

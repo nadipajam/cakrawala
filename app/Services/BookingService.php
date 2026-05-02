@@ -93,7 +93,9 @@ class BookingService
                 'total_passengers' => $totalPassengers,
                 'total_price' => $totalPrice,
                 'status' => 'pending',
-                'expired_at' => now()->addMinutes(5),
+                // Timeout tidak dipasang saat booking dibuat.
+                // Batas 5 menit hanya berlaku ketika metode QRIS dipilih saat pembayaran.
+                'expired_at' => null,
             ]);
 
             foreach ($requestedPassengers as $item) {

@@ -63,6 +63,7 @@ class PageController extends Controller
 
         return redirect()
             ->route('contact')
-            ->with('status', 'Pesan Anda sudah diterima. Tim Cakrawala akan menindaklanjuti secepatnya.');
+            ->with('status', 'Pesan Anda sudah diterima. Tim Cakrawala akan menindaklanjuti secepatnya.')
+            ->with('status_type', 'success');
     }
 }

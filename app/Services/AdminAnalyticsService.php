@@ -42,6 +42,13 @@ class AdminAnalyticsService
             'booking_confirmed' => Booking::query()->where('status', 'confirmed')->count(),
             'booking_cancelled' => Booking::query()->where('status', 'cancelled')->count(),
             'payment_pending' => Payment::query()->where('payment_status', 'pending')->count(),
+            'overdue_non_qris_pending_payments' => Payment::query()
+                ->where('payment_status', 'pending')
+                ->where('payment_method', '!=', 'qris')
+                ->whereNotNull('submitted_at')
+                ->where('submitted_at', '<=', $now->copy()->subMinutes(30))
+                ->whereHas('booking', fn (Builder $booking) => $booking->where('status', 'pending'))
+                ->count(),
             'revenue_total' => (float) Payment::query()->where('payment_status', 'paid')->sum('amount'),
             'revenue_this_month' => (float) Payment::query()
                 ->where('payment_status', 'paid')

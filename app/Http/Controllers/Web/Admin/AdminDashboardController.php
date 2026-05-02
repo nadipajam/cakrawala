@@ -27,6 +27,9 @@ class AdminDashboardController extends Controller
         if ($summary['payment_pending'] > 0) {
             $quickAlerts[] = "{$summary['payment_pending']} pembayaran menunggu verifikasi";
         }
+        if ($summary['overdue_non_qris_pending_payments'] > 0) {
+            $quickAlerts[] = "{$summary['overdue_non_qris_pending_payments']} pembayaran non-QRIS melewati SLA verifikasi 30 menit";
+        }
         if ($summary['delayed_flights'] > 0) {
             $quickAlerts[] = "{$summary['delayed_flights']} flight berstatus delayed";
         }

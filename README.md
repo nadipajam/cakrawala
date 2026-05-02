@@ -1,58 +1,199 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Cakrawala - Setup & Run Guide
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Panduan ini adalah alur yang dipakai di project Cakrawala ini untuk menjalankan aplikasi dari nol sampai integrasi Midtrans + ngrok aktif.
 
-## About Laravel
+## 1) Prasyarat
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Pastikan sudah terpasang:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- PHP 8.3+
+- Composer
+- Node.js + npm
+- MySQL/MariaDB (XAMPP)
+- ngrok
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 2) Masuk ke folder project yang benar
 
-## Learning Laravel
+Pastikan berada di folder yang ada file `artisan`.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+```powershell
+cd C:\xampp\htdocs\cakrawala-new\cakrawala
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## 3) Install dependency
 
-## Contributing
+```powershell
+composer install
+npm install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 4) Siapkan `.env`
 
-## Code of Conduct
+```powershell
+copy .env.example .env
+php artisan key:generate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Isi minimal:
 
-## Security Vulnerabilities
+```env
+APP_URL=http://127.0.0.1:8080
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=cakrawala
+DB_USERNAME=root
+DB_PASSWORD=
 
-## License
+MIDTRANS_SERVER_KEY=ISI_SERVER_KEY_SANDBOX
+MIDTRANS_CLIENT_KEY=ISI_CLIENT_KEY_SANDBOX
+MIDTRANS_IS_PRODUCTION=false
+MIDTRANS_VERIFY_SSL=true
+MIDTRANS_LOCAL_SIMULATOR=false
+MIDTRANS_NOTIFICATION_URL=
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 5) Siapkan database
+
+### Opsi A: Import `.sql` dari backup
+
+1. Buka `http://localhost/phpmyadmin`
+2. Buat database `cakrawala`
+3. Pilih database `cakrawala` -> tab **Import** -> pilih file `.sql` -> **Go**
+4. Jalankan:
+
+```powershell
+php artisan migrate
+```
+
+### Opsi B: Tanpa `.sql` (pakai migration + seed)
+
+```powershell
+php artisan migrate:fresh --seed
+```
+
+## 6) Final setup Laravel
+
+```powershell
+php artisan storage:link
+php artisan optimize:clear
+php artisan config:cache
+```
+
+## 7) Jalankan aplikasi (lokal)
+
+Jalankan proses berikut (bisa terminal terpisah):
+
+```powershell
+php artisan serve --host=127.0.0.1 --port=8080
+```
+
+```powershell
+npm run dev
+```
+
+```powershell
+php artisan queue:listen --tries=1 --timeout=0
+```
+
+Atau jalankan sekaligus:
+
+```powershell
+composer run dev
+```
+
+## 8) PENTING: HTTP lokal vs HTTPS publik
+
+- `php artisan serve` hanya membuka **lokal HTTP** (`http://127.0.0.1:8080`)
+- Midtrans webhook butuh URL **publik HTTPS**
+- Jadi untuk testing Midtrans, wajib pakai ngrok
+
+## 9) Setup ngrok untuk Midtrans
+
+1. Login token ngrok:
+
+```powershell
+ngrok config add-authtoken <TOKEN_NGROK_ANDA>
+```
+
+2. Expose app:
+
+```powershell
+ngrok http 8080
+```
+
+3. Ambil URL HTTPS dari output ngrok (contoh: `https://abcd-1234.ngrok-free.app`)
+
+4. Sinkronkan otomatis ke `.env`:
+
+```powershell
+php artisan midtrans:sync-ngrok
+```
+
+Command ini otomatis mengisi:
+
+- `APP_URL=https://<ngrok-domain>`
+- `MIDTRANS_NOTIFICATION_URL=https://<ngrok-domain>/api/v1/payments/midtrans/notification`
+
+## 10) Set Midtrans Dashboard (Sandbox)
+
+Di Midtrans MAP:
+
+- Gunakan `MIDTRANS_SERVER_KEY` dan `MIDTRANS_CLIENT_KEY` yang sama dengan `.env`
+- Isi Notification URL:
+
+```text
+https://<ngrok-domain>/api/v1/payments/midtrans/notification
+```
+
+Endpoint webhook aplikasi ini memang:
+
+```text
+POST /api/v1/payments/midtrans/notification
+```
+
+## 11) Uji end-to-end
+
+1. Login user/customer
+2. Buat booking
+3. Pilih metode `midtrans_snap`
+4. Selesaikan pembayaran di halaman Snap Midtrans
+5. Kembali ke aplikasi, cek status pembayaran
+6. Jika status belum berubah, gunakan tombol refresh status di halaman payment
+
+## 12) Akun seed default
+
+- `admin@cakrawala.com`
+- `staff@cakrawala.com`
+- `manager@cakrawala.com`
+- `customer@cakrawala.com`
+- Password: `password`
+
+## 13) Troubleshooting singkat
+
+### Login gagal (credentials tidak cocok)
+
+Jalankan:
+
+```powershell
+php artisan db:seed
+```
+
+### Webhook tidak masuk / status payment tidak update
+
+Periksa:
+
+- ngrok masih aktif?
+- domain ngrok berubah?
+- sudah jalankan ulang `php artisan midtrans:sync-ngrok`?
+- Notification URL di dashboard Midtrans sudah sama persis?
+
+### URL ngrok berubah
+
+Ini normal pada ngrok free saat restart.
+Setiap domain berubah, ulangi:
+
+1. `ngrok http 8080`
+2. `php artisan midtrans:sync-ngrok`
+3. Update Notification URL di Midtrans bila perlu

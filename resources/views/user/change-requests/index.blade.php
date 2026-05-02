@@ -1,6 +1,6 @@
 @extends('layouts.portal')
 
-@section('title', 'Cakrawala | Service Requests')
+@section('title', 'Cakrawala | Permintaan Layanan')
 @section('active', 'change-requests')
 
 @section('content')
@@ -8,17 +8,17 @@
         <article class="support-hero-panel">
             <div class="grid gap-6 xl:grid-cols-[1.1fr_.9fr]">
                 <div>
-                    <p class="booking-shell-kicker">Service desk</p>
-                    <h1 class="booking-shell-title">Ajukan refund atau perubahan perjalanan dari desk layanan yang lebih jelas.</h1>
-                    <p class="booking-shell-copy">Permintaan baru, panduan tipe request, dan riwayat penanganan sekarang disusun seperti desk support agar lebih mudah dipahami daripada form dan daftar biasa.</p>
+                    <p class="booking-shell-kicker">Permintaan layanan</p>
+                    <h1 class="booking-shell-title">Ajukan refund atau perubahan perjalanan dengan proses yang lebih jelas.</h1>
+                    <p class="booking-shell-copy">Permintaan baru, panduan jenis layanan, dan riwayat penanganan disusun rapi agar mudah dipahami.</p>
                 </div>
                 <div class="support-summary-grid">
                     <div class="support-summary-card">
-                        <span>Total cases</span>
+                        <span>Total permintaan</span>
                         <strong>{{ $changeRequests->total() }}</strong>
                     </div>
                     <div class="support-summary-card">
-                        <span>Available bookings</span>
+                        <span>Booking tersedia</span>
                         <strong>{{ $bookings->count() }}</strong>
                     </div>
                 </div>
@@ -27,8 +27,8 @@
 
         <div class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
             <article class="portal-card">
-                <p class="portal-kicker">New case</p>
-                <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Buat permintaan baru</h2>
+                <p class="portal-kicker">Permintaan baru</p>
+                <h2 class="mt-2 font-heading text-3xl font-bold text-[#c2410c]">Buat permintaan baru</h2>
                 <form method="POST" action="{{ route('my-bookings.change-requests.store') }}" class="mt-5 space-y-4">
                     @csrf
                     <div>
@@ -47,7 +47,7 @@
                     </div>
 
                     <div>
-                        <label class="portal-label" for="request_type">Request Type</label>
+                        <label class="portal-label" for="request_type">Jenis Permintaan</label>
                         <select id="request_type" name="request_type" class="portal-select">
                             @foreach ($requestTypes as $value => $type)
                                 <option value="{{ $value }}" @selected(old('request_type') === $value)>{{ $type['label'] }}</option>
@@ -59,7 +59,7 @@
                     </div>
 
                     <div>
-                        <label class="portal-label" for="preferred_flight_id">Preferred Flight (Opsional untuk reschedule)</label>
+                        <label class="portal-label" for="preferred_flight_id">Penerbangan Pilihan (opsional untuk reschedule)</label>
                         <select id="preferred_flight_id" name="preferred_flight_id" class="portal-select">
                             <option value="">Tidak memilih flight khusus</option>
                             @foreach ($upcomingFlights as $flight)
@@ -74,21 +74,21 @@
                     </div>
 
                     <div>
-                        <label class="portal-label" for="reason">Reason</label>
+                        <label class="portal-label" for="reason">Alasan</label>
                         <textarea id="reason" name="reason" rows="5" class="portal-input" placeholder="Jelaskan detail permintaan Anda...">{{ old('reason') }}</textarea>
                         @error('reason')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <button type="submit" class="portal-btn-gold">Kirim Request</button>
+                    <button type="submit" class="portal-btn-gold">Kirim Permintaan</button>
                 </form>
             </article>
 
             <aside class="support-rail">
                 <div class="support-rail-card">
-                    <p class="portal-kicker">Request guide</p>
-                    <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Jenis request</h2>
+                    <p class="portal-kicker">Panduan layanan</p>
+                    <h2 class="mt-2 font-heading text-3xl font-bold text-[#c2410c]">Jenis permintaan</h2>
                     <div class="mt-5 space-y-3">
                         @foreach ($requestTypes as $type)
                             <article class="portal-card-soft">
@@ -102,8 +102,8 @@
         </div>
 
         <article class="portal-card">
-            <p class="portal-kicker">Case history</p>
-            <h2 class="mt-2 font-heading text-3xl font-bold text-[#0f3f78]">Riwayat permintaan</h2>
+            <p class="portal-kicker">Riwayat layanan</p>
+            <h2 class="mt-2 font-heading text-3xl font-bold text-[#c2410c]">Riwayat permintaan</h2>
             <div class="mt-4 space-y-3">
                 @forelse ($changeRequests as $item)
                     <article class="service-case-card">
@@ -114,7 +114,7 @@
                                 <p class="mt-1 text-sm text-slate-500">{{ $item->reason }}</p>
                                 @if ($item->preferredFlight)
                                     <p class="mt-1 text-xs text-slate-500">
-                                        Preferred flight: {{ $item->preferredFlight->flight_number }} - {{ $item->preferredFlight->departureAirport?->code }} -> {{ $item->preferredFlight->arrivalAirport?->code }}
+                                        Penerbangan pilihan: {{ $item->preferredFlight->flight_number }} - {{ $item->preferredFlight->departureAirport?->code }} -> {{ $item->preferredFlight->arrivalAirport?->code }}
                                     </p>
                                 @endif
                             </div>
@@ -122,7 +122,7 @@
                                 <div>@include('admin.partials.status-badge', ['status' => $item->status])</div>
                                 <p class="mt-2 text-xs text-slate-500">{{ $item->created_at?->format('d M Y H:i') }}</p>
                                 @if ($item->processedByUser)
-                                    <p class="mt-1 text-xs text-slate-500">Processed by {{ $item->processedByUser->name }}</p>
+                                    <p class="mt-1 text-xs text-slate-500">Diproses oleh {{ $item->processedByUser->name }}</p>
                                 @endif
                             </div>
                         </div>
@@ -130,19 +130,19 @@
                         @if ($item->admin_notes || $item->resolution_details || $item->resolution_amount)
                             <div class="mt-4 portal-surface-muted text-sm text-slate-600">
                                 @if ($item->admin_notes)
-                                    <p><strong>Admin Notes:</strong> {{ $item->admin_notes }}</p>
+                                    <p><strong>Catatan Admin:</strong> {{ $item->admin_notes }}</p>
                                 @endif
                                 @if ($item->resolution_details)
-                                    <p class="mt-1"><strong>Resolution:</strong> {{ $item->resolution_details }}</p>
+                                    <p class="mt-1"><strong>Penyelesaian:</strong> {{ $item->resolution_details }}</p>
                                 @endif
                                 @if ($item->resolution_amount)
-                                    <p class="mt-1"><strong>Amount:</strong> Rp{{ number_format((float) $item->resolution_amount, 0, ',', '.') }}</p>
+                                    <p class="mt-1"><strong>Nominal:</strong> Rp{{ number_format((float) $item->resolution_amount, 0, ',', '.') }}</p>
                                 @endif
                             </div>
                         @endif
                     </article>
                 @empty
-                    <p class="portal-card-soft text-slate-500">Belum ada request perubahan.</p>
+                    <p class="portal-card-soft text-slate-500">Belum ada permintaan perubahan.</p>
                 @endforelse
             </div>
 

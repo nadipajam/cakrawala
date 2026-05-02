@@ -55,8 +55,7 @@
                         <p class="admin-section-kicker">Proof File</p>
                         <h3 class="mt-2 font-heading text-lg font-bold text-slate-800">Bukti pembayaran</h3>
                         @if ($payment->proof_file)
-                            @php($proofUrl = str_starts_with($payment->proof_file, 'http') ? $payment->proof_file : asset('storage/'.$payment->proof_file))
-                            <a href="{{ $proofUrl }}" target="_blank" class="mt-3 inline-flex text-sm font-semibold text-[#0f3f78] underline">Lihat bukti pembayaran</a>
+                            <a href="{{ route('admin.payments.proof', $payment) }}" target="_blank" class="mt-3 inline-flex text-sm font-semibold text-[#c2410c] underline">Lihat bukti pembayaran</a>
                         @else
                             <p class="mt-3 text-sm text-slate-600">Bukti pembayaran belum diupload.</p>
                         @endif

@@ -26,7 +26,7 @@
             padding: 28px 30px 24px;
             background:
                 radial-gradient(circle at top right, rgba(125, 211, 252, 0.2) 0%, transparent 24%),
-                linear-gradient(135deg, #0f172a 0%, #1d4ed8 100%);
+                linear-gradient(135deg, #0f172a 0%, #c2410c 100%);
             color: #f8fafc;
         }
 
@@ -35,7 +35,7 @@
             font-weight: 700;
             letter-spacing: .32em;
             text-transform: uppercase;
-            color: rgba(191, 219, 254, 0.92);
+            color: rgba(254, 215, 170, 0.92);
         }
 
         .code {

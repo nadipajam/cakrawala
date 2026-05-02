@@ -60,7 +60,8 @@ class BookingWebController extends Controller
         if (! $flight) {
             return redirect()
                 ->route('flights.index')
-                ->with('status', 'Pilih flight terlebih dahulu sebelum booking.');
+                ->with('status', 'Pilih flight terlebih dahulu sebelum booking.')
+                ->with('status_type', 'warning');
         }
 
         $this->bookingExpiryService->expirePendingBookings($flight->id);
@@ -97,7 +98,8 @@ class BookingWebController extends Controller
 
         return redirect()
             ->route('payments.create', ['booking' => $booking->id])
-            ->with('status', 'Booking berhasil dibuat dengan kode '.$booking->booking_code);
+            ->with('status', 'Booking berhasil dibuat dengan kode '.$booking->booking_code)
+            ->with('status_type', 'success');
     }
 
     public function show(Request $request, Booking $booking): View
@@ -129,10 +131,22 @@ class BookingWebController extends Controller
 
     public function cancel(Request $request, Booking $booking): RedirectResponse
     {
+        if ($booking->user_id !== $request->user()->id) {
+            abort(403);
+        }
+
+        if ($booking->status === 'cancelled') {
+            return redirect()
+                ->route('my-bookings.show', $booking)
+                ->with('status', 'Booking ini sudah dibatalkan sebelumnya.')
+                ->with('status_type', 'warning');
+        }
+
         $this->bookingService->cancelBooking($request->user(), $booking);
 
         return redirect()
             ->route('my-bookings.show', $booking)
-            ->with('status', 'Booking berhasil dibatalkan.');
+            ->with('status', 'Booking berhasil dibatalkan.')
+            ->with('status_type', 'success');
     }
 }

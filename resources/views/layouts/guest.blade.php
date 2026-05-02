@@ -14,7 +14,7 @@
             <div class="guest-card">
                 <a href="/" class="mx-auto mb-6 flex w-fit items-center gap-3">
                     <span class="portal-brand-mark">
-                        <x-application-logo class="h-6 w-6 fill-current text-white" />
+                        <x-application-logo class="h-6 w-6 shrink-0 rounded object-contain" />
                     </span>
                     <span>
                         <strong class="portal-brand-title">CAKRAWALA</strong>

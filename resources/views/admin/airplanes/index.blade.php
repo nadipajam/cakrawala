@@ -5,7 +5,7 @@
 
 @section('content')
     <section class="space-y-5">
-        <div class="grid gap-5 xl:grid-cols-[320px_1fr]">
+        <div class="grid gap-5 xl:grid-cols-[320px_minmax(0,1fr)]">
             <form method="GET" class="admin-ops-filter space-y-5">
                 <div>
                     <p class="admin-section-kicker">Fleet Directory</p>
@@ -14,8 +14,8 @@
                 </div>
                 <div class="space-y-4">
                     <div>
-                        <label class="admin-label" for="search">Search Model / Registration</label>
-                        <input id="search" name="search" value="{{ $search }}" class="admin-field" placeholder="Model atau registration number">
+                        <label class="admin-label" for="search">Cari model / registrasi</label>
+                        <input id="search" name="search" value="{{ $search }}" class="admin-field" placeholder="Model atau nomor registrasi">
                     </div>
                     <div>
                         <label class="admin-label" for="airline_id">Airline</label>
@@ -31,7 +31,7 @@
                     <p class="text-sm text-slate-500">Pisahkan armada per maskapai untuk memudahkan audit kursi dan kapasitas.</p>
                     <div class="flex flex-wrap items-center gap-2">
                         <button class="admin-btn-primary" type="submit">Filter</button>
-                        <a class="admin-btn-secondary" href="{{ route('admin.airplanes.index') }}">Reset</a>
+                        <a class="admin-btn-secondary" href="{{ route('admin.airplanes.index') }}">Atur Ulang</a>
                         <a href="{{ route('admin.airplanes.create') }}" class="admin-btn-secondary">Tambah Airplane</a>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                         </article>
                         <article class="admin-ops-summary-card">
                             <p class="label">Seat capacity</p>
-                            <p class="value text-[#0f3f78]">{{ $airplanes->sum('capacity') }}</p>
+                            <p class="value text-[#c2410c]">{{ $airplanes->sum('capacity') }}</p>
                             <p class="mt-2 text-sm text-slate-500">Akumulasi kapasitas armada pada halaman ini.</p>
                         </article>
                         <article class="admin-ops-summary-card">
@@ -78,7 +78,7 @@
                                     <th>Capacity</th>
                                     <th>Seats Count</th>
                                     <th>Flights Count</th>
-                                    <th>Actions</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">
@@ -96,7 +96,7 @@
                                             <form action="{{ route('admin.airplanes.destroy', $airplane) }}" method="POST" class="inline" onsubmit="return confirm('Hapus airplane ini?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="admin-btn-secondary" type="submit">Delete</button>
+                                                <button class="admin-btn-secondary" type="submit">Hapus</button>
                                             </form>
                                         </td>
                                     </tr>
