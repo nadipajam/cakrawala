@@ -189,33 +189,67 @@
 
             <div class="mt-6 space-y-4">
                 @forelse ($featuredFlights as $flight)
-                    @php($availableSeats = (int) ($seatAvailability[$flight->id] ?? 0))
-                    <article class="portal-flight-strip">
-                        <div class="grid gap-5 xl:grid-cols-[220px_minmax(0,1fr)_220px] xl:items-center">
-                            <div>
-                                <p class="portal-kicker">{{ $flight->airline->name }}</p>
-                                <h3 class="mt-2 text-4xl font-bold tracking-tight text-slate-800">{{ $flight->flight_number }}</h3>
-                                <span class="mt-3 inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">{{ $availableSeats }} kursi tersedia</span>
+                    @php
+                        $availableSeats = (int) ($seatAvailability[$flight->id] ?? 0);
+                        $durationMinutes = $flight->departure_time->diffInMinutes($flight->arrival_time);
+                        $durationHours = intdiv($durationMinutes, 60);
+                        $durationRemainder = $durationMinutes % 60;
+                    @endphp
+                    <article class="portal-flight-strip relative overflow-hidden">
+                        <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-orange-300 via-orange-500 to-orange-700"></div>
+
+                        <div class="grid gap-5 xl:grid-cols-[minmax(0,1fr)_250px] xl:items-center">
+                            <div class="min-w-0 space-y-5">
+                                <div class="flex flex-wrap items-start justify-between gap-4">
+                                    <div class="min-w-0">
+                                        <p class="portal-kicker">{{ $flight->airline->name }}</p>
+                                        <div class="mt-2 flex flex-wrap items-end gap-3">
+                                            <h3 class="text-4xl font-bold tracking-tight text-slate-800">{{ $flight->flight_number }}</h3>
+                                            <span class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700">
+                                                {{ $availableSeats }} kursi tersedia
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-600">
+                                            Nonstop
+                                        </span>
+                                        <span class="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-600">
+                                            Durasi {{ $durationHours }}j {{ str_pad((string) $durationRemainder, 2, '0', STR_PAD_LEFT) }}m
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                                    <div class="portal-stack-card">
+                                        <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Rute</p>
+                                        <p class="mt-2 text-xl font-bold text-slate-800">{{ $flight->departureAirport->code }} &rarr; {{ $flight->arrivalAirport->code }}</p>
+                                        <p class="mt-1 text-sm text-slate-500">{{ $flight->departureAirport->city }} ke {{ $flight->arrivalAirport->city }}</p>
+                                    </div>
+                                    <div class="portal-stack-card">
+                                        <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Berangkat</p>
+                                        <p class="mt-2 text-lg font-semibold text-slate-800">{{ $flight->departure_time->format('d M Y') }}</p>
+                                        <p class="mt-1 text-sm text-slate-500">{{ $flight->departure_time->format('H:i') }} WIB</p>
+                                    </div>
+                                    <div class="portal-stack-card">
+                                        <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Tiba</p>
+                                        <p class="mt-2 text-lg font-semibold text-slate-800">{{ $flight->arrival_time->format('d M Y') }}</p>
+                                        <p class="mt-1 text-sm text-slate-500">{{ $flight->arrival_time->format('H:i') }} WIB</p>
+                                    </div>
+                                    <div class="portal-stack-card">
+                                        <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Kabin tersedia</p>
+                                        <p class="mt-2 text-lg font-semibold text-slate-800">Economy</p>
+                                        <p class="mt-1 text-sm text-slate-500">Lanjut pilih kursi di detail penerbangan</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="grid gap-3 md:grid-cols-3">
-                                <div class="portal-stack-card">
-                                    <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Rute</p>
-                                    <p class="mt-2 text-xl font-bold text-slate-800">{{ $flight->departureAirport->code }} &rarr; {{ $flight->arrivalAirport->code }}</p>
-                                    <p class="mt-1 text-sm text-slate-500">{{ $flight->departureAirport->city }} ke {{ $flight->arrivalAirport->city }}</p>
-                                </div>
-                                <div class="portal-stack-card">
-                                    <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Keberangkatan</p>
-                                    <p class="mt-2 text-lg font-semibold text-slate-800">{{ $flight->departure_time->format('d M Y H:i') }}</p>
-                                </div>
-                                <div class="portal-stack-card">
-                                    <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Kedatangan</p>
-                                    <p class="mt-2 text-lg font-semibold text-slate-800">{{ $flight->arrival_time->format('d M Y H:i') }}</p>
-                                </div>
-                            </div>
-                            <div class="portal-surface-muted flex flex-col gap-4">
+
+                            <div class="portal-surface-muted flex h-full flex-col justify-between gap-5 xl:min-h-[212px]">
                                 <div>
-                                    <p class="text-sm text-slate-500">Tarif mulai dari</p>
-                                    <p class="mt-2 text-4xl font-bold text-[#c2410c]">Rp{{ number_format((float) $flight->price, 0, ',', '.') }}</p>
+                                    <p class="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Tarif mulai dari</p>
+                                    <p class="mt-3 text-4xl font-bold leading-none text-[#c2410c]">Rp{{ number_format((float) $flight->price, 0, ',', '.') }}</p>
+                                    <p class="mt-3 text-sm leading-6 text-slate-500">Harga dasar sebelum pilihan kursi dan layanan tambahan.</p>
                                 </div>
                                 <a href="{{ route('flights.show', $flight) }}" class="portal-btn-gold w-full justify-center">Lihat Detail</a>
                             </div>

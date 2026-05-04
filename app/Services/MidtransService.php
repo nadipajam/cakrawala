@@ -31,10 +31,20 @@ class MidtransService
                 'email' => $booking->user?->email,
                 'phone' => $booking->user?->phone,
             ],
-            'callbacks' => [
-                'finish' => route('payments.midtrans.finish'),
-            ],
         ];
+
+        $finishUrl = $this->finishCallbackUrl();
+        if ($finishUrl !== null) {
+            $payload['callbacks'] = [
+                'finish' => $finishUrl,
+                'unfinish' => $finishUrl,
+                'error' => $finishUrl,
+            ];
+            $payload['gopay'] = [
+                'enable_callback' => true,
+                'callback_url' => $finishUrl,
+            ];
+        }
 
         $request = Http::acceptJson()
             ->asJson()
@@ -99,11 +109,13 @@ class MidtransService
             ])
             ->get($baseUrl.'/v2/'.$orderId.'/status');
 
-        if (! $response->successful()) {
+        $json = (array) $response->json();
+
+        if (! $response->successful() && ! isset($json['status_code'])) {
             throw new RuntimeException('Gagal cek status Midtrans: '.$response->body());
         }
 
-        return (array) $response->json();
+        return $json;
     }
 
     public function mapMidtransStatusToPaymentStatus(array $payload): string
@@ -117,6 +129,10 @@ class MidtransService
 
         if ($transactionStatus === 'capture') {
             return $fraudStatus === 'challenge' ? 'pending' : 'paid';
+        }
+
+        if ($transactionStatus === 'authorize') {
+            return 'paid';
         }
 
         if (in_array($transactionStatus, ['pending'], true)) {
@@ -153,5 +169,19 @@ class MidtransService
     protected function isProduction(): bool
     {
         return (bool) config('services.midtrans.is_production', false);
+    }
+
+    protected function finishCallbackUrl(): ?string
+    {
+        $finishPath = route('payments.midtrans.finish', absolute: false);
+
+        if (app()->bound('request')) {
+            $request = request();
+            if ($request) {
+                return rtrim($request->getSchemeAndHttpHost(), '/').$finishPath;
+            }
+        }
+
+        return route('payments.midtrans.finish');
     }
 }

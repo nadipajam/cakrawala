@@ -145,17 +145,20 @@
                     <p class="portal-kicker">Panduan layanan</p>
                     <h2 class="mt-2 text-2xl font-bold">Alur Check-In</h2>
                     <div class="mt-4 space-y-3">
-                        <div class="portal-card-soft">
-                            <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Step 1</p>
-                            <p class="mt-1 font-semibold text-slate-800">Pastikan booking sudah confirmed.</p>
+                        <div class="journey-guide-step">
+                            <p class="journey-guide-step-label">Step 1</p>
+                            <p class="journey-guide-step-title">Pastikan booking sudah confirmed.</p>
+                            <p class="journey-guide-step-copy">Check-in hanya tersedia untuk booking yang sudah terkonfirmasi atau completed.</p>
                         </div>
-                        <div class="portal-card-soft">
-                            <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Step 2</p>
-                            <p class="mt-1 font-semibold text-slate-800">Lakukan check-in satu penumpang per satu penumpang.</p>
+                        <div class="journey-guide-step">
+                            <p class="journey-guide-step-label">Step 2</p>
+                            <p class="journey-guide-step-title">Lakukan check-in satu penumpang per satu penumpang.</p>
+                            <p class="journey-guide-step-copy">Setiap passenger punya status boarding, referensi check-in, dan boarding pass masing-masing.</p>
                         </div>
-                        <div class="portal-card-soft">
-                            <p class="text-xs uppercase tracking-[0.18em] text-slate-500">Step 3</p>
-                            <p class="mt-1 font-semibold text-slate-800">Unduh boarding pass atau buka QR setelah status berubah.</p>
+                        <div class="journey-guide-step">
+                            <p class="journey-guide-step-label">Step 3</p>
+                            <p class="journey-guide-step-title">Unduh boarding pass atau buka QR setelah status berubah.</p>
+                            <p class="journey-guide-step-copy">Begitu status checked in, file PDF dan QR boarding akan langsung bisa dipakai.</p>
                         </div>
                     </div>
                 </article>

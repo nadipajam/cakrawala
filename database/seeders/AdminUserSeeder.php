@@ -15,38 +15,52 @@ class AdminUserSeeder extends Seeder
     {
         $accounts = [
             [
-                'email' => 'admin@cakrawala.com',
-                'name' => 'Administrator',
+                'email' => 'admin@gmail.com',
+                'name' => 'Admin',
                 'phone' => '08123456789',
                 'role' => 'admin',
             ],
             [
-                'email' => 'staff@cakrawala.com',
-                'name' => 'Operations Staff',
+                'email' => 'staff@gmail.com',
+                'name' => 'Staff',
                 'phone' => '08123456780',
                 'role' => 'staff',
             ],
             [
-                'email' => 'manager@cakrawala.com',
-                'name' => 'Operations Manager',
+                'email' => 'manager@gmail.com',
+                'name' => 'Manager',
                 'phone' => '08123456781',
                 'role' => 'manager',
             ],
             [
-                'email' => 'customer@cakrawala.com',
-                'name' => 'Customer Cakrawala',
+                'email' => 'customer@gmail.com',
+                'name' => 'Customer',
                 'phone' => '08123456782',
                 'role' => 'customer',
             ],
         ];
 
         foreach ($accounts as $account) {
+            $user = User::query()->where('role', $account['role'])->first();
+
+            if ($user) {
+                $user->forceFill([
+                    'name' => $account['name'],
+                    'email' => $account['email'],
+                    'phone' => $account['phone'],
+                    'password' => Hash::make('password12345678'),
+                    'role' => $account['role'],
+                ])->save();
+
+                continue;
+            }
+
             User::updateOrCreate(
                 ['email' => $account['email']],
                 [
                     'name' => $account['name'],
                     'phone' => $account['phone'],
-                    'password' => Hash::make('password'),
+                    'password' => Hash::make('password12345678'),
                     'role' => $account['role'],
                 ]
             );

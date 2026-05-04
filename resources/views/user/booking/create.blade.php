@@ -85,7 +85,7 @@
                             <div>
                                 <p class="portal-kicker">Step 1</p>
                                 <h2 class="mt-2 font-heading text-3xl font-bold text-[#c2410c]">Data penumpang</h2>
-                                <p class="portal-section-copy">Centang penumpang yang akan dimasukkan ke booking ini. Jumlah pilihan akan menentukan jumlah seat yang harus dipilih.</p>
+                                <p class="portal-section-copy">Susun manifest penumpang booking dari traveler yang sudah tersimpan. Urutan yang kamu buat di sini akan dipakai ke tahap kursi dan ringkasan.</p>
                             </div>
                         </div>
 
@@ -97,16 +97,78 @@
                                 </div>
                             </div>
                         @else
-                            <div class="mt-4 grid gap-3 sm:grid-cols-2">
-                                @foreach ($passengers as $passenger)
-                                    <label class="booking-passenger-card">
-                                        <span class="min-w-0">
-                                            <span class="block font-semibold text-slate-800">{{ $passenger->full_name }}</span>
-                                            <span class="mt-1 block text-sm text-slate-500">{{ optional($passenger->birth_date)->format('d M Y') }}</span>
+                            <div class="mt-5 grid gap-4 xl:grid-cols-[1.05fr_.95fr]">
+                                <div class="space-y-4">
+                                    <div class="flex flex-wrap items-center justify-between gap-3">
+                                        <div>
+                                            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Traveler library</p>
+                                            <p class="mt-1 text-sm text-slate-600">Pilih traveler yang ingin dimasukkan ke booking ini.</p>
+                                        </div>
+                                        <span class="portal-inline-note">{{ $passengers->count() }} traveler tersimpan</span>
+                                    </div>
+
+                                    <div class="grid gap-3 sm:grid-cols-2">
+                                        @foreach ($passengers as $passenger)
+                                            <article
+                                                class="portal-card-soft flex flex-col gap-4 transition duration-200"
+                                                :class="isSelectedPassenger({{ $passenger->id }}) ? 'ring-2 ring-orange-300 border-orange-200 bg-orange-50/40' : ''"
+                                            >
+                                                <div class="min-w-0">
+                                                    <p class="font-semibold text-slate-800">{{ $passenger->full_name }}</p>
+                                                    <p class="mt-1 text-sm text-slate-500">{{ optional($passenger->birth_date)->format('d M Y') }}</p>
+                                                    <p class="mt-2 text-xs uppercase tracking-[0.18em] text-slate-400">
+                                                        {{ $passenger->identity_number ?: ($passenger->passport_number ?: 'Dokumen belum diisi') }}
+                                                    </p>
+                                                </div>
+
+                                                <button
+                                                    type="button"
+                                                    class="portal-btn-blue w-full justify-center"
+                                                    @click="togglePassenger({{ $passenger->id }})"
+                                                    x-text="isSelectedPassenger({{ $passenger->id }}) ? 'Keluarkan dari Manifest' : 'Masukkan ke Manifest'"
+                                                ></button>
+                                            </article>
+                                        @endforeach
+                                    </div>
+                                </div>
+
+                                <div class="portal-surface-muted space-y-4">
+                                    <div class="flex flex-wrap items-center justify-between gap-3">
+                                        <div>
+                                            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Manifest booking</p>
+                                            <h3 class="mt-1 text-2xl font-bold text-slate-800">Penumpang terpilih</h3>
+                                        </div>
+                                        <span class="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600">
+                                            <span x-text="selectedPassengers.length"></span> penumpang
                                         </span>
-                                        <input type="checkbox" class="h-4 w-4 rounded border-slate-300 text-[#c2410c]" :value="{{ $passenger->id }}" x-model="selectedPassengers">
-                                    </label>
-                                @endforeach
+                                    </div>
+
+                                    <template x-if="selectedPassengers.length === 0">
+                                        <div class="rounded-[20px] border border-dashed border-slate-300 bg-white/80 px-4 py-5 text-sm leading-7 text-slate-600">
+                                            Belum ada traveler di manifest. Tambahkan minimal satu traveler dari library di kiri untuk lanjut ke tahap kursi.
+                                        </div>
+                                    </template>
+
+                                    <div class="space-y-3" x-show="selectedPassengers.length > 0" x-cloak>
+                                        <template x-for="(passengerId, index) in selectedPassengers" :key="passengerId">
+                                            <div class="rounded-[20px] border border-slate-200 bg-white px-4 py-4 shadow-[0_8px_20px_rgba(15,23,42,.04)]">
+                                                <div class="flex items-start justify-between gap-3">
+                                                    <div class="min-w-0">
+                                                        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Penumpang <span x-text="index + 1"></span></p>
+                                                        <p class="mt-2 font-semibold text-slate-800" x-text="passengerName(passengerId)"></p>
+                                                    </div>
+                                                    <button
+                                                        type="button"
+                                                        class="text-sm font-semibold text-[#c2410c]"
+                                                        @click="removePassenger(passengerId)"
+                                                    >
+                                                        Hapus
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
                             </div>
                         @endif
                     </div>
@@ -244,6 +306,33 @@
                 selectedClass: initialClass,
                 selectedPassengers: [],
                 selectedSeats: [],
+
+                togglePassenger(passengerId) {
+                    const normalizedId = Number(passengerId);
+                    const existingIndex = this.selectedPassengers.findIndex((id) => Number(id) === normalizedId);
+
+                    if (existingIndex >= 0) {
+                        this.selectedPassengers.splice(existingIndex, 1);
+                        if (this.selectedSeats.length > this.selectedPassengers.length) {
+                            this.selectedSeats = this.selectedSeats.slice(0, this.selectedPassengers.length);
+                        }
+                        return;
+                    }
+
+                    this.selectedPassengers.push(normalizedId);
+                },
+
+                removePassenger(passengerId) {
+                    this.togglePassenger(passengerId);
+                },
+
+                isSelectedPassenger(passengerId) {
+                    return this.selectedPassengers.includes(Number(passengerId));
+                },
+
+                passengerName(passengerId) {
+                    return this.passengers.find((item) => item.id === Number(passengerId))?.name || '-';
+                },
 
                 setClass(classKey) {
                     if (this.selectedClass === classKey) return;

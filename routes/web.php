@@ -150,6 +150,7 @@ Route::middleware('auth')->group(function () {
             Route::patch('/bookings/{booking}/status', [AdminBookingController::class, 'updateStatus'])->name('bookings.status');
             Route::post('/bookings/{booking}/cancel', [AdminBookingController::class, 'cancel'])->name('bookings.cancel');
             Route::patch('/bookings/{booking}/details/{detail}/boarding-status', [AdminBookingController::class, 'updateBoardingStatus'])->name('bookings.boarding-status');
+            Route::post('/payments/{payment}/midtrans/refresh', [AdminPaymentController::class, 'refreshMidtransStatus'])->name('payments.midtrans.refresh');
             Route::post('/payments/{payment}/verify', [AdminPaymentController::class, 'verify'])->name('payments.verify');
             Route::post('/payments/{payment}/reject', [AdminPaymentController::class, 'reject'])->name('payments.reject');
             Route::patch('/addons/{addon}/status', [AdminAddonController::class, 'updateStatus'])->name('addons.status');

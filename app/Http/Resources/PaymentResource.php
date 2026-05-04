@@ -21,8 +21,10 @@ class PaymentResource extends JsonResource
             'payment_status' => $this->payment_status,
             'transaction_code' => $this->transaction_code,
             'midtrans_order_id' => $this->midtrans_order_id,
+            'midtrans_transaction_id' => $this->midtrans_transaction_id,
             'midtrans_redirect_url' => $this->midtrans_redirect_url,
             'midtrans_payment_type' => $this->midtrans_payment_type,
+            'midtrans_status_code' => $this->midtrans_status_code,
             'paid_at' => optional($this->paid_at)->toDateTimeString(),
             'proof_file' => $this->proof_file,
             'booking' => $this->whenLoaded('booking', fn () => [

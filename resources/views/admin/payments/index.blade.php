@@ -76,6 +76,7 @@
                                     <th>Booking Code</th>
                                     <th>User</th>
                                     <th>Method</th>
+                                    <th>Midtrans</th>
                                     <th>Submitted Data</th>
                                     <th>Amount</th>
                                     <th>Status</th>
@@ -89,7 +90,13 @@
                                         <td>{{ ($payments->firstItem() ?? 1) + $loop->index }}</td>
                                         <td>{{ $payment->booking?->booking_code }}</td>
                                         <td>{{ $payment->booking?->user?->name }}</td>
-                                        <td>{{ ucfirst(str_replace('_', ' ', $payment->payment_method)) }}</td>
+                                        <td>{{ \App\Support\PaymentMethodCatalog::label($payment->payment_method) }}</td>
+                                        <td>
+                                            <div class="text-xs leading-5 text-slate-600">
+                                                <div>{{ $payment->midtrans_order_id ?: '-' }}</div>
+                                                <div>Status code: {{ $payment->midtrans_status_code ?: '-' }}</div>
+                                            </div>
+                                        </td>
                                         <td>
                                             <div class="text-xs leading-5 text-slate-600">
                                                 <div>{{ $payment->payer_name ?: '-' }}</div>
@@ -107,7 +114,7 @@
                                         <td><a class="admin-btn-secondary" href="{{ route('admin.payments.show', $payment) }}">Detail</a></td>
                                     </tr>
                                 @empty
-                                    <tr><td colspan="9" class="text-center text-slate-500">Data payment belum tersedia.</td></tr>
+                                    <tr><td colspan="10" class="text-center text-slate-500">Data payment belum tersedia.</td></tr>
                                 @endforelse
                             </tbody>
                         </table>

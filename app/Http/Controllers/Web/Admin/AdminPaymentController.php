@@ -139,4 +139,31 @@ class AdminPaymentController extends Controller
             ->with('status', 'Payment berhasil ditolak.')
             ->with('status_type', 'success');
     }
+
+    public function refreshMidtransStatus(Payment $payment): RedirectResponse
+    {
+        if ($payment->payment_method !== 'midtrans_snap') {
+            return back()
+                ->with('status', 'Sync Midtrans hanya tersedia untuk pembayaran Midtrans Snap.')
+                ->with('status_type', 'warning');
+        }
+
+        try {
+            $payment = $this->paymentService->syncFromMidtransGateway($payment, 8, 500);
+
+            $message = $payment->payment_status === 'paid'
+                ? 'Status Midtrans berhasil diperbarui dan pembayaran sudah lunas.'
+                : 'Status Midtrans berhasil dicek ulang. Jika user belum menyelesaikan Snap, status akan tetap pending.';
+
+            return redirect()
+                ->route('admin.payments.show', $payment)
+                ->with('status', $message)
+                ->with('status_type', 'success');
+        } catch (\Throwable $exception) {
+            return redirect()
+                ->route('admin.payments.show', $payment)
+                ->with('status', 'Gagal sync status Midtrans: '.$exception->getMessage())
+                ->with('status_type', 'warning');
+        }
+    }
 }

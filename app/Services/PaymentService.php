@@ -181,7 +181,7 @@ class PaymentService
         return $payment->fresh('booking.user');
     }
 
-    public function syncFromMidtransGateway(Payment $payment): Payment
+    public function syncFromMidtransGateway(Payment $payment, int $maxAttempts = 1, int $delayMilliseconds = 0): Payment
     {
         if ($payment->payment_method !== 'midtrans_snap') {
             return $payment->fresh('booking.user');
@@ -192,9 +192,33 @@ class PaymentService
             return $payment->fresh('booking.user');
         }
 
-        $payload = $this->midtransService->getTransactionStatus($orderId);
+        $attempts = max($maxAttempts, 1);
+        $delayMicroseconds = max($delayMilliseconds, 0) * 1000;
 
-        return $this->syncFromMidtransWebhook($payment, $payload);
+        for ($attempt = 1; $attempt <= $attempts; $attempt++) {
+            try {
+                $payload = $this->midtransService->getTransactionStatus($orderId);
+                $syncedPayment = $this->syncFromMidtransWebhook($payment, $payload);
+            } catch (\Throwable) {
+                if ($attempt < $attempts && $delayMicroseconds > 0) {
+                    usleep($delayMicroseconds);
+                }
+
+                continue;
+            }
+
+            if ($syncedPayment->payment_status !== 'pending') {
+                return $syncedPayment;
+            }
+
+            $payment = $syncedPayment->fresh();
+
+            if ($attempt < $attempts && $delayMicroseconds > 0) {
+                usleep($delayMicroseconds);
+            }
+        }
+
+        return $payment->fresh('booking.user');
     }
 
     protected function bootstrapMidtransPayment(Payment $payment): Payment

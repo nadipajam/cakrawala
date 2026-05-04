@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Payment\StorePaymentRequest;
 use App\Models\Booking;
 use App\Models\Payment;
+use App\Services\MidtransService;
 use App\Services\PaymentService;
 use App\Services\BookingExpiryService;
 use App\Support\PaymentMethodCatalog;
@@ -22,7 +23,8 @@ class PaymentWebController extends Controller
 {
     public function __construct(
         protected PaymentService $paymentService,
-        protected BookingExpiryService $bookingExpiryService
+        protected BookingExpiryService $bookingExpiryService,
+        protected MidtransService $midtransService
     ) {
     }
 
@@ -54,7 +56,8 @@ class PaymentWebController extends Controller
         return view('user.payments.create', [
             'booking' => $booking,
             'latestPayment' => $booking->payments->sortByDesc('created_at')->first(),
-            'paymentMethods' => PaymentMethodCatalog::checkoutOptions(),
+            'midtransConfigured' => $this->midtransConfigured(),
+            'midtransLocalMode' => $this->midtransRunsInLocalMode(),
         ]);
     }
 
@@ -98,7 +101,7 @@ class PaymentWebController extends Controller
         abort_unless($payment->booking->user_id === $request->user()->id, 403);
         if ($payment->payment_method === 'midtrans_snap' && $payment->payment_status === 'pending') {
             try {
-                $payment = $this->paymentService->syncFromMidtransGateway($payment);
+                $payment = $this->paymentService->syncFromMidtransGateway($payment, 6, 500);
                 $payment->load('booking.flight.departureAirport', 'booking.flight.arrivalAirport');
             } catch (\Throwable) {
                 // Keep current state if Midtrans status check fails.
@@ -112,6 +115,8 @@ class PaymentWebController extends Controller
             'paymentMethod' => PaymentMethodCatalog::all()[$payment->payment_method] ?? null,
             'qrisUrl' => $payment->payment_method === 'qris' && $payment->payment_status === 'pending' ? route('payments.qris.show', $payment) : null,
             'midtransUrl' => $payment->payment_method === 'midtrans_snap' && $payment->payment_status === 'pending' ? $payment->midtrans_redirect_url : null,
+            'midtransLocalMode' => $this->midtransRunsInLocalMode(),
+            'midtransSimulatorEnabled' => (bool) config('services.midtrans.local_simulator', false) && ! (bool) config('services.midtrans.is_production', false),
         ]);
     }
 
@@ -142,16 +147,53 @@ class PaymentWebController extends Controller
 
         if ($payment->payment_method === 'midtrans_snap' && $payment->payment_status === 'pending') {
             try {
-                $payment = $this->paymentService->syncFromMidtransGateway($payment);
+                $payment = $this->paymentService->syncFromMidtransGateway($payment, 20, 1000);
             } catch (\Throwable) {
                 // Keep normal redirect flow even if status sync fails.
             }
         }
 
+        if ($payment->payment_method === 'midtrans_snap' && $payment->payment_status === 'pending') {
+            $resultData = $request->query('result_data');
+            $resultPayload = [];
+            if (is_string($resultData) && $resultData !== '') {
+                $decoded = json_decode($resultData, true);
+                if (is_array($decoded)) {
+                    $resultPayload = $decoded;
+                }
+            }
+
+            $statusCode = (string) ($request->query('status_code', $resultPayload['status_code'] ?? ''));
+            $transactionStatus = (string) ($request->query('transaction_status', $resultPayload['transaction_status'] ?? ''));
+
+            if ($transactionStatus === '' && $statusCode === '200') {
+                $transactionStatus = 'settlement';
+            }
+
+            $fallbackPayload = [
+                'order_id' => $orderId,
+                'status_code' => $statusCode,
+                'transaction_status' => $transactionStatus,
+                'fraud_status' => (string) $request->query('fraud_status', $resultPayload['fraud_status'] ?? ''),
+                'transaction_id' => (string) $request->query('transaction_id', $resultPayload['transaction_id'] ?? ''),
+                'payment_type' => (string) $request->query('payment_type', $resultPayload['payment_type'] ?? ''),
+            ];
+
+            $mappedStatus = $this->midtransService->mapMidtransStatusToPaymentStatus($fallbackPayload);
+            if ($mappedStatus === 'paid') {
+                $payment = $this->paymentService->syncFromMidtransWebhook($payment, $fallbackPayload);
+            }
+        }
+
+        $statusMessage = $payment->payment_status === 'paid'
+            ? 'Pembayaran Midtrans sudah sukses dan dikonfirmasi otomatis.'
+            : 'Kembali dari Midtrans. Status pembayaran akan diperbarui otomatis.';
+        $statusType = $payment->payment_status === 'paid' ? 'success' : 'info';
+
         return redirect()
             ->route('payments.show', $payment)
-            ->with('status', 'Kembali dari Midtrans. Status pembayaran akan diperbarui otomatis.')
-            ->with('status_type', 'info');
+            ->with('status', $statusMessage)
+            ->with('status_type', $statusType);
     }
 
     public function refreshMidtransStatus(Request $request, Payment $payment): RedirectResponse
@@ -167,11 +209,15 @@ class PaymentWebController extends Controller
         }
 
         try {
-            $this->paymentService->syncFromMidtransGateway($payment);
+            $payment = $this->paymentService->syncFromMidtransGateway($payment, 8, 500);
+
+            $message = $payment->payment_status === 'paid'
+                ? 'Status Midtrans berhasil diperbarui. Pembayaran sudah lunas.'
+                : 'Status Midtrans dicek ulang. Jika user belum menyelesaikan pembayaran di Snap, status akan tetap pending.';
 
             return redirect()
                 ->route('payments.show', $payment)
-                ->with('status', 'Status Midtrans berhasil diperbarui.')
+                ->with('status', $message)
                 ->with('status_type', 'success');
         } catch (\Throwable $exception) {
             return redirect()
@@ -350,5 +396,21 @@ class PaymentWebController extends Controller
         ]);
 
         return (new QRCode($options))->render($payload);
+    }
+
+    protected function midtransConfigured(): bool
+    {
+        $serverKey = (string) config('services.midtrans.server_key');
+        $clientKey = (string) config('services.midtrans.client_key');
+
+        return $serverKey !== ''
+            && $clientKey !== ''
+            && ! str_contains($serverKey, 'REPLACE_WITH')
+            && ! str_contains($clientKey, 'REPLACE_WITH');
+    }
+
+    protected function midtransRunsInLocalMode(): bool
+    {
+        return trim((string) config('services.midtrans.notification_url', '')) === '';
     }
 }

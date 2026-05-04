@@ -61,10 +61,41 @@
                         @endif
                     </div>
 
+                    @if ($payment->payment_method === 'midtrans_snap')
+                        <div class="admin-ops-sidecard">
+                            <p class="admin-section-kicker">Midtrans</p>
+                            <h3 class="mt-2 font-heading text-lg font-bold text-slate-800">Data gateway</h3>
+                            <div class="mt-3 space-y-3 text-sm text-slate-600">
+                                <div>
+                                    <p class="font-semibold text-slate-700">Order ID</p>
+                                    <p>{{ $payment->midtrans_order_id ?: '-' }}</p>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-slate-700">Status code</p>
+                                    <p>{{ $payment->midtrans_status_code ?: '-' }}</p>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-slate-700">Payment type</p>
+                                    <p>{{ $payment->midtrans_payment_type ?: '-' }}</p>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-slate-700">Transaction ID</p>
+                                    <p>{{ $payment->midtrans_transaction_id ?: '-' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                     @if ($payment->payment_status === 'pending' && (auth()->user()->isAdmin() || auth()->user()->isStaff()))
                         <div class="admin-ops-sidecard space-y-3">
                             <p class="admin-section-kicker">Verification</p>
                             <h3 class="font-heading text-lg font-bold text-slate-800">Aksi transaksi</h3>
+                            @if ($payment->payment_method === 'midtrans_snap')
+                                <form method="POST" action="{{ route('admin.payments.midtrans.refresh', $payment) }}">
+                                    @csrf
+                                    <button class="admin-btn-secondary w-full" type="submit">Sync Status Midtrans</button>
+                                </form>
+                            @endif
                             <form method="POST" action="{{ route('admin.payments.verify', $payment) }}">
                                 @csrf
                                 <button class="admin-btn-primary w-full" type="submit">Verifikasi Payment</button>

@@ -128,8 +128,11 @@
                             @if ($latestPayment)
                                 <p class="font-semibold text-slate-800">{{ \App\Support\PaymentMethodCatalog::label($latestPayment->payment_method) }}</p>
                                 <p class="mt-1 text-sm text-slate-500">{{ ucfirst($latestPayment->payment_status) }} | Rp{{ number_format((float) $latestPayment->amount, 0, ',', '.') }}</p>
+                                @if ($latestPayment->payment_method === 'midtrans_snap')
+                                    <p class="mt-1 text-xs text-slate-500">Midtrans order: {{ $latestPayment->midtrans_order_id ?: '-' }}</p>
+                                @endif
                             @else
-                            <p class="font-semibold text-slate-800">Belum ada data pembayaran.</p>
+                                <p class="font-semibold text-slate-800">Belum ada data pembayaran.</p>
                             @endif
                         </div>
                         <div class="portal-card-soft">
@@ -140,14 +143,28 @@
 
                     <div class="mt-5 flex flex-col gap-2">
                         @if ($booking->status === 'pending')
-                            <a href="{{ route('payments.create', ['booking' => $booking->id]) }}" class="portal-btn-gold w-full justify-center">
-                                {{ $latestPayment?->submitted_at ? 'Perbarui Pengajuan Pembayaran' : 'Bayar Sekarang' }}
-                            </a>
-                            @if ($latestPayment?->submitted_at)
+                            @if ($latestPayment?->payment_method === 'midtrans_snap' && $latestPayment->payment_status === 'pending' && filled($latestPayment->midtrans_redirect_url))
+                                <a href="{{ $latestPayment->midtrans_redirect_url }}" target="_blank" rel="noopener" class="portal-btn-gold w-full justify-center">
+                                    Lanjutkan Midtrans
+                                </a>
                                 <a href="{{ route('payments.show', $latestPayment) }}" class="portal-btn-blue w-full justify-center">Detail Transaksi</a>
-                            @endif
-                            @if ($latestPayment?->payment_method === 'qris')
-                                <a href="{{ route('payments.qris.show', $latestPayment) }}" class="portal-btn-blue w-full justify-center">Buka QRIS</a>
+                                <form method="POST" action="{{ route('payments.midtrans.refresh', $latestPayment) }}">
+                                    @csrf
+                                    <button type="submit" class="portal-btn-blue w-full justify-center">Cek Status Midtrans</button>
+                                </form>
+                                <a href="{{ route('payments.create', ['booking' => $booking->id]) }}" class="portal-btn-blue w-full justify-center">
+                                    Buat Sesi Baru
+                                </a>
+                            @else
+                                <a href="{{ route('payments.create', ['booking' => $booking->id]) }}" class="portal-btn-gold w-full justify-center">
+                                    {{ $latestPayment?->submitted_at ? 'Perbarui Pengajuan Pembayaran' : 'Bayar Sekarang' }}
+                                </a>
+                                @if ($latestPayment?->submitted_at)
+                                    <a href="{{ route('payments.show', $latestPayment) }}" class="portal-btn-blue w-full justify-center">Detail Transaksi</a>
+                                @endif
+                                @if ($latestPayment?->payment_method === 'qris')
+                                    <a href="{{ route('payments.qris.show', $latestPayment) }}" class="portal-btn-blue w-full justify-center">Buka QRIS</a>
+                                @endif
                             @endif
                         @endif
 
